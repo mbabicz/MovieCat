@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291125AE2922AC200000AEA2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291125AD2922AC200000AEA2 /* SearchView.swift */; };
+		291125B82922C7990000AEA2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291125B72922C7990000AEA2 /* HomeView.swift */; };
+		291125BA2922C7CD0000AEA2 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291125B92922C7CD0000AEA2 /* FavoritesView.swift */; };
+		291125BC2922C7E10000AEA2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291125BB2922C7E10000AEA2 /* ProfileView.swift */; };
 		297C940329222F1D00D66E13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 297C940229222F1D00D66E13 /* GoogleService-Info.plist */; };
 		29ECE44729222C6000FFB195 /* MovieCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ECE44629222C6000FFB195 /* MovieCatApp.swift */; };
 		29ECE44929222C6000FFB195 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ECE44829222C6000FFB195 /* ContentView.swift */; };
@@ -17,6 +21,10 @@
 
 /* Begin PBXFileReference section */
 		08BF5ADEF7CC402BA2837261 /* Pods-MovieCat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieCat.release.xcconfig"; path = "Target Support Files/Pods-MovieCat/Pods-MovieCat.release.xcconfig"; sourceTree = "<group>"; };
+		291125AD2922AC200000AEA2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		291125B72922C7990000AEA2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		291125B92922C7CD0000AEA2 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		291125BB2922C7E10000AEA2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		297C940229222F1D00D66E13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		29ECE44329222C6000FFB195 /* MovieCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29ECE44629222C6000FFB195 /* MovieCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCatApp.swift; sourceTree = "<group>"; };
@@ -45,8 +53,20 @@
 				F75D4C35E8EF94DB378F082E /* Pods-MovieCat.debug.xcconfig */,
 				08BF5ADEF7CC402BA2837261 /* Pods-MovieCat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		291125B12922AE000000AEA2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				29ECE44829222C6000FFB195 /* ContentView.swift */,
+				291125AD2922AC200000AEA2 /* SearchView.swift */,
+				291125B72922C7990000AEA2 /* HomeView.swift */,
+				291125B92922C7CD0000AEA2 /* FavoritesView.swift */,
+				291125BB2922C7E10000AEA2 /* ProfileView.swift */,
+			);
+			name = Views;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		29ECE43A29222C5F00FFB195 = {
@@ -70,9 +90,9 @@
 		29ECE44529222C6000FFB195 /* MovieCat */ = {
 			isa = PBXGroup;
 			children = (
+				291125B12922AE000000AEA2 /* Views */,
 				297C940229222F1D00D66E13 /* GoogleService-Info.plist */,
 				29ECE44629222C6000FFB195 /* MovieCatApp.swift */,
-				29ECE44829222C6000FFB195 /* ContentView.swift */,
 				29ECE44A29222C8500FFB195 /* Assets.xcassets */,
 				29ECE44C29222C8500FFB195 /* Preview Content */,
 			);
@@ -210,7 +230,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				291125BA2922C7CD0000AEA2 /* FavoritesView.swift in Sources */,
+				291125AE2922AC200000AEA2 /* SearchView.swift in Sources */,
+				291125B82922C7990000AEA2 /* HomeView.swift in Sources */,
 				29ECE44929222C6000FFB195 /* ContentView.swift in Sources */,
+				291125BC2922C7E10000AEA2 /* ProfileView.swift in Sources */,
 				29ECE44729222C6000FFB195 /* MovieCatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
