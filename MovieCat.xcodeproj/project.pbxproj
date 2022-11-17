@@ -56,7 +56,7 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		291125B12922AE000000AEA2 /* Views */ = {
+		295E6E832926666B00B379EC /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				29ECE44829222C6000FFB195 /* ContentView.swift */,
@@ -65,8 +65,7 @@
 				291125B92922C7CD0000AEA2 /* FavoritesView.swift */,
 				291125BB2922C7E10000AEA2 /* ProfileView.swift */,
 			);
-			name = Views;
-			path = ..;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		29ECE43A29222C5F00FFB195 = {
@@ -90,7 +89,7 @@
 		29ECE44529222C6000FFB195 /* MovieCat */ = {
 			isa = PBXGroup;
 			children = (
-				291125B12922AE000000AEA2 /* Views */,
+				295E6E832926666B00B379EC /* Views */,
 				297C940229222F1D00D66E13 /* GoogleService-Info.plist */,
 				29ECE44629222C6000FFB195 /* MovieCatApp.swift */,
 				29ECE44A29222C8500FFB195 /* Assets.xcassets */,
