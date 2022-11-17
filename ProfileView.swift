@@ -14,28 +14,94 @@ struct ProfileView: View {
     let auth = Auth.auth()
 
     var body: some View {
-        VStack{
-            
-            Image("profile-picture").resizable().aspectRatio(contentMode: .fit).padding(.all).frame(width: 150, height: 150)
-            
-            Text(auth.currentUser?.email ?? "user email")
-            
-            Button {
-                try? auth.signOut()
-                viewModel.signedIn = false
+//        NavigationView{
+//            VStack{
+//
+//                VStack{
+//                    Text(auth.currentUser?.email ?? "user email")
+//                    //TODO: read username
+//                    Text("username")
+//                }
+//                .frame(maxWidth: .infinity, alignment: .top)
+//                .border(.red)
+//                .padding()
+//
+//                Spacer()
+//
+//                Button {
+//                    try? auth.signOut()
+//                    viewModel.signedIn = false
+//
+//                } label: {
+//                    Text("Log Out")
+//                        .frame(width: 200, height: 50)
+//                        .background(Color.blue)
+//                        .foregroundColor(Color.black)
+//                        .bold()
+//                        .cornerRadius(8)
+//                        .padding()
+//                }
+//            }
+//            .navigationTitle("")
+//            .navigationBarItems(leading:
+//                                    Text("Profile").font(.largeTitle).bold()
+//                                , trailing: Button(action: {
+//
+//            }, label: {
+//                Text("Log out").font(.system(size: 30))
+//            }))
+//        }
+//        //.navigationTitle("Profile")
+        NavigationView{
+            VStack{
+                
+                VStack{
+                    Text(auth.currentUser?.email ?? "user email")
+                    //TODO: read username
+                    Text("username")
+                }
+                .frame(maxWidth: .infinity, alignment: .top)
+                .border(.red)
+                .padding()
+                
+                Spacer()
+                
+                Button {
+                    try? auth.signOut()
+                    viewModel.signedIn = false
 
-            } label: {
-                Text("Log Out")
-                    .frame(width: 200, height: 50)
-                    .background(Color.blue)
-                    .foregroundColor(Color.black)
-                    .bold()
-                    .cornerRadius(8)
-                    .padding()
+                } label: {
+                    Text("Log Out")
+                        .frame(width: 200, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(Color.black)
+                        .bold()
+                        .cornerRadius(8)
+                        .padding()
+                }
             }
+            //.navigationTitle("Profile").
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar{
+                ToolbarItem(placement: .principal){
+                    Text("Profile").font(.headline).bold()
+                }
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button {
+                        
+                    } label: {
+                        Text("Log out").font(.headline).foregroundColor(.blue)
+                    }
 
-            
-        }    }
+                }
+                
+            }
+            .border(.green)
+        }
+        //.navigationTitle("Profile")
+        
+        
+    }
 }
 
 struct ProfileView_Previews: PreviewProvider {
