@@ -19,6 +19,7 @@
 		29ECE44929222C6000FFB195 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ECE44829222C6000FFB195 /* ContentView.swift */; };
 		29ECE44B29222C8500FFB195 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29ECE44A29222C8500FFB195 /* Assets.xcassets */; };
 		29ECE44E29222C8500FFB195 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29ECE44D29222C8500FFB195 /* Preview Assets.xcassets */; };
+		988868542928348A00A60097 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988868532928348A00A60097 /* LoginView.swift */; };
 		D290F30BABAA270AB827D618 /* Pods_MovieCat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452DEA403D6A99CA56F2A1F0 /* Pods_MovieCat.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		29ECE44A29222C8500FFB195 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29ECE44D29222C8500FFB195 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		452DEA403D6A99CA56F2A1F0 /* Pods_MovieCat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieCat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		988868532928348A00A60097 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F75D4C35E8EF94DB378F082E /* Pods-MovieCat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieCat.debug.xcconfig"; path = "Target Support Files/Pods-MovieCat/Pods-MovieCat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 				291125B92922C7CD0000AEA2 /* FavoritesView.swift */,
 				291125BB2922C7E10000AEA2 /* ProfileView.swift */,
 				290EF08729282B260020996E /* AuthenticationView.swift */,
+				988868532928348A00A60097 /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				290EF08829282B260020996E /* AuthenticationView.swift in Sources */,
 				291125BC2922C7E10000AEA2 /* ProfileView.swift in Sources */,
 				29ECE44729222C6000FFB195 /* MovieCatApp.swift in Sources */,
+				988868542928348A00A60097 /* LoginView.swift in Sources */,
 				290EF084292828A80020996E /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,7 +397,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = TU72F4GFFV;
+				DEVELOPMENT_TEAM = CHW28KLCD8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -406,7 +410,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = moviecat.MovieCat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rzechol.MovieCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -424,7 +428,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				"DEBUG_INFORMATION_FORMAT[sdk=*]" = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = TU72F4GFFV;
+				DEVELOPMENT_TEAM = CHW28KLCD8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -437,7 +441,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = moviecat.MovieCat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rzechol.MovieCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
