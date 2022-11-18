@@ -15,10 +15,12 @@ struct MovieCatApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let viewModel = AppViewModel()
+            let user = UserViewModel()
             ContentView()
-                .environmentObject(viewModel)
-        }    }
+                .environmentObject(user)
+        }
+        
+    }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate{

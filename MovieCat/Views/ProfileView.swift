@@ -10,7 +10,7 @@ import Firebase
 
 struct ProfileView: View {
 
-    @EnvironmentObject var viewModel: AppViewModel
+    @EnvironmentObject var user: UserViewModel
     let auth = Auth.auth()
 
     var body: some View {
@@ -18,9 +18,9 @@ struct ProfileView: View {
         NavigationView{
             VStack{
                 VStack{
-                    Text(auth.currentUser?.email ?? "user email")
                     //TODO: read username
-                    Text("username")
+                    Text("username").font(.largeTitle)
+                    Text(auth.currentUser?.email ?? "user email")
                 }
                 .frame(maxWidth: .infinity, alignment: .top)
                 .border(.red)
@@ -36,8 +36,7 @@ struct ProfileView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
-                        try? auth.signOut()
-                        viewModel.signedIn = false
+                        user.signOut()
                     } label: {
                         Text("Log out").font(.headline).foregroundColor(.blue)
                     }
