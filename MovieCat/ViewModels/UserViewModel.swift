@@ -76,7 +76,7 @@ class UserViewModel: ObservableObject {
     
     //MARK: firestore functions for user data
     
-    private func sync(){
+    func sync(){
         guard userIsAuthenticated else { return }
         db.collection("Users").document(self.uuid!).getDocument { document, error in
             guard document != nil, error == nil else { return }

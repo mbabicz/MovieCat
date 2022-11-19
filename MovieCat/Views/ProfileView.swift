@@ -19,7 +19,7 @@ struct ProfileView: View {
             VStack{
                 VStack{
                     //TODO: read username
-                    Text("username").font(.largeTitle)
+                    Text(user.user?.username ?? "username").font(.largeTitle)
                     Text(auth.currentUser?.email ?? "user email")
                 }
                 .frame(maxWidth: .infinity, alignment: .top)
