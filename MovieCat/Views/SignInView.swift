@@ -94,6 +94,7 @@ struct SignInView: View {
                 if (!email.isEmpty && !password.isEmpty){
                     user.signIn(email: email, password: password)
                 } else{
+                    user.alertTitle = "Error"
                     user.alertMessage = "Fields cannot be empty"
                     user.showingAlert = true
                 }
@@ -132,6 +133,47 @@ struct SignInView: View {
                 isAnimtaing.toggle()
             }
         }
+    }
+}
+
+struct ResetPasswordView: View {
+    
+    @State var email = ""
+    
+    @EnvironmentObject var user: UserViewModel
+
+    var body: some View {
+        VStack {
+            VStack{
+                VStack{
+                    
+                    TextField("Email Adress", text: $email).padding()
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .background(Color(.secondarySystemBackground))
+                        
+                }
+                    
+                Button {
+                    if !email.isEmpty {
+                        user.resetPassword(email: email)
+                        
+                    } else {
+                        user.alertTitle = "Error"
+                        user.alertMessage = "Field cannot be empty"
+                        user.showingAlert = true
+                    }
+                        
+                } label: {
+                    Text("Reset Password").frame(width: 200, height: 50).bold().foregroundColor(Color.white).background(Color.blue).cornerRadius(8).padding()
+                }
+
+            }
+            .padding()
+            Spacer()
+        }
+        .navigationTitle("Recover Password")
+
     }
 }
 

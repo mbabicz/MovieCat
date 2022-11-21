@@ -84,12 +84,22 @@ struct AuthenticationView: View {
                         .font(.headline)
                         .foregroundColor(Color("DarkRed"))
                 }
+                
+                Button {
+
+                    user.singInAnonymously()
+                    
+                } label: {
+                    Text("Continue as a guest").padding().frame(maxWidth: .infinity, alignment: .center).border(.red)
+
+                }
+                
             }
             .offset(y: -56)
         }
         .alert(isPresented: $user.showingAlert){
             Alert(
-                title: Text("Error"),
+                title: Text(user.alertTitle),
                 message: Text(user.alertMessage),
                 dismissButton: .default(Text("OK"))
             )

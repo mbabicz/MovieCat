@@ -1,6 +1,6 @@
 //
 //  UserViewModel.swift
-//  MovieCat
+//  ShoppingApp
 //
 //  Created by kz on 18/11/2022.
 //
@@ -10,13 +10,19 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+
 class UserViewModel: ObservableObject {
     
     @Published var user: User?
     
     @Published var showingAlert : Bool = false
     @Published var alertMessage = ""
-        
+    @Published var alertTitle = ""
+    
+    var userIsGuest: Bool = false
+
+    
+    
     private let auth = Auth.auth()
     private let db = Firestore.firestore()
     
@@ -33,10 +39,10 @@ class UserViewModel: ObservableObject {
     }
     
 
-    
     func signUp(email: String, password: String, username: String){
         auth.createUser(withEmail: email, password: password){ (result, error) in
             if error != nil{
+                self.alertTitle = "Error"
                 self.alertMessage = error?.localizedDescription ?? "Something went wrong"
                 self.showingAlert = true
             } else {
@@ -52,15 +58,46 @@ class UserViewModel: ObservableObject {
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password){ (result, error) in
             if error != nil{
+                self.alertTitle = "Errors"
                 self.alertMessage = error?.localizedDescription ?? "Something went wrong"
                 self.showingAlert = true
             } else {
                 DispatchQueue.main.async{
                     //Success
                     self.sync()
+
                 }
             }
         }
+    }
+    
+    func singInAnonymously(){
+        auth.signInAnonymously(){ authResult, error in
+            guard let user = authResult?.user else { return }
+            self.userIsGuest = user.isAnonymous
+            DispatchQueue.main.async{
+                //Success
+                self.add(User(username: "guest", userEmail: "guest"))
+                self.sync()
+                
+            }
+        }
+
+    }
+
+    func resetPassword(email: String){
+        auth.sendPasswordReset(withEmail: email) { error in
+            if error != nil{
+                self.alertTitle = "Error"
+                self.alertMessage = error?.localizedDescription ?? "Something went wrong"
+                self.showingAlert = true
+            } else {
+                self.alertTitle = "Succes"
+                self.alertMessage = "A Password change request has been sent to your email adress."
+                self.showingAlert = true
+            }
+        }
+        
     }
     
     func signOut(){
@@ -72,7 +109,6 @@ class UserViewModel: ObservableObject {
             print("Error signing out user: \(error)")
         }
     }
-    
     
     //MARK: firestore functions for user data
     
