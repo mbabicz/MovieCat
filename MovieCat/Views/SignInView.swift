@@ -90,6 +90,8 @@ struct SignInView: View {
             }
             .padding(.vertical)
             
+            NavigationLink("Forgot password?", destination: ResetPasswordView()).padding([.leading, .bottom, .trailing]).frame(maxWidth: .infinity, alignment: .trailing)
+            
             Button(action: {
                 if (!email.isEmpty && !password.isEmpty){
                     user.signIn(email: email, password: password)
