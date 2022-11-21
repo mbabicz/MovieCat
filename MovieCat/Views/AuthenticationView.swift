@@ -10,13 +10,82 @@ import SwiftUI
 
 struct AuthenticationView: View {
     
-
-    
     @EnvironmentObject var user: UserViewModel
-
+    
+    @State var showSignUp = false
+    
+    @State var maxRectangleHeight: CGFloat = 0
+    
+    @State var isSecured: Bool = true
+    @State var isAnimtaing: Bool = false
+    
     var body: some View {
         VStack {
-            SignInView()
+            
+            GeometryReader{proxy -> AnyView in
+                
+                let height = proxy.frame(in: .global).height
+                
+                DispatchQueue.main.async {
+                    if maxRectangleHeight == 0 {
+                        maxRectangleHeight = height
+                    }
+                }
+                
+                return AnyView(
+                
+                    ZStack{
+                        Rectangle()
+                            .fill(Color(showSignUp ? "DarkRed" : "Red"))
+                            .rotationEffect(Angle(degrees:showSignUp ? 70 : 20))
+                            .offset(x:showSignUp ?  -getRect().width / 2 : getRect().width / 2, y: -height / 1.2)
+                        
+                        Rectangle()
+                            .fill(Color(showSignUp ? "Red" : "DarkRed"))
+                            .rotationEffect(Angle(degrees:showSignUp ? 20 : 70))
+                            .shadow(color: Color.black, radius: 5, x: 10, y: 10)
+                            .offset(x:showSignUp ? getRect().width / 2 : -getRect().width / 2 , y: -height / 1.2)
+                           
+                    
+                    }
+                
+                )
+            }
+            .frame(maxHeight: getRect().width)
+            
+            
+            ZStack{
+                
+                if showSignUp {
+                    SignUpView()
+                        .transition(.move(edge: .trailing))
+                }else {
+                    SignInView()
+                        .transition(.move(edge: .trailing))
+
+                }
+            }
+            .padding()
+            .padding(.top, -maxRectangleHeight / 1.4)
+            .frame(maxHeight: .infinity, alignment: .top)
+            
+            
+            VStack{
+                Text(showSignUp ? "Already Member ?" : "New Member ?")
+                    .font(.headline)
+                    .padding([.top, .leading, .trailing])
+                
+                Button(action: {
+                    withAnimation{
+                        showSignUp.toggle()
+                    }
+                }) {
+                    Text(showSignUp ? "Sign In" : "Sign Up")
+                        .font(.headline)
+                        .foregroundColor(Color("DarkRed"))
+                }
+            }
+            .offset(y: -56)
         }
         .alert(isPresented: $user.showingAlert){
             Alert(
@@ -25,170 +94,57 @@ struct AuthenticationView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .edgesIgnoringSafeArea(.bottom)
+        .background(
+            HStack{
+                Rectangle()
+                    .fill(Color("Red"))
+                    .rotationEffect(Angle(degrees: 100))
+                    .frame(width: 100, height: 100)
+                    .offset(x: -30, y: 100)
+                
+                Spacer(minLength: 0)
+                
+                Rectangle()
+                    .fill(Color("DarkRed"))
+                    .rotationEffect(Angle(degrees: 30))
+                    .frame(width: 130, height: 130)
+                    .offset(x: 30, y: 80)
+                
+            }
+            ,alignment: .bottom
+        )
+        
+
     }
-    
 }
 
-struct SignInView: View {
-    
-    @EnvironmentObject var user: UserViewModel
+struct AuthenticationView_Previews: PreviewProvider {
+    static var previews: some View {
+        AuthenticationView()
+            .preferredColorScheme(.dark)
+    }
+}
 
-    @State var email = ""
-    @State var password = ""
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
 
-    @State var isSecured: Bool = true
-    
-    var body: some View {
-        VStack {
-            VStack{
-                //TODO: Image
-                VStack{
-                    TextField("Email Adress", text: $email).padding()
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .background(Color(.secondarySystemBackground))
-                    ZStack(alignment: .trailing){
-                        Group{
-                            if isSecured {
-                                SecureField("Password", text: $password).padding()
-                                    .disableAutocorrection(true)
-                                    .autocapitalization(.none)
-                                    .background(Color(.secondarySystemBackground))
-                            } else {
-                                TextField("Password", text: $password).padding()
-                                    .disableAutocorrection(true)
-                                    .autocapitalization(.none)
-                                    .background(Color(.secondarySystemBackground))
-                            }
-                        }
-                        Button {
-                            isSecured.toggle()
-                        } label: {
-                            Image(systemName: self.isSecured ? "eye.slash" : "eye").accentColor(.gray)
-                        }.padding()
-                        
-                    }
-                    
-                    Button {
-                        if (!email.isEmpty && !password.isEmpty){
-                            user.signIn(email: email, password: password)
-                        } else{
-                            user.alertMessage = "Fields cannot be empty"
-                            user.showingAlert = true
-                        }
-
-                    } label: {
-                        Text("Sign In").frame(width: 200, height: 50).bold().foregroundColor(Color.white).background(Color.blue).cornerRadius(8).padding()
-                    }
-
-                    Text("Don't have an account yet?")
-                        .padding([.top, .leading, .trailing])
-                    NavigationLink("Create Account", destination: SignUpView()).padding([.leading, .bottom, .trailing])
-
-                }
-                .padding()
-                Spacer()
-            }
-            .navigationTitle("Sign In")
-
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
         }
     }
 }
 
-struct SignUpView: View {
-    
-    @State var email = ""
-    @State var password = ""
-    @State var passwordConfirmation = ""
-    @State var username = ""
-    
-    @EnvironmentObject var user: UserViewModel
-
-    @State var isSecured: Bool = true
-    @State var isSecuredConfirmation: Bool = true
-
-
-    var body: some View {
-        VStack {
-            VStack{
-                //TODO: Image
-                VStack{
-                    TextField("Username", text: $username).padding()
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .background(Color(.secondarySystemBackground))
-                    
-                    TextField("Email Adress", text: $email).padding()                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .background(Color(.secondarySystemBackground))
-                    
-                    ZStack(alignment: .trailing){
-                        Group{
-                            if isSecured {
-                                SecureField("Password", text: $password).padding()                        .disableAutocorrection(true)
-                                    .autocapitalization(.none)
-                                    .background(Color(.secondarySystemBackground))
-                            } else {
-                                TextField("Password", text: $password).padding()                        .disableAutocorrection(true)
-                                    .autocapitalization(.none)
-                                    .background(Color(.secondarySystemBackground))
-                            }
-                        }
-                        Button {
-                            isSecured.toggle()
-                        } label: {
-                            Image(systemName: self.isSecured ? "eye.slash" : "eye").accentColor(.gray)
-                        }.padding()
-                        
-                    }
-                    
-                    ZStack(alignment: .trailing){
-                        Group{
-                            if isSecuredConfirmation {
-                                SecureField("Password", text: $passwordConfirmation).padding()                        .disableAutocorrection(true)
-                                    .autocapitalization(.none)
-                                    .background(Color(.secondarySystemBackground))
-                            } else {
-                                TextField("Password", text: $passwordConfirmation).padding()                        .disableAutocorrection(true)
-                                    .autocapitalization(.none)
-                                    .background(Color(.secondarySystemBackground))
-                            }
-                        }
-                        Button {
-                            isSecuredConfirmation.toggle()
-                        } label: {
-                            Image(systemName: self.isSecuredConfirmation ? "eye.slash" : "eye").accentColor(.gray)
-                        }.padding()
-                        
-                    }
-                    
-                    Button {
-                        if (!username.isEmpty && !email.isEmpty && !password.isEmpty && !passwordConfirmation.isEmpty ){
-                            if password == passwordConfirmation {
-                                user.signUp(email: email, password: password, username: username)
-                            }
-                            else{
-                                user.alertMessage = "Your password and confirmation password do not match"
-                                user.showingAlert = true
-                            }
-                            
-                        } else {
-                            user.alertMessage = "Fields cannot be empty"
-                            user.showingAlert = true
-                        }
-                        
-                    } label: {
-                        Text("Create Account").frame(width: 200, height: 50).bold().foregroundColor(Color.white).background(Color.blue).cornerRadius(8).padding()
-                    }
-
-                }
-                .padding()
-                Spacer()
-            }
-            .navigationTitle("Create Account")
-
-        }
+extension View{
+    func getRect()->CGRect{
+        return UIScreen.main.bounds
     }
+    
+
 }
 
 
