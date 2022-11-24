@@ -21,7 +21,9 @@ struct MovieCardCarousel: View {
             ScrollView(.horizontal,showsIndicators: false){
                 HStack(alignment: .top, spacing: 15){
                     ForEach(self.movies){ movie in
-                        MovieCard(movie: movie)
+                        NavigationLink(destination: MovieDetails(movie: movie)){
+                            MovieCard(movie: movie)
+                        }
                             .frame(width: 270, height: 200)
                             .padding(.leading, movie.id == self.movies.first!.id ? 16  : 0)
                             .padding(.trailing, movie.id == self.movies.last!.id ? 16  : 0)
