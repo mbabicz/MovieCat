@@ -51,9 +51,6 @@ struct SearchView: View {
                 
             }
             //Spacer()
-                   
-            
-            
             
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{

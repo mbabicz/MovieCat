@@ -19,7 +19,7 @@ struct LoadingCardView: View {
                 HStack {
                     Spacer()
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .black)).frame(alignment: .center).scaleEffect(3).padding()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white)).frame(alignment: .center).scaleEffect(3).padding()
                     Spacer()
                 }
             } else if error != nil {

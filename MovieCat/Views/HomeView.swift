@@ -15,8 +15,6 @@ struct HomeView: View {
     @ObservedObject private var popularState = MovieListState()
     @ObservedObject private var latestState = MovieListState()
 
-
-
     var body: some View {
         NavigationView{
             List{
@@ -31,6 +29,7 @@ struct HomeView: View {
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
+                .listRowSeparator(.hidden)
                 Group{
                     
                     if upcomingState.movies != nil {
@@ -44,6 +43,7 @@ struct HomeView: View {
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
+                .listRowSeparator(.hidden)
 
                 Group{
                     
@@ -58,6 +58,7 @@ struct HomeView: View {
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
+                .listRowSeparator(.hidden)
 
                 Group{
                     
@@ -72,6 +73,7 @@ struct HomeView: View {
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
+                .listRowSeparator(.hidden)
 
                 Group{
                     
@@ -86,21 +88,25 @@ struct HomeView: View {
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
+                .listRowSeparator(.hidden)
 
             }
             .listStyle(PlainListStyle())
-            .listRowInsets(EdgeInsets(top: 14, leading: 0, bottom: 8, trailing: 0))
             .navigationTitle("MovieCat").foregroundColor(.red)
         }
         .onAppear{
+            setupAppearance()
             self.nowPlayingState.loadMovies(with: .nowPlaying)
             self.upcomingState.loadMovies(with: .upcoming)
             self.popularState.loadMovies(with: .popular)
             self.topRatedState.loadMovies(with: .topRated)
             self.latestState.loadMovies(with: .latest)
 
-
         }
+    }
+    
+    func setupAppearance(){
+        UITableView.appearance().separatorStyle = .none
     }
 }
 

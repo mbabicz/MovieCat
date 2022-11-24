@@ -18,7 +18,6 @@ struct ProfileView: View {
         NavigationView{
             VStack{
                 VStack{
-                    //TODO: read username
                     Text(user.user?.username ?? "username").font(.largeTitle)
                     Text(auth.currentUser?.email ?? "user email")
                 }
