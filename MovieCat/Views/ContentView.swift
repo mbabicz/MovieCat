@@ -13,7 +13,10 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            if user.userIsAuthenticatedAndSynced{
+            if user.userIsAuthenticated && !user.userIsAuthenticatedAndSynced {
+                LoadingView()
+            }
+            else if user.userIsAuthenticatedAndSynced{
                 TabView{
                     HomeView().tabItem {
                         Image(systemName: "house.fill")
@@ -41,11 +44,5 @@ struct ContentView: View {
                 user.sync()
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
