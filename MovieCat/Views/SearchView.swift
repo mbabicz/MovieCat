@@ -48,6 +48,8 @@ struct SearchView: View {
                             NavigationLink(destination: MovieDetails(movie: movie)) {
                                 VStack(alignment: .leading){
                                     Text(movie.title)
+                                    Text("(\(movie.yearText))")
+
                                 }
                             }
                         }

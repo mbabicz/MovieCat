@@ -24,6 +24,7 @@ struct MovieDetails: View {
 
                     }
                     Text(movie.overview)
+                    Text(movie.yearText)
                     
                     Spacer()
 

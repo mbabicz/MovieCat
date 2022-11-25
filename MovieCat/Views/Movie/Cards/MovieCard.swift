@@ -29,8 +29,9 @@ struct MovieCard: View {
             .cornerRadius(13)
             .shadow(radius: 5)
             
-            VStack{
+            HStack{
                 Text(movie.title)
+                Text("(\(movie.yearText))")
                 //Text(movie.releaseDate ?? "")
 
             }
