@@ -17,23 +17,26 @@ struct MovieDetails: View {
             VStack{
                 Text(movie.title).font(.largeTitle).foregroundColor(.red)
                 MovieDetailImage(imageURL: movie.backdropURL)
-                Spacer()
-                
-                VStack{
-                    HStack{
-
-                    }
-                    Text(movie.overview)
-                    Text(movie.yearText)
-                    
+                HStack(){
+                    Text(movie.yearText).foregroundColor(.orange).bold().padding(.leading)
                     Spacer()
+                    Text("TODO: runtime").foregroundColor(.orange).bold().padding([.leading, .trailing])
+                    Spacer()
+                    Text("TODO: smth").foregroundColor(.orange).bold().padding(.trailing)
 
-                    
                 }
+                .padding()
+                
+                Text("TODO: tmdb rating").bold()
+                Text("TODO: moviecat rating").bold()
+                    .padding(.bottom)
+
+                Text(movie.overview)
+
 
             }
-
         }
+
 
     }
 }
@@ -49,6 +52,7 @@ struct MovieDetailImage: View{
                 Image(uiImage: image).resizable()
             }
         }
+        .frame(maxWidth: .infinity)
         .aspectRatio(contentMode: .fit)
         .onAppear{
             imageLoader.loadImage(with: imageURL)
