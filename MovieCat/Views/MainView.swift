@@ -81,7 +81,7 @@ struct MainView: View {
                     .background(
                         ZStack{
                             if currentTab == tab{
-                                Color.red
+                                Color("DarkRed")
                                     .clipShape(Circle())
                                     .matchedGeometryEffect(id: "TAB", in: animation)
                             }
@@ -89,7 +89,7 @@ struct MainView: View {
                             
                     )
                     .contentShape(Rectangle())
-                    .offset(y: currentTab == tab ? -50 : 0)
+                    .offset(y: currentTab == tab ? -42 : 0)
             }
             
             .onAppear{
@@ -101,9 +101,10 @@ struct MainView: View {
                 
             }
         }
-        .frame(height: 25)
+        .frame(height: 20)
     }
 }
+
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
