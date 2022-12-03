@@ -31,13 +31,15 @@ struct ProfileView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .principal){
-                    Text("Profile").font(.headline).bold()
+                    Text("Profile")
+                        .font(.headline)
+                        .bold()
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
                         user.signOut()
                     } label: {
-                        Text("Log out").font(.headline).foregroundColor(.blue)
+                        Image(systemName: "person")
                     }
 
                 }

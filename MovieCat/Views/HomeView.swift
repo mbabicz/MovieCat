@@ -20,7 +20,7 @@ struct HomeView: View {
             List{
                 Group{
                     if nowPlayingState.movies != nil {
-                        MoviePosterCardCarousel(title: "Now Playing", movies: nowPlayingState.movies!)
+                        MoviePosterCardCarousel(title: "Now Playing 🎬", movies: nowPlayingState.movies!)
                     } else {
                         LoadingCardView(isLoading: nowPlayingState.isLoading, error: nowPlayingState.error){
                             self.nowPlayingState.loadMovies(with: .nowPlaying)
@@ -33,7 +33,7 @@ struct HomeView: View {
                 Group{
                     
                     if upcomingState.movies != nil {
-                        MovieCardCarousel(title: "Upcoming", movies: upcomingState.movies!)
+                        MovieCardCarousel(title: "Upcoming 📅", movies: upcomingState.movies!)
                     } else {
                         LoadingCardView(isLoading: upcomingState.isLoading, error: upcomingState.error){
                             self.upcomingState.loadMovies(with: .upcoming)
@@ -48,7 +48,7 @@ struct HomeView: View {
                 Group{
                     
                     if topRatedState.movies != nil {
-                        MoviePosterCardCarousel(title: "Top Rated", movies: topRatedState.movies!)
+                        MoviePosterCardCarousel(title: "Top Rated 🌟", movies: topRatedState.movies!)
                     } else {
                         LoadingCardView(isLoading: topRatedState.isLoading, error: topRatedState.error){
                             self.topRatedState.loadMovies(with: .topRated)
@@ -63,7 +63,7 @@ struct HomeView: View {
                 Group{
                     
                     if popularState.movies != nil {
-                        MovieCardCarousel(title: "Popular", movies: popularState.movies!)
+                        MovieCardCarousel(title: "Popular 📈", movies: popularState.movies!)
                     } else {
                         LoadingCardView(isLoading: popularState.isLoading, error: popularState.error){
                             self.popularState.loadMovies(with: .popular)
@@ -78,7 +78,7 @@ struct HomeView: View {
                 Group{
                     
                     if latestState.movies != nil {
-                        MoviePosterCardCarousel(title: "Latest", movies: latestState.movies!)
+                        MoviePosterCardCarousel(title: "Latest 🆕", movies: latestState.movies!)
                     } else {
                         LoadingCardView(isLoading: latestState.isLoading, error: latestState.error){
                             self.latestState.loadMovies(with: .popular)
@@ -92,8 +92,11 @@ struct HomeView: View {
 
             }
             .listStyle(PlainListStyle())
-            .navigationTitle("MovieCat").foregroundColor(.red)
+            .navigationTitle("MovieCat")
+            .navigationBarTitleDisplayMode(.inline)
+            .foregroundColor(.red)
         }
+        .padding(.bottom, 40)
         .onAppear{
             setupAppearance()
             self.nowPlayingState.loadMovies(with: .nowPlaying)

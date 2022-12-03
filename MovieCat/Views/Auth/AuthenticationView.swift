@@ -90,7 +90,9 @@ struct AuthenticationView: View {
                     user.singInAnonymously()
                     
                 } label: {
-                    Text("Continue as a guest").padding().frame(maxWidth: .infinity, alignment: .center).border(.red)
+                    Text("Continue as a guest")
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .center)
 
                 }
                 

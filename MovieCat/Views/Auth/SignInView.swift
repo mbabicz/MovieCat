@@ -17,7 +17,7 @@ struct SignInView: View {
     @State var maxRectangleHeight: CGFloat = 0
     
     @State var isSecured: Bool = true
-    @State var isAnimtaing: Bool = false
+    @State var isAnimating: Bool = false
     var body: some View {
         VStack {
          Text("Sign In")
@@ -106,14 +106,14 @@ struct SignInView: View {
                     .cornerRadius(10)
                     .bold()
                     .foregroundColor(Color.white)
-                    .background(isAnimtaing ?  Color("Red") : Color("DarkRed"))
+                    .background(isAnimating ?  Color("Red") : Color("DarkRed"))
                     .shadow(
-                        color: isAnimtaing ? Color("Red") : Color("DarkRed"),
-                        radius: isAnimtaing ? 20 : 10,
+                        color: isAnimating ? Color("Red") : Color("DarkRed"),
+                        radius: isAnimating ? 20 : 10,
                         x: 0,
-                        y: isAnimtaing ? 10 : 5)
-                    .scaleEffect(isAnimtaing ? 1.1 : 1.0)
-                    .offset(y: isAnimtaing ? -7 : 0)
+                        y: isAnimating ? 10 : 5)
+                    .scaleEffect(isAnimating ? 1.1 : 1.0)
+                    .offset(y: isAnimating ? -7 : 0)
                     .padding()
             }
             
@@ -125,14 +125,14 @@ struct SignInView: View {
         
     }
     func addAnimation(){
-        guard !isAnimtaing else { return }
+        guard !isAnimating else { return }
         DispatchQueue.main.asyncAfter(deadline: .now() )  {
             withAnimation(
             Animation
                 .easeInOut(duration:  2.0)
                 .repeatForever()
             ) {
-                isAnimtaing.toggle()
+                isAnimating.toggle()
             }
         }
     }
@@ -143,18 +143,36 @@ struct ResetPasswordView: View {
     @State var email = ""
     
     @EnvironmentObject var user: UserViewModel
+    
+    @State var isAnimating: Bool = false
 
     var body: some View {
         VStack {
             VStack{
                 VStack{
                     
-                    TextField("Email Adress", text: $email).padding()
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .background(Color(.secondarySystemBackground))
+                    HStack{
+                        
+                        Image(systemName: "envelope.fill")
+                            .foregroundColor(Color.white)
+                        
+                        TextField("", text: $email)
+                            .placeholder(when: email.isEmpty) {
+                                Text("Email Adress")
+                                    .foregroundColor(Color.white)
+                                    .font(.headline)
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                        }
+                            
+                           
+                            
+                            
+                    }
+                    Divider().background(Color("Red"))
                         
                 }
+                .padding(.top)
                     
                 Button {
                     if !email.isEmpty {
@@ -167,13 +185,57 @@ struct ResetPasswordView: View {
                     }
                         
                 } label: {
-                    Text("Reset Password").frame(width: 200, height: 50).bold().foregroundColor(Color.white).background(Color.blue).cornerRadius(8).padding()
+                    Text("Reset Password")
+                        .frame(width: 200, height: 50)
+                        .bold()
+                        .foregroundColor(Color.white)
+                        .background(Color("DarkRed"))
+                        .padding()
                 }
+                Spacer()
+                
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(Color("DarkRed").opacity(0.5))
+                
+                Spacer()
 
             }
             .padding()
             Spacer()
         }
+        .edgesIgnoringSafeArea(.bottom)
+        .background(
+            HStack{
+                Rectangle()
+                    .fill(Color("Red"))
+                    .rotationEffect(Angle(degrees: 100))
+                    .frame(width: 100, height: 100)
+                    .offset(x: -30, y: 100)
+                    .shadow(
+                        color:  Color("Red"),
+                        radius: 20,
+                        x: 0,
+                        y: 5)
+                
+                Spacer(minLength: 0)
+                
+                Rectangle()
+                    .fill(Color("DarkRed"))
+                    .rotationEffect(Angle(degrees: 30))
+                    .frame(width: 130, height: 130)
+                    .offset(x: 30, y: 80)
+                    .shadow(
+                        color:  Color("DarkRed"),
+                        radius: 20,
+                        x: 0,
+                        y: 5)
+                
+            }
+            ,alignment: .bottom
+        )
+        
         .navigationTitle("Recover Password")
 
     }
