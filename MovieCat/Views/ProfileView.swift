@@ -39,7 +39,7 @@ struct ProfileView: View {
                     Button {
                         user.signOut()
                     } label: {
-                        Image(systemName: <#T##String#>)
+                        Image(systemName: "person")
                     }
 
                 }
