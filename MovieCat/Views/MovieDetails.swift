@@ -105,12 +105,18 @@ struct MovieDetailsView: View {
                     }
 
                     if movie.directors != nil && movie.directors!.count > 0 {
-//                        Text("Rezyser").padding()
-//                        ForEach(movie.directors!)
-//                    }
+                        Text("Rezyser").padding()
+                        ForEach(movie.directors!){ crew in
+                            Text(crew.name)
+                        }
+                    }
 
-                    Text("Obsada").padding()
-
+                    if movie.cast != nil && movie.cast!.count > 0 {
+                        Text("Obsada").padding()
+                        ForEach(movie.cast!.prefix(10)){ cast in
+                            Text(cast.name)
+                        }
+                    }
                     
                     
                 }

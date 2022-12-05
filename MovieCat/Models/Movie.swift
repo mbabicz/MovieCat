@@ -28,6 +28,9 @@ struct Movie: Decodable, Identifiable {
     let videos: MovieVideoResponse?
     
     let genres: [MovieGenre]?
+    let credits: MovieCredit?
+    
+    
 
     
     var yearText: String {
@@ -75,6 +78,38 @@ struct Movie: Decodable, Identifiable {
         videos?.results.filter { $0.youtubeURL != nil }
     }
     
+    var crew: [MovieCrew]? {
+        credits?.crew
+    }
+    
+    var directors: [MovieCrew]? {
+        crew?.filter { $0.job.lowercased() == "director" }
+    }
+    
+    var cast: [MovieCast]? {
+        credits?.cast
+    }
+    
+    
+}
+
+struct MovieCredit: Decodable {
+    
+    let cast: [MovieCast]
+    let crew: [MovieCrew]
+}
+
+struct MovieCrew: Decodable, Identifiable {
+    let id: Int
+    let job: String
+    let name: String
+    
+}
+
+struct MovieCast: Decodable, Identifiable {
+    let id: Int
+    let character: String
+    let name: String
 }
 
 struct MovieGenre: Decodable {
