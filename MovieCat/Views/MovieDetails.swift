@@ -10,6 +10,8 @@ import SwiftUI
 struct MovieDetails: View {
     
     let movieID: Int
+    @ObservedObject var imageLoader = ImageLoader()
+
     
     @ObservedObject private var movieDetailState = MovieDetailState()
 
@@ -51,10 +53,10 @@ struct MovieDetailsView: View {
                         Text(movie.durationText).foregroundColor(.orange).bold().padding([.leading, .trailing])
                         Spacer()
                         Text(movie.genreText).foregroundColor(.orange).bold().padding(.trailing)
-
+                        
                     }
                     .padding()
-                                    
+                    
                     HStack(spacing: 2) {
                         VStack{
                             HStack{
@@ -75,59 +77,119 @@ struct MovieDetailsView: View {
                                     .offset(y: 3)
                             }
                         }
-     
+                        
                     }
                     .padding(.bottom, 5)
-
+                                    
+                    //Text("\(movie.revenue)")
+                    
+                    
                     Text(movie.overview).padding(.bottom)
                     
                     if movie.youtubeTrailers != nil && movie.youtubeTrailers!.count > 0 {
                         Text("TRAILERS").padding()
-
+                        
                         ForEach(movie.youtubeTrailers!){ trailer in
                             if(trailer.type == "Trailer"){
                                 Button {
-                                //TODO: open safari or youtube player
+                                    //TODO: open safari or youtube player
                                     //OpenURLAction(handler: URL(trailer.youtubeURL))
-
-
+                                    
+                                    
                                 } label: {
                                     HStack{
                                         Text(trailer.name)
-                                             .padding()
+                                            .padding()
                                         Image(systemName: "play.circle")
-
+                                        
                                     }
                                 }
                             }
-
+                            
                         }
                     }
-
+                    
                     if movie.directors != nil && movie.directors!.count > 0 {
                         Text("Rezyser").padding()
                         ForEach(movie.directors!){ crew in
                             Text(crew.name)
                         }
                     }
-
-                    if movie.cast != nil && movie.cast!.count > 0 {
-                        Text("Obsada").padding()
-                        ForEach(movie.cast!.prefix(10)){ cast in
-                            Text(cast.name)
+                    
+                    if movie.producers != nil && movie.producers!.count > 0 {
+                        Text("Producent").padding()
+                        ForEach(movie.producers!){ crew in
+                            Text(crew.name)
                         }
                     }
                     
+                    if movie.screenplayers != nil && movie.screenplayers!.count > 0 {
+                        Text("screenplayers").padding()
+                        ForEach(movie.screenplayers!){ crew in
+                            Text(crew.name)
+                        }
+                    }
                     
+                    if movie.cast != nil && movie.cast!.count > 0 {
+                        VStack(alignment: .leading, spacing: 0){
+                            Text("Obsada").padding()
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.horizontal)
+                            ScrollView(.horizontal, showsIndicators: false){
+                                HStack(alignment: .top, spacing: 15){
+                                    ForEach(movie.cast!.prefix(10)){ cast in
+                                        
+                                        //Text("\(cast.profilePathURL)")
+                                        //MovieDetailImage(imageURL: cast.profilePathURL)
+                                        
+                                        VStack{
+                                            MovieCastImage(imageURL: cast.profilePathURL)
+                                            Text(cast.name)
+                                            Text(cast.character)
+                                        }
+                                        
+                                    }
+                                }
+
+                                
+                            }
+                        }
+                        
+
+                        
+                    }
+                                        
                 }
+                
+                
             }
-
-
         }
+        
+        
+    }
+    
+}
 
+struct MovieCastImage: View{
 
+    @StateObject private var imageLoader = ImageLoader()
+    let imageURL: URL
+
+    var body: some View{
+        ZStack{
+            if let image = imageLoader.image{
+                Image(uiImage: image).resizable()
+            }
+        }
+        .frame(width: 200, height: 250)
+        .aspectRatio(contentMode: .fill)
+        .onAppear{
+            imageLoader.loadImage(with: imageURL)
+        }
     }
 }
+
 struct MovieDetailImage: View{
     
     @StateObject private var imageLoader = ImageLoader()

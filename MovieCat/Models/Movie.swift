@@ -25,6 +25,8 @@ struct Movie: Decodable, Identifiable {
     let voteCount: Int
     let runtime: Int?
     let releaseDate: String?
+    //let revenue: Int
+    //let budget: Int
     let videos: MovieVideoResponse?
     
     let genres: [MovieGenre]?
@@ -85,6 +87,13 @@ struct Movie: Decodable, Identifiable {
     var directors: [MovieCrew]? {
         crew?.filter { $0.job.lowercased() == "director" }
     }
+    var producers: [MovieCrew]?{
+        crew?.filter{ $0.job.lowercased() == "producer"}
+    }
+    
+    var screenplayers: [MovieCrew]?{
+        crew?.filter{ $0.job.lowercased() == "screenplay"}
+    }
     
     var cast: [MovieCast]? {
         credits?.cast
@@ -110,6 +119,12 @@ struct MovieCast: Decodable, Identifiable {
     let id: Int
     let character: String
     let name: String
+    let profilePath: String?
+    
+    
+    var profilePathURL : URL{
+        return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")!
+    }
 }
 
 struct MovieGenre: Decodable {
