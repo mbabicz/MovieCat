@@ -96,17 +96,21 @@ struct MovieDetailsView: View {
                                     .fontWeight(.bold)
                                     .padding(.horizontal)
                                 ScrollView(.horizontal, showsIndicators: false){
-                                    HStack(alignment: .top, spacing: 15){
+                                    HStack( spacing: 20){
                                         ForEach(movie.cast!.prefix(10)){ cast in
-
-                                            VStack{
-                                                MovieCastImage(imageURL: cast.profilePathURL)
-                                                Text(cast.name)
-                                                Text(cast.character)
+//                                            VStack{
+                                                GeometryReader { geometry in
+                                                    VStack{
+                                                        MovieCastImage(imageURL: cast.profilePathURL)
+                                                            .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / 20), axis: (x: 0, y: 10, z: 0))
+                                                                                                            Text(cast.name)
+                                                                                                            Text(cast.character)
+                                                    }
+                                                }
+                                                .frame(width: 200, height: 250)
                                             }
-
-                                        }
                                     }
+                                    .padding(40)
 
                                 }
                             }
@@ -134,16 +138,18 @@ struct MovieDetailsView: View {
                             }
                         }
                         
-                        if movie.screenWriters != nil && movie.screenWriters!.count > 0 {
-                            Text("screenWriters")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding()
-                            ForEach(movie.screenWriters!){ crew in
-                                Text(crew.name)
+                            if movie.screenWriters != nil && movie.screenWriters!.count > 0 {
+                                Text("screenWriters")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .padding()
+                                
+                                ForEach(movie.screenWriters!){ crew in
+                                    Text(crew.name)
+                                }
+                                
                             }
-                        }
-
+                        
                         if movie.youtubeTrailers != nil && movie.youtubeTrailers!.count > 0 {
                             Text("TRAILERS")
                                 .font(.title)
@@ -199,6 +205,8 @@ struct MovieCastImage: View{
         }
         .frame(width: 200, height: 250)
         .aspectRatio(contentMode: .fill)
+        .cornerRadius(12)
+        .shadow(color: Color("DarkRed"), radius: 5)
         .onAppear{
             imageLoader.loadImage(with: imageURL)
         }
