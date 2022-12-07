@@ -10,7 +10,7 @@ import SwiftUI
 class MovieDetailState: ObservableObject {
     
     private let movieService: MovieService
-    @Published var movie: Movie?
+    @Published var movie: FullMovieModel?
     @Published var isLoading = false
     @Published var error: NSError?
     
