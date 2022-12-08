@@ -22,9 +22,10 @@ struct MovieDetails: View {
             }
             
             if movieDetailState.movie != nil {
-                MovieDetailsView(movie: self.movieDetailState.movie!)
+                MovieDetailView(movie: self.movieDetailState.movie!)
             }
         }
+        
         .onAppear{
             self.movieDetailState.loadMovie(id: self.movieID)
         }
@@ -225,6 +226,8 @@ struct MovieDetailImage: View{
             }
         }
         .frame(maxWidth: .infinity)
+        .cornerRadius(12)
+        .shadow(color: Color("DarkRed"), radius: 5)
         .aspectRatio(contentMode: .fit)
         .onAppear{
             imageLoader.loadImage(with: imageURL)
