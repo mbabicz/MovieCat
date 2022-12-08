@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct MovieDetailView: View {
     
@@ -192,19 +193,12 @@ struct MovieDetailView: View {
                                     .padding()
                                 ForEach(movie.youtubeTrailers!){ trailer in
                                     if(trailer.type == "Trailer"){
-                                        Button {
-                                            //TODO: open safari or youtube player
-                                            //OpenURLAction(handler: URL(trailer.youtubeURL))
-                                            
-                                            
-                                        } label: {
-                                            HStack{
-                                                Text(trailer.name)
-                                                    .padding()
-                                                Image(systemName: "play.circle")
-                                                
-                                            }
-                                        }
+                                        
+                                        VideoView(videoID: trailer.key )
+                                            .frame(height: 200)
+                                            .cornerRadius(12)
+                                            .padding(.horizontal, 24)
+                                            .padding(.bottom,3)
                                     }
                                 }
                             }
@@ -262,6 +256,7 @@ struct MovieDetailView: View {
                         
                         Rectangle()
                             .foregroundColor(.black)
+                        
                         
                             
 
@@ -321,6 +316,12 @@ struct ListBackGround: View {
         
     }
 }
+
+
+
+  
+
+    
 
 
 
