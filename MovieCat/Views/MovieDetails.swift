@@ -201,11 +201,12 @@ struct MovieCastImage: View{
     var body: some View{
         ZStack{
             if let image = imageLoader.image{
-                Image(uiImage: image).resizable()
+                Image(uiImage: image).resizable().scaledToFit()
             }
         }
-        .frame(width: 200, height: 250)
-        .aspectRatio(contentMode: .fill)
+        .frame(height: 250)
+        .scaledToFill()
+        //.aspectRatio(contentMode: .fill)
         .cornerRadius(12)
         .shadow(color: Color("DarkRed"), radius: 5)
         .onAppear{
