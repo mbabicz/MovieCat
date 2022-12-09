@@ -38,6 +38,9 @@ struct MovieDetailView: View {
                                     
                                 }, label: {
                                     Image(systemName: "heart.fill")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .scaledToFill()
                                         .foregroundColor(.white)
                                         .bold()
                                     
@@ -138,7 +141,8 @@ struct MovieDetailView: View {
                                         }
                                     }
                                     .padding(.horizontal, 40)
-                                    .padding(.vertical, 20)
+                                    .padding(.top, 20)
+                                    .padding(.bottom, 40)
                                     
                                 }
                             }

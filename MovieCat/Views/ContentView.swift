@@ -25,6 +25,8 @@ struct ContentView: View {
             else if user.userIsAuthenticatedAndSynced{
                 
                 MainView()
+//                    .navigationTitle("MovieCat")
+//                    .navigationBarTitleDisplayMode(.inline)
             
             }
             else{

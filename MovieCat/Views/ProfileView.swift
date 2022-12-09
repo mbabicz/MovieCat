@@ -29,12 +29,13 @@ struct ProfileView: View {
             
             }
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Accoount")
             .toolbar{
-                ToolbarItem(placement: .principal){
-                    Text("Profile")
-                        .font(.headline)
-                        .bold()
-                }
+//                ToolbarItem(placement: .principal){
+//                    Text("Profile")
+//                        .font(.headline)
+//                        .bold()
+//                }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
                         user.signOut()
@@ -43,7 +44,7 @@ struct ProfileView: View {
                     }
 
                 }
-                
+
             }
             .border(.green)
         }
