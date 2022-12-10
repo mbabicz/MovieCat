@@ -34,7 +34,9 @@ struct ContentView: View {
         .onAppear{
             if user.userIsAuthenticated{
                 user.sync()
+
             }
+            //user.getUserWatchList()
         }
     }
 }

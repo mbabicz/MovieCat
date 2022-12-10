@@ -12,6 +12,8 @@ struct MovieDetailView: View {
     
     let movie: FullMovieModel
     @ObservedObject var imageLoader = ImageLoader()
+    @EnvironmentObject var user: UserViewModel
+
 
 //    @State private var selectedTrailer: MovieVideo?
     
@@ -35,7 +37,7 @@ struct MovieDetailView: View {
                             HStack{
                                 
                                 Button(action: {
-                                    
+                                    user.addMovieToWatchList(movieID: String(movie.id))
                                 }, label: {
                                     Image(systemName: "heart.fill")
                                         .foregroundColor(.white)

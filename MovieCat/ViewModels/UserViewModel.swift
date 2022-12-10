@@ -20,6 +20,9 @@ class UserViewModel: ObservableObject {
     @Published var alertTitle = ""
     
     var userIsGuest: Bool = false
+    
+    var watchListIDs = [String]()
+
 
     
     
@@ -118,6 +121,7 @@ class UserViewModel: ObservableObject {
             guard document != nil, error == nil else { return }
             do{
                 try self.user = document!.data(as: User.self)
+                self.getUserWatchList()
             } catch{
                 print("sync error: \(error)")
             }
@@ -140,6 +144,41 @@ class UserViewModel: ObservableObject {
             let _ = try db.collection("Users").document(self.uuid!).setData(from: user)
         } catch{
             print("error updating \(error)")
+        }
+    }
+    
+    func addMovieToWatchList(movieID: String){
+        let userID = Auth.auth().currentUser?.uid
+        let ref = db.collection("Users").document(userID!).collection("WatchList").document(movieID)
+        let date = ["date:" : Date.now] as [String : Any]
+        let movie = ["movieID:" : movieID] as [String : Any]
+        ref.setData(date, merge: true)
+        ref.setData(movie, merge: true)
+        
+    }
+    
+    func getUserWatchList(){
+        let userID = Auth.auth().currentUser?.uid
+        //self.watchListIDs = nil
+        
+        db.collection("Users").document(userID!).collection("WatchList").addSnapshotListener{ (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }
+            else {
+                if(snapshot?.isEmpty != true && snapshot != nil){
+                    
+                    self.watchListIDs.removeAll(keepingCapacity: false)
+                    
+                    for document in snapshot!.documents {
+                        let documentID = document.documentID
+                        self.watchListIDs.append(documentID)
+                        print("watchlist: \(self.watchListIDs)")
+                    }
+                    
+                }
+
+            }
         }
     }
     

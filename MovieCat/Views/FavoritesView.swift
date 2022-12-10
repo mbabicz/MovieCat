@@ -8,9 +8,41 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    
+    @EnvironmentObject var user: UserViewModel
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            if(user.watchListIDs.isEmpty != true){
+                VStack{
+                    List(user.watchListIDs, id: \.self) { ids in
+                        Text(ids)
+
+                    }
+                }
+
+
+            }
+            else {
+                HStack{
+                    Text("fav")
+                    Button {
+                        user.getUserWatchList()
+                    } label: {
+                        Text("test")
+                    }
+                }
+
+
+            }
+        }
+//        .onAppear{
+//            user.getUserWatchList()
+//        }
+
+        
     }
+
 }
 
 struct FavoritesView_Previews: PreviewProvider {
