@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @State var currentTab: Tab = .Home
+  
     
     init(){
         UITabBar.appearance().isHidden = true
@@ -24,17 +25,22 @@ struct MainView: View {
         TabView(selection: $currentTab){
             
             HomeView()
+               
                 .tag(Tab.Home)
             
             SearchView()
+              
                 .tag(Tab.Search)
             
             FavoritesView()
+               
                 .tag(Tab.Favorites)
             
             ProfileView()
+              
                 .tag(Tab.Profile)
         }
+      
         
         .overlay(
             HStack(spacing: 0){
@@ -81,7 +87,7 @@ struct MainView: View {
                     .background(
                         ZStack{
                             if currentTab == tab{
-                                Color("DarkRed")
+                                Color("Red")
                                     .clipShape(Circle())
                                     .matchedGeometryEffect(id: "TAB", in: animation)
                             }
