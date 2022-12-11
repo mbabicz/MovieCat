@@ -21,7 +21,7 @@ class UserViewModel: ObservableObject {
     
     var userIsGuest: Bool = false
     
-    var watchListIDs = [String]()
+    @Published var watchListIDs = [String]()
 
 
     

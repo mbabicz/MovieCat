@@ -38,7 +38,7 @@ struct ContentView: View {
                 user.sync()
 
             }
-            //user.getUserWatchList()
+            user.getUserWatchList()
         }
     }
 }
