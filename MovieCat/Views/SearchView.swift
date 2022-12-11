@@ -47,20 +47,31 @@ struct SearchView: View {
                     if self.movieSearchState.query != "" && self.movieSearchState.movies != nil {
                         
                         ForEach(self.movieSearchState.movies!) { movie in
-                            NavigationLink(destination: MovieDetails(movieID: movie.id)){
+                            HStack {
                                 HStack{
                                     MovieImage(imageURL: movie.posterURL)
-                                    VStack{
+                                    VStack(alignment: .leading){
                                         Text(movie.title)
                                             .padding([.top, .leading, .trailing])
-                                            .multilineTextAlignment(.center)
                                         Text("(\(movie.yearText))")
                                             .padding([.bottom, .leading, .trailing])
-                                        Spacer()
                                     }
                                 }
+                                       Spacer()
+                                       Image(systemName: "chevron.right")
+                                         .resizable()
+                                         .aspectRatio(contentMode: .fit)
+                                         .frame(width: 7)
+                                         .foregroundColor(Color("DarkRed")) 
+                                     }
+                                     .foregroundColor(.white)
+                                     .background(
+                                        NavigationLink(destination: MovieDetails(movieID: movie.id)) {}
+                                           .opacity(0)
+                                     )
+                                           
+                                           
                                 
-                            }
                             
                         }
                         
@@ -75,13 +86,6 @@ struct SearchView: View {
             .navigationTitle("Wyszukiwarka")
             .navigationBarTitleDisplayMode(.inline)
         }
-        
-        
-//        .toolbar{
-//            ToolbarItem(placement: .principal){
-//                Text("Wyszukiwarka").font(.headline).bold()
-//            }
-//        }
     }
 
 }
@@ -97,7 +101,7 @@ struct MovieImage: View{
                 Image(uiImage: image).resizable()
             }
         }
-        .frame(width: 100, height: 150)
+        .frame(width: 50, height: 75)
         .aspectRatio(contentMode: .fit)
         .onAppear{
             imageLoader.loadImage(with: imageURL)
