@@ -12,6 +12,7 @@ struct MovieCardCarousel: View {
     let title: String
     let movies: [Movie]
     
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
             Text(title)
