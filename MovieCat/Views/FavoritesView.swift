@@ -24,18 +24,23 @@ struct FavoritesView: View {
 
             }
             else {
-                HStack{
-                    Text("fav")
-                    Button {
-                        user.getUserWatchList()
-                    } label: {
-                        Text("test")
-                    }
+                VStack{
+                    Text("Your Watchlist will appear here")
+                        .font(.title)
+                    Text("Add movie to your Watchlist by clicking \(Image(systemName: "star.fill"))  in the details view of the movie")
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.gray.opacity(0.75))
+
+
                 }
 
 
             }
         }
+//        .onAppear{
+//            user.getUserWatchList()
+//        }
 
         
     }
@@ -80,7 +85,17 @@ struct FavoriteMovieCard: View{
                         .padding([.top, .leading, .trailing])
                         .multilineTextAlignment(.center)
                     Text("(\(movie.yearText))")
-                        .padding([.bottom, .leading, .trailing])
+                        //.padding([.bottom, .leading, .trailing])
+                    Text("\(movie.durationText)")
+                        //.padding([.bottom, .leading, .trailing])
+                    VStack{
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .bold()
+                        Text("\(movie.voteAverage, specifier: "%.1f")")
+                            .foregroundColor(.white)
+                            .bold()
+                    }
                     Spacer()
                 }
             }

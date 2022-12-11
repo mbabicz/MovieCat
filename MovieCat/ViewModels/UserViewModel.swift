@@ -121,11 +121,12 @@ class UserViewModel: ObservableObject {
             guard document != nil, error == nil else { return }
             do{
                 try self.user = document!.data(as: User.self)
-                self.getUserWatchList()
             } catch{
                 print("sync error: \(error)")
             }
         }
+        self.getUserWatchList()
+
     }
     
     private func add(_ user: User){
@@ -157,9 +158,24 @@ class UserViewModel: ObservableObject {
         
     }
     
+    func deleteMovieFromWatchList(movieID: String){
+        let userID = Auth.auth().currentUser?.uid
+        let ref = db.collection("Users").document(userID!).collection("WatchList").document(movieID)
+        ref.delete(){ err in
+            if let err = err {
+                print("Error removing doc: \(err)")
+            }
+            else {
+                print("WatchList document succesfully removed")
+            }
+        }
+        
+    }
+    
     func getUserWatchList(){
         let userID = Auth.auth().currentUser?.uid
         //self.watchListIDs = nil
+        self.watchListIDs.removeAll(keepingCapacity: false)
         
         db.collection("Users").document(userID!).collection("WatchList").addSnapshotListener{ (snapshot, error) in
             if error != nil {
@@ -173,13 +189,14 @@ class UserViewModel: ObservableObject {
                     for document in snapshot!.documents {
                         let documentID = document.documentID
                         self.watchListIDs.append(documentID)
-                        print("watchlist: \(self.watchListIDs)")
                     }
                     
                 }
 
             }
         }
+        print("watchlist: \(self.watchListIDs)")
+
     }
     
 }

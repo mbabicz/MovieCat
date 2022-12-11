@@ -35,18 +35,30 @@ struct MovieDetailView: View {
                         .padding(.leading,60)
                         .overlay(content: {
                             HStack{
-                                
-                                Button(action: {
-                                    user.addMovieToWatchList(movieID: String(movie.id))
-                                }, label: {
-                                    Image(systemName: "heart.fill")
-                                        .resizable()
-                                        .frame(width: 25, height: 25)
-                                        .scaledToFill()
-                                        .foregroundColor(.white)
-                                        .bold()
-                                    
-                                })
+                                if user.watchListIDs.contains(String(movie.id)) {
+                                    Button {
+                                        user.deleteMovieFromWatchList(movieID: String(movie.id))
+                                    } label: {
+                                        Image(systemName: "heart.fill")
+                                            .resizable()
+                                            .frame(width: 30, height: 25)
+                                            .scaledToFit()
+                                            .foregroundColor(.red)
+                                            .bold()
+                                    }
+
+                                } else {
+                                    Button {
+                                        user.addMovieToWatchList(movieID: String(movie.id))
+                                    } label: {
+                                        Image(systemName: "heart.fill")
+                                            .resizable()
+                                            .frame(width: 30, height: 25)
+                                            .scaledToFit()
+                                            .foregroundColor(.white)
+                                            .bold()
+                                    }
+                                }
                                 
                                 
                                 Spacer()
