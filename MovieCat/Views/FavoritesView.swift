@@ -16,7 +16,6 @@ struct FavoritesView: View {
             if(user.watchListIDs.isEmpty != true){
                 VStack{
                     List(user.watchListIDs, id: \.self) { id in
-                        //Text(id)
                         FavoriteMovieLoader(movieID: Int(id)!)
 
                     }
@@ -32,15 +31,10 @@ struct FavoritesView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray.opacity(0.75))
 
-
                 }
-
 
             }
         }
-//        .onAppear{
-//            user.getUserWatchList()
-//        }
 
         
     }
@@ -78,6 +72,7 @@ struct FavoriteMovieCard: View{
     
     var body: some View{
         NavigationLink(destination: MovieDetails(movieID: movie.id)){
+
             HStack{
                 MovieImage(imageURL: movie.posterURL)
                 VStack{
@@ -85,9 +80,7 @@ struct FavoriteMovieCard: View{
                         .padding([.top, .leading, .trailing])
                         .multilineTextAlignment(.center)
                     Text("(\(movie.yearText))")
-                        //.padding([.bottom, .leading, .trailing])
                     Text("\(movie.durationText)")
-                        //.padding([.bottom, .leading, .trailing])
                     VStack{
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
@@ -99,6 +92,8 @@ struct FavoriteMovieCard: View{
                     Spacer()
                 }
             }
+            
+
             
         }
     }

@@ -13,16 +13,12 @@ struct MovieDetailView: View {
     let movie: FullMovieModel
     @ObservedObject var imageLoader = ImageLoader()
     @EnvironmentObject var user: UserViewModel
-
-
-//    @State private var selectedTrailer: MovieVideo?
     
     var body: some View {
         ZStack{
             ScrollView{
             Color.black
                 
-            
                 VStack {
                     MovieDetailImage(imageURL: movie.backdropURL)
                     

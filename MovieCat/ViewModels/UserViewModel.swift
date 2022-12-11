@@ -167,6 +167,7 @@ class UserViewModel: ObservableObject {
             }
             else {
                 print("WatchList document succesfully removed")
+                self.getUserWatchList()
             }
         }
         
@@ -174,7 +175,6 @@ class UserViewModel: ObservableObject {
     
     func getUserWatchList(){
         let userID = Auth.auth().currentUser?.uid
-        //self.watchListIDs = nil
         self.watchListIDs.removeAll(keepingCapacity: false)
         
         db.collection("Users").document(userID!).collection("WatchList").addSnapshotListener{ (snapshot, error) in

@@ -11,7 +11,6 @@ struct MovieDetails: View {
     
     let movieID: Int
     @ObservedObject var imageLoader = ImageLoader()
-
     
     @ObservedObject private var movieDetailState = MovieDetailState()
 
@@ -22,7 +21,7 @@ struct MovieDetails: View {
             }
             
             if movieDetailState.movie != nil {
-                MovieDetailView(movie: self.movieDetailState.movie!)
+                MovieDetailsView(movie: self.movieDetailState.movie!)
             }
         }
         
@@ -33,165 +32,317 @@ struct MovieDetails: View {
     
 }
 
-
 struct MovieDetailsView: View {
     
     let movie: FullMovieModel
     @ObservedObject var imageLoader = ImageLoader()
-   // @State private var selectedTrailer: MovieVideo?
-    
+    @EnvironmentObject var user: UserViewModel
     
     var body: some View {
-        
         ZStack{
             ScrollView{
-                VStack{
-                    Text(movie.title).font(.largeTitle).foregroundColor(.red)
+                Color.black
+                
+                VStack {
                     MovieDetailImage(imageURL: movie.backdropURL)
-                    HStack(){
-                        Text(movie.yearText).foregroundColor(.orange).bold().padding(.leading)
-                        Spacer()
-                        Text(movie.durationText).foregroundColor(.orange).bold().padding([.leading, .trailing])
-                        Spacer()
-                        Text(movie.genreText).foregroundColor(.orange).bold().padding(.trailing)
-                        
-                    }
-                    .padding()
                     
-                    HStack(spacing: 2) {
-                        VStack{
+                    
+                    Rectangle()
+                        .foregroundColor(Color("DarkRed"))
+                        .frame(height: 70)
+                        .cornerRadius(20, corners: [.topLeft, .bottomLeft])
+                        .shadow(color: .black, radius: 10)
+                        .padding(.leading,60)
+                        .overlay(content: {
                             HStack{
-                                Text("TMDB").foregroundColor(.orange).bold().font(.title2)
-                                Image(systemName: "star.fill").foregroundColor(.yellow).font(.title2).offset(y:-1)
-                                Text("\(movie.voteAverage, specifier: "%.1f")").font(.title2)
-                                Text("(\(movie.voteCount))").font(.caption2)
-                                    .foregroundColor(.secondary)
-                                    .offset(y: 3)
+                                if user.watchListIDs.contains(String(movie.id)) {
+                                    Button {
+                                        user.deleteMovieFromWatchList(movieID: String(movie.id))
+                                    } label: {
+                                        Image(systemName: "heart.fill")
+                                            .resizable()
+                                            .frame(width: 30, height: 25)
+                                            .scaledToFit()
+                                            .foregroundColor(.red)
+                                            .bold()
+                                    }
+                                    
+                                } else {
+                                    Button {
+                                        user.addMovieToWatchList(movieID: String(movie.id))
+                                    } label: {
+                                        Image(systemName: "heart.fill")
+                                            .resizable()
+                                            .frame(width: 30, height: 25)
+                                            .scaledToFit()
+                                            .foregroundColor(.white)
+                                            .bold()
+                                    }
+                                }
+                                
+                                Spacer()
+                                
+                                VStack{
+                                    HStack{
+                                        Image(systemName: "star.fill")
+                                            .foregroundColor(.yellow)
+                                            .bold()
+                                        Text("\(movie.voteAverage, specifier: "%.1f")")
+                                            .foregroundColor(.white)
+                                            .bold()
+                                    }
+                                    Text("TMDB")
+                                        .foregroundColor(.white)
+                                        .bold()
+                                        .font(.title2)
+                                }
+                                
+                                Spacer()
+                                
+                                VStack{
+                                    HStack{
+                                        Image(systemName: "star.fill")
+                                            .foregroundColor(.yellow)
+                                            .bold()
+                                        Text("\(movie.voteAverage, specifier: "%.1f")")
+                                            .foregroundColor(.white)
+                                            .bold()
+                                    }
+                                    Text("MOVIECAT")
+                                        .foregroundColor(.white)
+                                        .bold()
+                                        .font(.title2)
+                                    
+                                }
+                                
                             }
-                            
-                            HStack{
-                                Text("MOVIECAT").foregroundColor(.orange).bold().font(.title2)
-                                Image(systemName: "star.fill").foregroundColor(.yellow).font(.title2).offset(y:-1)
-                                Text("\(movie.voteAverage, specifier: "%.1f")").font(.title2)
-                                Text("(\(movie.voteCount))").font(.caption2)
-                                    .foregroundColor(.secondary)
-                                    .offset(y: 3)
-                            }
-                        }
-                        
+                            .padding(.horizontal)
+                            .padding(.leading, 70)
+                            .padding(.trailing, 20)
+                        })
+                        .offset(y:-40)
+                    
+                    
+                    Text(movie.title)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(.white)
+                        .font(.system(size:30, weight: .heavy, design: .none))
+                        .padding(.leading)
+                    
+                    HStack{
+                        Text(movie.yearText)
+                        Text(movie.durationText)
+                        Text(movie.genreText)
                     }
-                    .padding(.bottom, 5)
+                    .foregroundColor(.white.opacity(0.5))
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
                     
-                    Text("revenue")
-                    Text(movie.revenue, format: .currency(code: "USD").precision(.fractionLength(0)))
-                    Text("budget")
-                    Text(movie.budget, format: .currency(code: "USD").precision(.fractionLength(0)))
                     
-                    Text(movie.overview).padding(.bottom)
+                    Text(movie.overview)
+                        .foregroundColor(.white)
+                        .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        .padding()
+                    
                     
                     VStack{
                         if movie.cast != nil && movie.cast!.count > 0 {
                             VStack(alignment: .leading, spacing: 0){
-                                Text("Obsada").padding()
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .padding(.horizontal)
+                                Text("Stars")
+                                    .foregroundColor(Color("Red"))
+                                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                    .padding()
                                 ScrollView(.horizontal, showsIndicators: false){
                                     HStack( spacing: 20){
                                         ForEach(movie.cast!.prefix(10)){ cast in
-//                                            VStack{
-                                                GeometryReader { geometry in
-                                                    VStack{
-                                                        MovieCastImage(imageURL: cast.profilePathURL)
-                                                            .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / 20), axis: (x: 0, y: 10, z: 0))
-                                                                                                            Text(cast.name)
-                                                                                                            Text(cast.character)
-                                                    }
+                                            GeometryReader { geometry in
+                                                VStack{
+                                                    MovieCastImage(imageURL: cast.profilePathURL)
+                                                        .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / 20), axis: (x: 0, y: 10, z: 0))
+                                                    Text(cast.name)
+                                                    Text(cast.character)
                                                 }
-                                                .frame(width: 200, height: 250)
                                             }
+                                            .frame(width: 200, height: 250)
+                                        }
                                     }
-                                    .padding(40)
-
+                                    .padding(.horizontal, 40)
+                                    .padding(.top, 20)
+                                    .padding(.bottom, 40)
+                                    
                                 }
                             }
-
+                            
                         }
                         
-    
                         if movie.directors != nil && movie.directors!.count > 0 {
-                            Text("directors")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding()
-                            ForEach(movie.directors!){ crew in
-                                Text(crew.name)
+                            VStack(alignment: .leading, spacing: 0){
+                                Text("Directors")
+                                    .foregroundColor(Color("Red"))
+                                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                    .padding()
+                                
+                                ForEach(movie.directors!){ crew in
+                                    ListBackGround(text: crew.name)
+                                }
                             }
                         }
                         
                         if movie.producers != nil && movie.producers!.count > 0 {
-                            Text("producers")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding()
-                            ForEach(movie.producers!){ crew in
-                                Text(crew.name)
-                            }
-                        }
-                        
-                            if movie.screenWriters != nil && movie.screenWriters!.count > 0 {
-                                Text("screenWriters")
-                                    .font(.title)
-                                    .fontWeight(.bold)
+                            VStack(alignment: .leading, spacing: 0){
+                                Text("Producers")
+                                    .foregroundColor(Color("Red"))
+                                    .font(.system(size: 25, weight: .semibold, design: .rounded))
                                     .padding()
                                 
-                                ForEach(movie.screenWriters!){ crew in
-                                    Text(crew.name)
+                                ForEach(movie.producers!){ crew in
+                                    ListBackGround(text: crew.name)
                                 }
-                                
-                            }
-                        
-                        if movie.youtubeTrailers != nil && movie.youtubeTrailers!.count > 0 {
-                            Text("TRAILERS")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding()
-                            ForEach(movie.youtubeTrailers!){ trailer in
-                                if(trailer.type == "Trailer"){
-                                    Button {
-                                        //TODO: open safari or youtube player
-                                        //OpenURLAction(handler: URL(trailer.youtubeURL))
-
-
-                                    } label: {
-                                        HStack{
-                                            Text(trailer.name)
-                                                .padding()
-                                            Image(systemName: "play.circle")
-
-                                        }
-                                    }
-                                }
-
                             }
                         }
                         
-                    }
-
-                    
-
-                    
+                        if movie.screenWriters != nil && movie.screenWriters!.count > 0 {
+                            VStack(alignment: .leading, spacing: 0){
+                                Text("Screenwriters")
+                                    .foregroundColor(Color("Red"))
+                                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                    .padding()
+                                
+                                
+                                ForEach(movie.screenWriters!){ crew in
+                                    ListBackGround(text: crew.name)
+                                }
+                            }
+                        }
+                        
+                        if movie.youtubeTrailers != nil && movie.youtubeTrailers!.count > 0 {
+                            VStack(alignment: .leading, spacing: 0){
+                                Text("Trailers")
+                                    .foregroundColor(Color("Red"))
+                                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                    .padding()
+                                ForEach(movie.youtubeTrailers!){ trailer in
+                                    if(trailer.type == "Trailer"){
                                         
+                                        VideoView(videoID: trailer.key )
+                                            .frame(height: 200)
+                                            .cornerRadius(12)
+                                            .padding(.horizontal, 24)
+                                            .padding(.bottom,3)
+                                    }
+                                }
+                            }
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 0){
+                            Text("Boxoffice")
+                                .foregroundColor(Color("Red"))
+                                .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                .padding()
+                            
+                            Rectangle()
+                                .frame(height: 20)
+                                .foregroundColor(Color("DarkRed").opacity(0.5))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
+                                .padding(.vertical, 5)
+                                .overlay {
+                                    HStack{
+                                        Text("Revenue:")
+                                            .foregroundColor(.white)
+                                            .font(.headline)
+                                            .bold()
+                                        Spacer()
+                                        Text(movie.revenue, format: .currency(code: "USD").precision(.fractionLength(0)))
+                                            .foregroundColor(.white)
+                                            .font(.headline)
+                                            .bold()
+                                    }
+                                    .padding(.horizontal, 25)
+                                }
+                            
+                            Rectangle()
+                                .frame(height: 20)
+                                .foregroundColor(Color("DarkRed").opacity(0.5))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
+                                .padding(.vertical, 5)
+                                .overlay {
+                                    HStack{
+                                        Text("Budget:")
+                                            .foregroundColor(.white)
+                                            .font(.headline)
+                                            .bold()
+                                        Spacer()
+                                        Text(movie.budget, format: .currency(code: "USD").precision(.fractionLength(0)))
+                                            .foregroundColor(.white)
+                                            .font(.headline)
+                                            .bold()
+                                    }
+                                    .padding(.horizontal, 25)
+                                }
+                            
+                        }
+                        
+                        Rectangle()
+                            .foregroundColor(.black)
+                        
+                        
+                    }
                 }
-                
-                
             }
+        }
+        .ignoresSafeArea()
+            
         }
         
         
     }
-    
+
+
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
 }
+
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+
+struct ListBackGround: View {
+    
+    let text: String
+    
+    var body: some View{
+        
+        Rectangle()
+            .frame(height: 20)
+            .foregroundColor(Color("DarkRed").opacity(0.5))
+            .cornerRadius(12)
+            .padding(.horizontal)
+            .padding(.vertical, 5)
+            .overlay {
+                Text(text)
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .bold()
+            }
+        
+        
+        
+    }
+}
+
 
 struct MovieCastImage: View{
 
@@ -206,7 +357,6 @@ struct MovieCastImage: View{
         }
         .frame(height: 250)
         .scaledToFill()
-        //.aspectRatio(contentMode: .fill)
         .cornerRadius(12)
         .shadow(color: Color("DarkRed"), radius: 5)
         .onAppear{
