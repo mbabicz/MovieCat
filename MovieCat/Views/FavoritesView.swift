@@ -13,28 +13,34 @@ struct FavoritesView: View {
 
     var body: some View {
         NavigationView{
-            if(user.watchListIDs.isEmpty != true){
-                VStack{
-                    List(user.watchListIDs, id: \.self) { id in
-                        FavoriteMovieLoader(movieID: Int(id)!)
-
+            ZStack{
+                if(user.watchListIDs.isEmpty != true){
+                    VStack{
+                        List(user.watchListIDs, id: \.self) { id in
+                            FavoriteMovieLoader(movieID: Int(id)!)
+                            
+                        }
                     }
+                    
                 }
-
-            }
-            else {
-                VStack{
-                    Text("Your Watchlist will appear here")
-                        .font(.title)
-                    Text("Add movie to your Watchlist by clicking \(Image(systemName: "star.fill"))  in the details view of the movie")
+                else {
+                    VStack{
+                        Text("Your Watchlist will appear here")
+                            .font(.title)
+                        Text("Add movie to your Watchlist by clicking \(Image(systemName: "heart.fill"))  in the details view of the movie")
                             .font(.subheadline)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray.opacity(0.75))
-
+                        
+                    }
+                    
                 }
-
             }
+            .navigationTitle("WatchList")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.black, for: .navigationBar)
         }
+        
 
         
     }
@@ -71,17 +77,19 @@ struct FavoriteMovieCard: View{
     @ObservedObject var imageLoader = ImageLoader()
     
     var body: some View{
-        NavigationLink(destination: MovieDetails(movieID: movie.id)){
-
+ 
+        HStack {
             HStack{
                 MovieImage(imageURL: movie.posterURL)
-                VStack{
+                VStack(alignment: .leading){
                     Text(movie.title)
                         .padding([.top, .leading, .trailing])
-                        .multilineTextAlignment(.center)
-                    Text("(\(movie.yearText))")
-                    Text("\(movie.durationText)")
-                    VStack{
+                    HStack{
+                        Text("(\(movie.yearText))")
+                        Text("\(movie.durationText)")
+                    }
+                    .padding([ .leading, .trailing])
+                    HStack{
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
                             .bold()
@@ -89,13 +97,21 @@ struct FavoriteMovieCard: View{
                             .foregroundColor(.white)
                             .bold()
                     }
-                    Spacer()
+                    .padding([.bottom, .leading, .trailing])
                 }
             }
-            
-
-            
-        }
+                   Spacer()
+                   Image(systemName: "chevron.right")
+                     .resizable()
+                     .aspectRatio(contentMode: .fit)
+                     .frame(width: 7)
+                     .foregroundColor(Color("DarkRed"))
+                 }
+                 .foregroundColor(.white)
+                 .background(
+                    NavigationLink(destination: MovieDetails(movieID: movie.id)) {}
+                       .opacity(0)
+                 )
     }
     
 }

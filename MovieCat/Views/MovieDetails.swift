@@ -63,7 +63,7 @@ struct MovieDetailsView: View {
                                             .resizable()
                                             .frame(width: 30, height: 25)
                                             .scaledToFit()
-                                            .foregroundColor(.red)
+                                            .foregroundColor(Color("Red"))
                                             .bold()
                                     }
                                     
