@@ -13,7 +13,6 @@ struct HomeView: View {
     @ObservedObject private var upcomingState = MovieListState()
     @ObservedObject private var topRatedState = MovieListState()
     @ObservedObject private var popularState = MovieListState()
-    @ObservedObject private var latestState = MovieListState()
 
     var body: some View {
         NavigationView{
@@ -75,21 +74,6 @@ struct HomeView: View {
                 .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
                 .listRowSeparator(.hidden)
 
-                Group{
-                    
-                    if latestState.movies != nil {
-                        MoviePosterCardCarousel(title: "LATEST", movies: latestState.movies!)
-                    } else {
-                        LoadingCardView(isLoading: latestState.isLoading, error: latestState.error){
-                            self.latestState.loadMovies(with: .popular)
-                            
-                        }
-                        
-                    }
-                }
-                .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
-                .listRowSeparator(.hidden)
-
             }
             .listStyle(PlainListStyle())
             .navigationTitle("MovieCat")
@@ -103,7 +87,6 @@ struct HomeView: View {
             self.upcomingState.loadMovies(with: .upcoming)
             self.popularState.loadMovies(with: .popular)
             self.topRatedState.loadMovies(with: .topRated)
-            self.latestState.loadMovies(with: .latest)
 
         }
     }
