@@ -38,6 +38,8 @@ struct MovieDetailsView: View {
     @ObservedObject var imageLoader = ImageLoader()
     @EnvironmentObject var user: UserViewModel
     
+    @State private var opinionPanelIsShowing = false
+    
     var body: some View {
         ZStack{
             ScrollView{
@@ -99,21 +101,27 @@ struct MovieDetailsView: View {
                                 
                                 Spacer()
                                 
-                                VStack{
-                                    HStack{
-                                        Image(systemName: "star.fill")
-                                            .foregroundColor(.yellow)
-                                            .bold()
-                                        Text("\(movie.voteAverage, specifier: "%.1f")")
+                                
+                                Button(action: {
+                                    opinionPanelIsShowing = true
+                                }) {
+                                    VStack{
+                                        HStack{
+                                            Image(systemName: "star.fill")
+                                                .foregroundColor(.yellow)
+                                                .bold()
+                                            Text("\(movie.voteAverage, specifier: "%.1f")")
+                                                .foregroundColor(.white)
+                                                .bold()
+                                        }
+                                        Text("MOVIECAT")
                                             .foregroundColor(.white)
                                             .bold()
+                                            .font(.title2)
+                                        
                                     }
-                                    Text("MOVIECAT")
-                                        .foregroundColor(.white)
-                                        .bold()
-                                        .font(.title2)
-                                    
                                 }
+                               
                                 
                             }
                             .padding(.horizontal)
@@ -292,8 +300,18 @@ struct MovieDetailsView: View {
                     }
                 }
             }
+            .blur(radius: opinionPanelIsShowing ? 4 : 0)
+            
+            if opinionPanelIsShowing {
+                AddOpinionPanel(opinionPanelIsShowing: $opinionPanelIsShowing)
+            }
+        }
+        .onAppear{
+            opinionPanelIsShowing = false
         }
         .ignoresSafeArea()
+        
+       
             
         }
         
@@ -389,5 +407,76 @@ struct MovieDetailImage: View{
 struct MovieDetails_Previews: PreviewProvider {
     static var previews: some View {
         MovieDetails(movieID: Movie.stubbedMovie.id)
+    }
+}
+
+struct AddOpinionPanel: View{
+    @State var opinion = ""
+    @Binding var opinionPanelIsShowing: Bool
+    var body: some View {
+        VStack{
+            Rectangle()
+                .frame(maxHeight: 400)
+                .padding()
+                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color("DarkRed"),Color("Red")]), startPoint: .leading, endPoint: .trailing))
+                .shadow(color:Color.black,radius: 5)
+                .overlay {
+                    VStack{
+                        HStack {
+                            Text("ADD OPINION")
+                                .foregroundColor(Color.black)
+                                .font(.system(size: 30, weight: .bold, design: .rounded))
+                                .padding()
+                            .padding(.vertical)
+                            Spacer()
+                            Button(action: {
+                                opinionPanelIsShowing = false
+                            }) {
+                                Image(systemName: "x.circle")
+                                    .foregroundColor(Color.black)
+                                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                                    .padding()
+                                    .padding(.vertical)
+                            }
+                            
+                        }
+
+                        HStack(spacing: 0){
+                            ForEach(0..<10) { num in
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.yellow)
+                                    .font(.system(size: 24, weight: .bold))
+                            }
+                        }
+                        .padding(.horizontal)
+                            TextField("Opinion", text: $opinion, axis: .vertical)
+                                .textFieldStyle(.roundedBorder)
+                                .padding()
+                        
+                        
+                        Spacer()
+                        
+                        Button(action: {}) {
+                            Rectangle()
+                                .frame(width: 200, height: 60)
+                                .foregroundColor(Color.black)
+                                .cornerRadius(12)
+                                .overlay(content: {
+                                    Text("ADD")
+                                        .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                        .foregroundColor(Color("Red"))
+                                    
+                                })
+                                .padding(.bottom,40)
+                            
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                }
+                
+            
+        }
+       
     }
 }
