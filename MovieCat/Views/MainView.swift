@@ -120,7 +120,7 @@ struct MainView_Previews: PreviewProvider {
 }
 
 enum Tab: String,CaseIterable{
-    case Home = "house.fill"
+    case Home = "popcorn.fill"
     case Search = "magnifyingglass"
     case Favorites = "heart.fill"
     case Profile = "person.fill"

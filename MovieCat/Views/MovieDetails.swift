@@ -309,10 +309,7 @@ struct MovieDetailsView: View {
         .onAppear{
             opinionPanelIsShowing = false
         }
-        .ignoresSafeArea()
-        
-       
-            
+ 
         }
         
         
@@ -395,12 +392,13 @@ struct MovieDetailImage: View{
             }
         }
         .frame(maxWidth: .infinity)
-        .cornerRadius(12)
+        .cornerRadius(20, corners: [.topLeft, .bottomLeft])
         .shadow(color: Color("DarkRed"), radius: 5)
         .aspectRatio(contentMode: .fit)
         .onAppear{
             imageLoader.loadImage(with: imageURL)
         }
+        .padding(.leading,4)
     }
 }
 
