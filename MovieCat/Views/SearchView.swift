@@ -12,7 +12,7 @@ struct SearchView: View {
     @ObservedObject var movieSearchState = MovieSearchState()
     @EnvironmentObject var user: UserViewModel
     @State private var isPushed = false
-
+    
     
     var body: some View {
         NavigationView{
@@ -74,62 +74,60 @@ struct SearchView: View {
                                 
                             )
                         }
-                    
+                        
                         
                     } else {
-//                        if(user.latestSearchedIDs.isEmpty != true){
-//                            VStack{
-//                                ForEach(user.latestSearchedIDs, id: \.self) { id in
-//                                    //FavoriteMovieLoader(movieID: Int(id)!)
-//                                    Text(id)
-//
-//                                }
-//                            }
-//
-                        }
-                            
-//                        
-//                        ForEach(self.movieSearchState.movies!) { movie in
-//                            HStack {
-//                                HStack{
-//                                    MovieImage(imageURL: movie.posterURL)
-//                                    VStack(alignment: .leading){
-//                                        Text(movie.title)
-//                                            .padding([.top, .leading, .trailing])
-//                                        Text("(\(movie.yearText))")
-//                                            .padding([.bottom, .leading, .trailing])
-//                                    }
-//                                }
-//                                       Spacer()
-//                                       Image(systemName: "chevron.right")
-//                                         .resizable()
-//                                         .aspectRatio(contentMode: .fit)
-//                                         .frame(width: 7)
-//                                         .foregroundColor(Color("DarkRed"))
-//                                     }
-//                                     .foregroundColor(.white)
-//                                     .background(
-//                                        NavigationLink(destination: MovieDetails(movieID: movie.id).onAppear{
-//                                            user.addLatestSearched(movieID: String(movie.id))
-//                                        }) {}
-//                                           .opacity(0)
-//                                     )
-//
-//                        }
-                        
+                        //                        if(user.latestSearchedIDs.isEmpty != true){
+                        //                            VStack{
+                        //                                ForEach(user.latestSearchedIDs, id: \.self) { id in
+                        //                                    //FavoriteMovieLoader(movieID: Int(id)!)
+                        //                                    Text(id)
+                        //
+                        //                                }
+                        //                            }
+                        //
                     }
                     
-                }
-                .onAppear{
-                    self.movieSearchState.startObserve()
+                    //                        
+                    //                        ForEach(self.movieSearchState.movies!) { movie in
+                    //                            HStack {
+                    //                                HStack{
+                    //                                    MovieImage(imageURL: movie.posterURL)
+                    //                                    VStack(alignment: .leading){
+                    //                                        Text(movie.title)
+                    //                                            .padding([.top, .leading, .trailing])
+                    //                                        Text("(\(movie.yearText))")
+                    //                                            .padding([.bottom, .leading, .trailing])
+                    //                                    }
+                    //                                }
+                    //                                       Spacer()
+                    //                                       Image(systemName: "chevron.right")
+                    //                                         .resizable()
+                    //                                         .aspectRatio(contentMode: .fit)
+                    //                                         .frame(width: 7)
+                    //                                         .foregroundColor(Color("DarkRed"))
+                    //                                     }
+                    //                                     .foregroundColor(.white)
+                    //                                     .background(
+                    //                                        NavigationLink(destination: MovieDetails(movieID: movie.id).onAppear{
+                    //                                            user.addLatestSearched(movieID: String(movie.id))
+                    //                                        }) {}
+                    //                                           .opacity(0)
+                    //                                     )
+                    //
+                    //                        }
+                    
                 }
                 
             }
-            .navigationTitle("Wyszukiwarka")
-            .navigationBarTitleDisplayMode(.inline)
+            .onAppear{
+                self.movieSearchState.startObserve()
+            }
+            
         }
+        .navigationTitle("Wyszukiwarka")
+        .navigationBarTitleDisplayMode(.inline)
     }
-
 }
 
 struct MovieImage: View{
