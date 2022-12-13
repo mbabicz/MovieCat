@@ -22,8 +22,10 @@ class UserViewModel: ObservableObject {
     var userIsGuest: Bool = false
     
     @Published var watchListIDs = [String]()
-
-
+    @Published var latestSearchedIDs = [String]()
+    
+    
+    
     
     
     private let auth = Auth.auth()
@@ -41,7 +43,7 @@ class UserViewModel: ObservableObject {
         user != nil && userIsAuthenticated
     }
     
-
+    
     func signUp(email: String, password: String, username: String){
         auth.createUser(withEmail: email, password: password){ (result, error) in
             if error != nil{
@@ -68,7 +70,7 @@ class UserViewModel: ObservableObject {
                 DispatchQueue.main.async{
                     //Success
                     self.sync()
-
+                    
                 }
             }
         }
@@ -85,9 +87,9 @@ class UserViewModel: ObservableObject {
                 
             }
         }
-
+        
     }
-
+    
     func resetPassword(email: String){
         auth.sendPasswordReset(withEmail: email) { error in
             if error != nil{
@@ -126,14 +128,15 @@ class UserViewModel: ObservableObject {
             }
         }
         self.getUserWatchList()
-
+        self.getLatestSearched()
+        
     }
     
     private func add(_ user: User){
         guard userIsAuthenticated else { return }
         do {
             let _ = try db.collection("Users").document(self.uuid!).setData(from: user)
-
+            
         } catch {
             print("Error adding: \(error)")
         }
@@ -192,11 +195,76 @@ class UserViewModel: ObservableObject {
                     }
                     
                 }
-
+                
             }
         }
         print("watchlist: \(self.watchListIDs)")
-
+        
     }
     
+    func getLatestSearched(){
+        let userID = Auth.auth().currentUser?.uid
+        self.latestSearchedIDs.removeAll(keepingCapacity: false)
+        
+        db.collection("Users").document(userID!).collection("Latest Searched").addSnapshotListener{ (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }
+            else {
+                if(snapshot?.isEmpty != true && snapshot != nil){
+                    
+                    self.latestSearchedIDs.removeAll(keepingCapacity: false)
+                    
+                    for document in snapshot!.documents {
+                        let documentID = document.documentID
+                        self.latestSearchedIDs.append(documentID)
+                    }
+                    
+                }
+                
+            }
+        }
+        print("latest searched: \(self.watchListIDs)")
+        
+    }
+    
+    
+    
+    func addLatestSearched(movieID: String){
+        let userID = Auth.auth().currentUser?.uid
+        let ref = db.collection("Users").document(userID!).collection("Latest Searched").document(movieID)
+        let date = ["date:" : Date.now] as [String : Any]
+        let movie = ["movieID:" : movieID] as [String : Any]
+        ref.setData(date, merge: true)
+        ref.setData(movie, merge: true)
+        
+    }
+    
+    func clearLatestSearched(){
+        let userID = Auth.auth().currentUser?.uid
+        self.latestSearchedIDs.removeAll(keepingCapacity: false)
+        
+        let ref = db.collection("Users").document(userID!).collection("Latest Searched")
+        ref.addSnapshotListener{ (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }
+            else {
+                if(snapshot?.isEmpty != true && snapshot != nil){
+                    
+                    self.latestSearchedIDs.removeAll(keepingCapacity: false)
+                    
+                    for document in snapshot!.documents {
+                        let documentID = document.documentID
+                        ref.document(documentID).delete()
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        print("latest searched: \(self.watchListIDs)")
+        
+    }
 }

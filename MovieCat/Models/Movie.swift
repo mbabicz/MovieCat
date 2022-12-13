@@ -16,7 +16,6 @@ struct MovieResponse: Decodable{
 
 struct Movie: Decodable, Identifiable {
     
-    //let budget: Int
     let id: Int
     let title: String
     let backdropPath: String?
@@ -26,8 +25,6 @@ struct Movie: Decodable, Identifiable {
     let voteCount: Int
     let runtime: Int?
     let releaseDate: String?
-    //let revenue: Int
-    
     
     var yearText: String {
         guard let releaseDate = self.releaseDate, let date = Utils.dateFormatter.date(from: releaseDate) else {
