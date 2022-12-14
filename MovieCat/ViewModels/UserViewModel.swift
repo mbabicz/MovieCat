@@ -237,6 +237,7 @@ class UserViewModel: ObservableObject {
         let movie = ["movieID:" : movieID] as [String : Any]
         ref.setData(date, merge: true)
         ref.setData(movie, merge: true)
+        print("succesfully added movie to latest searched")
         
     }
     
