@@ -148,6 +148,7 @@
 				29B4DE41292F8EF20035E75C /* MovieDetails.swift */,
 				98CE2A5A293372E300264321 /* MainView.swift */,
 				98CE2A5C2933734100264321 /* TabbarCurve.swift */,
+				98039BA92942A19200615D3D /* VideoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,7 +176,6 @@
 				29E91772294B64BF007010E2 /* Card */,
 				29E91771294B6410007010E2 /* Poster */,
 				29B4DE36292F72740035E75C /* Cell */,
-				98039BA92942A19200615D3D /* VideoView.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";

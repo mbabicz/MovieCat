@@ -114,8 +114,12 @@ struct MovieCast: Decodable, Identifiable {
     let profilePath: String?
     
     
-    var profilePathURL : URL{
-        return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")!
+    var profilePathURL : URL?{
+        return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")
+    }
+    
+    var defaultPathURL: URL{
+        return URL(string: "https://firebasestorage.googleapis.com/v0/b/moviecat-59602.appspot.com/o/profile-picture.png?alt=media&token=f6f892c4-0725-47a9-8139-187809e26084")!
     }
 }
 

@@ -166,7 +166,7 @@ struct MovieDetailsView: View {
                                         ForEach(movie.cast!.prefix(10)){ cast in
                                             GeometryReader { geometry in
                                                 VStack{
-                                                    MovieCastImage(imageURL: cast.profilePathURL)
+                                                    MovieCastImage(imageURL: cast.profilePathURL ?? cast.defaultPathURL)
                                                         .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / 20), axis: (x: 0, y: 10, z: 0))
                                                     Text(cast.name)
                                                     Text(cast.character)
@@ -369,6 +369,9 @@ struct MovieCastImage: View{
             if let image = imageLoader.image{
                 Image(uiImage: image).resizable().scaledToFit()
             }
+            else {
+                Image("profile-picture").resizable()
+            }
         }
         .frame(height: 250)
         .scaledToFill()
@@ -389,6 +392,9 @@ struct MovieDetailImage: View{
         ZStack{
             if let image = imageLoader.image{
                 Image(uiImage: image).resizable()
+            }
+            else {
+                Image("profile-picture").resizable()
             }
         }
         .frame(maxWidth: .infinity)
