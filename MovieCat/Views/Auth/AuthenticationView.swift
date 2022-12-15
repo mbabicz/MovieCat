@@ -45,8 +45,7 @@ struct AuthenticationView: View {
                             .rotationEffect(Angle(degrees:showSignUp ? 20 : 70))
                             .shadow(color: Color.black, radius: 5, x: 10, y: 10)
                             .offset(x:showSignUp ? getRect().width / 2 : -getRect().width / 2 , y: -height / 1.2)
-                           
-                    
+                        
                     }
                 
                 )
@@ -69,7 +68,6 @@ struct AuthenticationView: View {
             .padding(.top, -maxRectangleHeight / 1.4)
             .frame(maxHeight: .infinity, alignment: .top)
             
-            
             VStack{
                 Text(showSignUp ? "Already Member ?" : "New Member ?")
                     .font(.headline)
@@ -86,7 +84,6 @@ struct AuthenticationView: View {
                 }
                 
                 Button {
-
                     user.singInAnonymously()
                     
                 } label: {
@@ -132,9 +129,13 @@ struct AuthenticationView: View {
 }
 
 struct AuthenticationView_Previews: PreviewProvider {
+    
+    static let myEnvObject = UserViewModel()
+
     static var previews: some View {
         AuthenticationView()
             .preferredColorScheme(.dark)
+            .environmentObject(myEnvObject)
     }
 }
 

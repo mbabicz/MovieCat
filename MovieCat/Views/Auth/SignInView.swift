@@ -163,9 +163,7 @@ struct ResetPasswordView: View {
                                     .font(.headline)
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                        }
-                            
-                           
+                        }                           
                             
                             
                     }

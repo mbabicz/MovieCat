@@ -21,7 +21,7 @@ struct HomeView: View {
                     if nowPlayingState.movies != nil {
                         MoviePosterCardCarousel(title: "IN CINEMA", movies: nowPlayingState.movies!)
                     } else {
-                        LoadingCardView(isLoading: nowPlayingState.isLoading, error: nowPlayingState.error){
+                        LoadingView(isLoading: nowPlayingState.isLoading, error: nowPlayingState.error){
                             self.nowPlayingState.loadMovies(with: .nowPlaying)
                             
                         }
@@ -34,7 +34,7 @@ struct HomeView: View {
                     if upcomingState.movies != nil {
                         MoviePosterCardCarousel(title: "UPCOMING", movies: upcomingState.movies!)
                     } else {
-                        LoadingCardView(isLoading: upcomingState.isLoading, error: upcomingState.error){
+                        LoadingView(isLoading: upcomingState.isLoading, error: upcomingState.error){
                             self.upcomingState.loadMovies(with: .upcoming)
                             
                         }
@@ -49,7 +49,7 @@ struct HomeView: View {
                     if topRatedState.movies != nil {
                         MoviePosterCardCarousel(title: "TOP RATED", movies: topRatedState.movies!)
                     } else {
-                        LoadingCardView(isLoading: topRatedState.isLoading, error: topRatedState.error){
+                        LoadingView(isLoading: topRatedState.isLoading, error: topRatedState.error){
                             self.topRatedState.loadMovies(with: .topRated)
                             
                         }
@@ -64,7 +64,7 @@ struct HomeView: View {
                     if popularState.movies != nil {
                         MoviePosterCardCarousel(title: "POPULAR", movies: popularState.movies!)
                     } else {
-                        LoadingCardView(isLoading: popularState.isLoading, error: popularState.error){
+                        LoadingView(isLoading: popularState.isLoading, error: popularState.error){
                             self.popularState.loadMovies(with: .popular)
                             
                         }

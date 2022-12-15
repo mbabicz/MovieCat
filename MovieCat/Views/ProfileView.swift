@@ -54,7 +54,12 @@ struct ProfileView: View {
 }
 
 struct ProfileView_Previews: PreviewProvider {
+    
+    static let myEnvObject = UserViewModel()
+
     static var previews: some View {
         ProfileView()
+            .environmentObject(myEnvObject)
+
     }
 }

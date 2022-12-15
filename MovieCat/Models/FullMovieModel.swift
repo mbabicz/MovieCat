@@ -27,8 +27,6 @@ struct FullMovieModel: Decodable, Identifiable {
     let credits: MovieCredit?
     
     
-
-    
     var yearText: String {
         guard let releaseDate = self.releaseDate, let date = Utils.dateFormatter.date(from: releaseDate) else {
             return ""

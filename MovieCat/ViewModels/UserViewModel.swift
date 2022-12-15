@@ -24,10 +24,6 @@ class UserViewModel: ObservableObject {
     @Published var watchListIDs = [String]()
     @Published var latestSearchedIDs = [String]()
     
-    
-    
-    
-    
     private let auth = Auth.auth()
     private let db = Firestore.firestore()
     

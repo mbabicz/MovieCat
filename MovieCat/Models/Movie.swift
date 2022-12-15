@@ -13,7 +13,6 @@ struct MovieResponse: Decodable{
 
 }
 
-
 struct Movie: Decodable, Identifiable {
     
     let id: Int

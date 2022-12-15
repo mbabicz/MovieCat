@@ -32,9 +32,9 @@ struct MainView: View {
               
                 .tag(Tab.Search)
             
-            FavoritesView()
+            WatchListView()
                
-                .tag(Tab.Favorites)
+                .tag(Tab.WatchList)
             
             ProfileView()
               
@@ -122,7 +122,7 @@ struct MainView_Previews: PreviewProvider {
 enum Tab: String,CaseIterable{
     case Home = "popcorn.fill"
     case Search = "magnifyingglass"
-    case Favorites = "heart.fill"
+    case WatchList = "heart.fill"
     case Profile = "person.fill"
 }
 

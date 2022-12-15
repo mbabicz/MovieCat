@@ -66,9 +66,7 @@ struct SignUpView: View {
                                 .foregroundColor(Color.white)
                                 .font(.headline)
                     }
-                        
-                       
-                        
+                                                
                         
                 }
                 Divider().background(Color("Red").opacity(0.5))

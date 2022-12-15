@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoadingCardView: View {
+struct LoadingView: View {
     
     let isLoading: Bool
     let error: NSError?
@@ -42,8 +42,8 @@ struct LoadingCardView: View {
     }
 }
 
-struct LoadingCardView_Previews: PreviewProvider {
+struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingCardView(isLoading: true, error: nil, retryAction: nil)
+        LoadingView(isLoading: true, error: nil, retryAction: nil)
     }
 }

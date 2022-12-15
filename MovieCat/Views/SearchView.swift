@@ -20,7 +20,7 @@ struct SearchView: View {
                 SearchBarView(placeholder: "Search movies", text: self.$movieSearchState.query)
                     .listRowInsets(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
                 
-                LoadingCardView(isLoading: self.movieSearchState.isLoading, error: self.movieSearchState.error) {
+                LoadingView(isLoading: self.movieSearchState.isLoading, error: self.movieSearchState.error) {
                     self.movieSearchState.search(query: self.movieSearchState.query)
                 }
                 if self.movieSearchState.movies != nil {
@@ -29,26 +29,22 @@ struct SearchView: View {
                             //TODO: find solution to call this method
                             //user.addLatestSearched(movieID: String(movie.id))
                         }){
-                            HStack {
-                                HStack{
-                                    MovieImage(imageURL: movie.posterURL)
-                                    VStack(alignment: .leading){
-                                        Text(movie.title)
-                                            .padding([.top, .leading, .trailing])
-                                            .foregroundColor(.white)
-                                        Text("(\(movie.yearText))")
-                                            .padding([.bottom, .leading, .trailing])
-                                            .foregroundColor(.white)
-                                        
-                                    }
-                                }
-                                Spacer()
-                                //                                        Image(systemName: "chevron.right")
-                                //                                            .resizable()
-                                //                                            .aspectRatio(contentMode: .fit)
-                                //                                            .frame(width: 7)
-                                //                                            .foregroundColor(Color("DarkRed"))
-                            }
+                            MovieCell(movieID: movie.id)
+//                            HStack {
+//                                HStack{
+//                                    MovieImage(imageURL: movie.posterURL)
+//                                    VStack(alignment: .leading){
+//                                        Text(movie.title)
+//                                            .padding([.top, .leading, .trailing])
+//                                            .foregroundColor(.white)
+//                                        Text("(\(movie.yearText))")
+//                                            .padding([.bottom, .leading, .trailing])
+//                                            .foregroundColor(.white)
+//
+//                                    }
+//                                }
+//                                Spacer()
+//                            }
                             Divider()
                                 .foregroundColor(.white)
                         }
@@ -56,7 +52,6 @@ struct SearchView: View {
                 }
                 else {
                     if user.latestSearchedIDs.isEmpty != true {
-                        //List{
                         VStack{
                             HStack{
                                 Text("Recently Searched")
@@ -67,22 +62,22 @@ struct SearchView: View {
                                     HStack{
                                         Image(systemName: "xmark.circle")
                                         Text("Clear")
-
+                                        
                                     }
                                 }
-
+                                
                             }
                             List(user.latestSearchedIDs, id: \.self) { id in
-                                MovieCardLoader(movieID: Int(id)!)
-
+                                MovieCell(movieID: Int(id)!)
+                                
                             }
                         }
-  
+                        
                     }
                     else{
                         Text("Search movie")
                     }
-
+                    
                 }
                 
                 
@@ -100,81 +95,11 @@ struct SearchView: View {
     }
 }
 
-
-struct MovieCardLoader: View{
-    
-    let movieID: Int
-    @ObservedObject private var movieDetailState = MovieDetailState()
-
-
-    var body: some View{
-        ZStack{
-            LoadingCardView(isLoading: self.movieDetailState.isLoading, error: self.movieDetailState.error){
-                self.movieDetailState.loadMovie(id: self.movieID)
-            }
-            
-            if movieDetailState.movie != nil {
-                MovieCardx(movie: self.movieDetailState.movie!)
-            }
-        }
-        
-        .onAppear{
-            self.movieDetailState.loadMovie(id: self.movieID)
-        }
-    }
-    
-}
-
-struct MovieCardx: View{
-    
-    let movie: FullMovieModel
-    @ObservedObject var imageLoader = ImageLoader()
-    
-    var body: some View{
- 
-        HStack {
-            HStack{
-                MovieImage(imageURL: movie.posterURL)
-                VStack(alignment: .leading){
-                    Text(movie.title)
-                        .padding([.top, .leading, .trailing])
-                    HStack{
-                        Text("(\(movie.yearText))")
-                        Text("\(movie.durationText)")
-                    }
-                    .padding([ .leading, .trailing])
-                    HStack{
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
-                            .bold()
-                        Text("\(movie.voteAverage, specifier: "%.1f")")
-                            .foregroundColor(.white)
-                            .bold()
-                    }
-                    .padding([.bottom, .leading, .trailing])
-                }
-            }
-                   Spacer()
-                   Image(systemName: "chevron.right")
-                     .resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .frame(width: 7)
-                     .foregroundColor(Color("DarkRed"))
-                 }
-                 .foregroundColor(.white)
-                 .background(
-                    NavigationLink(destination: MovieDetails(movieID: movie.id)) {}
-                       .opacity(0)
-                 )
-    }
-    
-}
-
 struct MovieImage: View{
-    
+
     @StateObject private var imageLoader = ImageLoader()
     let imageURL: URL
-    
+
     var body: some View{
         ZStack{
             if let image = imageLoader.image{
@@ -190,7 +115,11 @@ struct MovieImage: View{
 }
 
 struct SearchView_Previews: PreviewProvider {
+    
+    static let myEnvObject = UserViewModel()
+
     static var previews: some View {
         SearchView()
+            .environmentObject(myEnvObject)
     }
 }
