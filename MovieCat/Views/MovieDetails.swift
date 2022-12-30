@@ -11,7 +11,8 @@ struct MovieDetails: View {
     
     let movieID: Int
     @ObservedObject var imageLoader = ImageLoader()
-    
+    @EnvironmentObject var user: UserViewModel
+
     @ObservedObject private var movieDetailState = MovieDetailState()
 
     var body: some View{
@@ -33,6 +34,17 @@ struct MovieDetails: View {
 }
 
 struct MovieDetailsView: View {
+    
+    @EnvironmentObject var movieVM: MovieViewModel
+    
+    //RATES N REVIEWS
+    @State private var rate = [Int]()
+    @State private var review = [String]()
+    @State private var ratedByUID = [String]()
+    @State private var ratedBy = [String]()
+    @State private var ratesTotal: Int = 0
+    @State private var ratesCount: Int = 0
+    @State private var ratesAvarage: Double = 0.0
     
     let movie: FullMovieModel
     @ObservedObject var imageLoader = ImageLoader()
@@ -110,7 +122,7 @@ struct MovieDetailsView: View {
                                             Image(systemName: "star.fill")
                                                 .foregroundColor(.yellow)
                                                 .bold()
-                                            Text("\(movie.voteAverage, specifier: "%.1f")")
+                                            Text("\(self.ratesAvarage, specifier: "%.1f")")
                                                 .foregroundColor(.white)
                                                 .bold()
                                         }
@@ -120,8 +132,8 @@ struct MovieDetailsView: View {
                                             .font(.title2)
                                         
                                     }
+                                    
                                 }
-                               
                                 
                             }
                             .padding(.horizontal)
@@ -293,6 +305,33 @@ struct MovieDetailsView: View {
                             
                         }
                         
+                        HStack{
+                            Text("Opinie -> do ogarniecia ")
+                                .bold()
+                                .font(.title2)
+                                .padding(.top)
+                            Text("(\(self.ratesTotal))").font(.callout).offset(y: 10)
+                        }
+                        
+                        if(self.rate != []){
+                            HStack{
+                                ForEach(0 ..< self.ratesTotal, id: \.self){ id in
+                                
+                                    //Text(\(self.rate[id]))
+                                    Text(String(self.rate[id]))
+                                    Text(self.review[id])
+                                    Text(self.ratedBy[id])
+                                    
+                                }
+                            }
+
+
+                        }
+                        else {
+                            Text("Ten produkt nie ma jeszcze żadnej opini")
+
+                        }
+                        
                         Rectangle()
                             .foregroundColor(.black)
                         
@@ -303,17 +342,31 @@ struct MovieDetailsView: View {
             .blur(radius: opinionPanelIsShowing ? 4 : 0)
             
             if opinionPanelIsShowing {
-                AddOpinionPanel(opinionPanelIsShowing: $opinionPanelIsShowing)
+                AddOpinionPanel(opinionPanelIsShowing: $opinionPanelIsShowing, movieID: movie.id)
             }
         }
         .onAppear{
             opinionPanelIsShowing = false
+            movieVM.getMovieReviews(movieID: String(movie.id)){ uid, rates, reviews, username, rateCount, rateTotal, rateAvarage in
+                
+                rate = rates
+                review = reviews
+                ratedByUID = uid
+                ratedBy = username
+                ratesCount = rateCount
+                ratesTotal = rateTotal
+                ratesAvarage = rateAvarage
+                
+                
+            }
+            
+            
         }
- 
-        }
-        
         
     }
+    
+    
+}
 
 
 
@@ -414,9 +467,38 @@ struct MovieDetails_Previews: PreviewProvider {
     }
 }
 
+class TextLimiter: ObservableObject {
+    private let limit: Int
+    init(limit: Int){
+        self.limit = limit
+    }
+    
+    @Published var text = ""{
+        didSet{
+            if text.count > self.limit {
+                text = String(text.prefix(self.limit))
+                self.hasReachedLimit = true
+            }else {
+                self.hasReachedLimit = false
+            }
+        }
+    }
+    @Published var hasReachedLimit = false
+    
+}
+
 struct AddOpinionPanel: View{
-    @State var opinion = ""
+    @ObservedObject var opinion = TextLimiter(limit: 300)
     @Binding var opinionPanelIsShowing: Bool
+    @State private var rating: Int?
+    @EnvironmentObject var user: UserViewModel
+    @EnvironmentObject var movieVM: MovieViewModel
+
+    let movieID: Int
+
+
+
+
     var body: some View {
         VStack{
             Rectangle()
@@ -445,22 +527,28 @@ struct AddOpinionPanel: View{
                             
                         }
 
-                        HStack(spacing: 0){
-                            ForEach(0..<10) { num in
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.yellow)
-                                    .font(.system(size: 24, weight: .bold))
-                            }
-                        }
-                        .padding(.horizontal)
-                            TextField("Opinion", text: $opinion, axis: .vertical)
+                        RatingStars(rating: $rating, max: 10)
+                        TextField("Opinion", text: $opinion.text, axis: .vertical)
                                 .textFieldStyle(.roundedBorder)
                                 .padding()
                         
                         
                         Spacer()
                         
-                        Button(action: {}) {
+                        Button {
+                            if opinion.text.count < 1 || rating == nil {
+                                //TODO: notify about err
+
+                            }
+                            else if opinion.text.count < 5 && rating != nil {
+                                //TODO: notify about err
+
+                            }
+                            else {
+                                movieVM.addReview(movieID: String(movieID), rating: rating!, review: opinion.text, username: user.user!.username)
+
+                            }
+                        } label: {
                             Rectangle()
                                 .frame(width: 200, height: 60)
                                 .foregroundColor(Color.black)
@@ -472,8 +560,8 @@ struct AddOpinionPanel: View{
                                     
                                 })
                                 .padding(.bottom,40)
-                            
                         }
+
                     }
                     .padding(.horizontal)
                     
@@ -483,4 +571,37 @@ struct AddOpinionPanel: View{
         }
        
     }
+}
+
+struct RatingStars: View {
+    
+    @Binding var rating: Int?
+    var max: Int = 5
+    
+    var body: some View {
+        HStack(spacing: 2) {
+            
+            ForEach(1..<(max+1), id: \.self) { index in
+                Image(systemName: self.starType(index: index))
+                    .font(.title)
+                    .foregroundColor(Color.orange)
+                    .onTapGesture {
+                        self.rating = index
+                    }
+            }
+            
+            
+        }
+        .padding([.bottom, .trailing, .leading])
+    }
+    
+    func starType(index: Int) -> String {
+        if let rating = self.rating {
+            return index <= rating ? "star.fill" : "star"
+        }
+        else {
+            return "star"
+        }
+    }
+    
 }

@@ -30,21 +30,7 @@ struct SearchView: View {
                             //user.addLatestSearched(movieID: String(movie.id))
                         }){
                             MovieCell(movieID: movie.id)
-//                            HStack {
-//                                HStack{
-//                                    MovieImage(imageURL: movie.posterURL)
-//                                    VStack(alignment: .leading){
-//                                        Text(movie.title)
-//                                            .padding([.top, .leading, .trailing])
-//                                            .foregroundColor(.white)
-//                                        Text("(\(movie.yearText))")
-//                                            .padding([.bottom, .leading, .trailing])
-//                                            .foregroundColor(.white)
-//
-//                                    }
-//                                }
-//                                Spacer()
-//                            }
+
                             Divider()
                                 .foregroundColor(.white)
                         }
@@ -76,6 +62,12 @@ struct SearchView: View {
                     }
                     else{
                         Text("Search movie")
+                        Button {
+                            self.movieSearchState.startObserve()
+                        } label: {
+                            Text("observer")
+                        }
+
                     }
                     
                 }

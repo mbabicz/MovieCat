@@ -16,8 +16,11 @@ struct MovieCatApp: App {
     var body: some Scene {
         WindowGroup {
             let user = UserViewModel()
+            let movieVM = MovieViewModel()
+
             ContentView()
                 .environmentObject(user)
+                .environmentObject(movieVM)
         }
         
     }

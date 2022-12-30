@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 class MovieDetailState: ObservableObject {
     
     private let movieService: MovieService
@@ -33,4 +34,5 @@ class MovieDetailState: ObservableObject {
             }
         }
     }
+    
 }
