@@ -25,15 +25,11 @@ struct SearchView: View {
                 }
                 if self.movieSearchState.movies != nil {
                     List(self.movieSearchState.movies!) { movie in
-                        NavigationLink(destination: MovieDetails(movieID: movie.id).onAppear{
-                            //TODO: find solution to call this method
-                            //user.addLatestSearched(movieID: String(movie.id))
-                        }){
+                      
                             MovieCell(movieID: movie.id)
 
-                            Divider()
-                                .foregroundColor(.white)
-                        }
+                          
+                        
                     }
                 }
                 else {
@@ -75,15 +71,17 @@ struct SearchView: View {
                 
                 Spacer()
             }
+            .navigationBarTitle("Search")
+            .navigationBarTitleDisplayMode(NavigationBarItem.TitleDisplayMode.inline)
+
             
         }
         
-        .listStyle(.grouped)
+        .listStyle(.sidebar)
         .scrollContentBackground(.hidden)
         .onAppear {
             self.movieSearchState.startObserve()
         }
-        .navigationBarTitle("Search")
     }
 }
 

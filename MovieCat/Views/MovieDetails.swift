@@ -305,31 +305,39 @@ struct MovieDetailsView: View {
                             
                         }
                         
-                        HStack{
-                            Text("Opinie -> do ogarniecia ")
-                                .bold()
-                                .font(.title2)
-                                .padding(.top)
-                            Text("(\(self.ratesTotal))").font(.callout).offset(y: 10)
-                        }
-                        
-                        if(self.rate != []){
+                        VStack(alignment: .leading, spacing: 0){
                             HStack{
-                                ForEach(0 ..< self.ratesTotal, id: \.self){ id in
-                                
-                                    //Text(\(self.rate[id]))
-                                    Text(String(self.rate[id]))
-                                    Text(self.review[id])
-                                    Text(self.ratedBy[id])
+                                Text("Reviews")
+                                    .foregroundColor(Color("Red"))
+                                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                Text("[\(self.ratesTotal)]")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                            }
+                            .padding()
+                            
+                            
+                            
+                            if(self.rate != []){
+                                ScrollView(.horizontal, showsIndicators: false){
+                                    HStack{
+                                        ForEach(0 ..< self.ratesTotal, id: \.self){ id in
+                                            
+                                     
+                                                ReviewsView(rate: String(self.rate[id]), review: self.review[id], ratedby: self.ratedBy[id])
+                                            
+                                            .frame( maxWidth: 250)
+                                            
+                                            
+                                        }
+                                    }
                                     
                                 }
                             }
-
-
-                        }
-                        else {
-                            Text("Ten produkt nie ma jeszcze żadnej opini")
-
+                            else {
+                                Text("Ten produkt nie ma jeszcze żadnej opini")
+                                
+                            }
                         }
                         
                         Rectangle()
@@ -496,9 +504,6 @@ struct AddOpinionPanel: View{
 
     let movieID: Int
 
-
-
-
     var body: some View {
         VStack{
             Rectangle()
@@ -605,3 +610,54 @@ struct RatingStars: View {
     }
     
 }
+
+struct ReviewsView: View{
+    
+    let rate: String
+    let review: String
+    let ratedby: String
+    
+    var body: some View{
+        ZStack(alignment: .top){
+            
+            Rectangle()
+                .foregroundColor(Color("DarkRed").opacity(0.5))
+                .frame(height: 250)
+                .cornerRadius(12)
+            
+            VStack(alignment: .leading){
+                Rectangle()
+                    .foregroundColor(Color("DarkRed"))
+                    .shadow(color: .black, radius: 5, y: 5)
+                    .frame(height: 60)
+                    .cornerRadius(12)
+                    .overlay(content: {
+                        HStack{
+                            Text(ratedby)
+                            
+                            Spacer()
+                            
+                            Text(rate)
+                            Image(systemName: "star.fill")
+                                .bold()
+                                .foregroundColor(.yellow)
+                        }
+                        .padding(.horizontal)
+                    })
+                Rectangle()
+                    .foregroundColor(.pink).opacity(0)
+                    .frame(height: 190,alignment: .topLeading)
+                    .cornerRadius(12)
+                    .overlay(content: {
+                        Text(review)
+                            .frame(maxWidth: .infinity, maxHeight: 180, alignment: .topLeading)
+                            .padding()
+                    })
+                
+            }
+            
+        }
+        .frame(width: 250)
+    }
+}
+
