@@ -40,6 +40,8 @@ struct SignInView: View {
                                 .foregroundColor(Color.white)
                                 .font(.headline)
                     }
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
                         
                        
                         

@@ -39,6 +39,9 @@ class UserViewModel: ObservableObject {
         user != nil && userIsAuthenticated
     }
     
+    var userIsAnonymous: Bool{
+        auth.currentUser?.email == nil
+    }
     
     func signUp(email: String, password: String, username: String){
         auth.createUser(withEmail: email, password: password){ (result, error) in
@@ -98,6 +101,31 @@ class UserViewModel: ObservableObject {
                 self.showingAlert = true
             }
         }
+        
+    }
+    
+    func changePassword(email: String, currentPassword: String, newPassword: String){
+        let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+//        auth.currentUser?.reauthenticate(with: credential) { error, c  in
+//            if error != nil{
+//                self.alertTitle = "Error"
+//                self.alertMessage = "Something went wrong"
+//                self.showingAlert = true
+//            } else {
+//                self.auth.currentUser?.updatePassword(to: newPassword) { error in
+//                    if error != nil{
+//                        self.alertTitle = "Error"
+//                        self.alertMessage = error?.localizedDescription ?? "Something went wrong"
+//                        self.showingAlert = true
+//                    } else {
+//                        self.alertTitle = "Succes"
+//                        self.alertMessage = "Password has beed changed succesfull."
+//                        self.showingAlert = true
+//                    }
+//                }
+//            }
+//        }
+
         
     }
     

@@ -14,7 +14,7 @@ struct MovieDetails: View {
     @EnvironmentObject var user: UserViewModel
 
     @ObservedObject private var movieDetailState = MovieDetailState()
-
+    
     var body: some View{
         ZStack{
             LoadingView(isLoading: self.movieDetailState.isLoading, error: self.movieDetailState.error){
@@ -59,7 +59,6 @@ struct MovieDetailsView: View {
                 
                 VStack {
                     MovieDetailImage(imageURL: movie.backdropURL)
-                    
                     
                     Rectangle()
                         .foregroundColor(Color("DarkRed"))
@@ -335,9 +334,29 @@ struct MovieDetailsView: View {
                                 }
                             }
                             else {
-                                Text("Ten produkt nie ma jeszcze żadnej opini")
+                                Text("This product has no reviews yes")
                                 
                             }
+                            Button {
+                                if user.userIsAnonymous{
+                                    //TODO: notify about err
+                                }
+                                else {
+                                    opinionPanelIsShowing = true
+                                }
+                            } label: {
+                                Rectangle()
+                                    .frame(height: 60)
+                                    .foregroundColor(Color("DarkRed"))
+                                    .padding()
+                                    .overlay(content: {
+                                        
+                                        Text("DODAJ OPINIE")
+                                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                            .foregroundColor(.white)
+                                    })
+                            }
+
                         }
                         
                         Rectangle()

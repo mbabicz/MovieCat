@@ -63,24 +63,22 @@ struct ProfileView: View {
                         }
                         Spacer()
                     }
-                    
-                    Button(action: {
-                        
-                    }, label: {
-                        Rectangle()
-                            .frame(height: 60)
-                            .foregroundColor(Color("DarkRed"))
-                            .padding()
-                            .overlay(content: {
-                                
-                                Text("CHANGE PASSWORD")
-                                    .font(.system(size: 20, weight: .semibold, design: .rounded))
-                                    .foregroundColor(.white)
-                            })
-                    })
-                    Button(action: {
-                        
-                    }, label: {
+                    if !user.userIsAnonymous{
+                        NavigationLink(destination: ChangePasswordView(), label: {
+                            Rectangle()
+                                .frame(height: 60)
+                                .foregroundColor(Color("DarkRed"))
+                                .padding()
+                                .overlay(content: {
+                                    
+                                    Text("CHANGE PASSWORD")
+                                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                        .foregroundColor(.white)
+                                })
+                        })
+                    }
+
+                    NavigationLink(destination: ThemesView(), label: {
                         Rectangle()
                             .frame(height: 60)
                             .foregroundColor(Color("DarkRed"))
@@ -92,9 +90,7 @@ struct ProfileView: View {
                                     .foregroundColor(.white)
                             })
                     })
-                    Button(action: {
-                        
-                    }, label: {
+                    NavigationLink(destination: AppInfoView(), label: {
                         Rectangle()
                             .frame(height: 60)
                             .foregroundColor(Color("DarkRed"))
@@ -109,7 +105,7 @@ struct ProfileView: View {
                     
                     Spacer()
                     
-                    if auth.currentUser?.email != nil{
+                    if !user.userIsAnonymous{
                         Button(action: {
                             
                             user.signOut()
@@ -184,3 +180,199 @@ struct ProfileView_Previews: PreviewProvider {
 
     }
 }
+
+struct AppInfoView: View{
+    
+    var body: some View {
+        Text("appinfo view")
+    }
+
+}
+
+struct ChangePasswordView: View{
+    
+    @State var password = ""
+    @State var newPassword = ""
+    @State var newPassword2 = ""
+    
+    @State var isSecured: Bool = true
+    @State var isSecured2: Bool = true
+    @State var isSecured3: Bool = true
+
+
+
+    
+    @EnvironmentObject var user: UserViewModel
+    
+    @State var isAnimating: Bool = false
+
+    var body: some View {
+        VStack {
+            VStack{
+                VStack{
+                    
+                    HStack{
+                        
+                        Image(systemName: "lock.square.fill")
+                            .foregroundColor(Color.white)
+                        
+                        Group{
+                            if isSecured {
+                                SecureField("", text: $password)
+                                    .placeholder(when: password.isEmpty){
+                                        Text("Current password")
+                                            .foregroundColor(Color.white)
+                                            .font(.headline)
+                                    }
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                  
+                            } else {
+                                TextField("", text: $password)
+                                    .placeholder(when: password.isEmpty){
+                                        Text("Current password")
+                                            .foregroundColor(Color.white)
+                                            .font(.headline)
+                                    }
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                    
+                            }
+                        }
+                        Button {
+                            isSecured.toggle()
+                        } label: {
+                            Image(systemName: self.isSecured ? "eye.slash" : "eye").accentColor(Color("DarkRed"))
+                        }.padding()
+                    }
+                    
+                    Divider().background(Color("Red"))
+                    HStack{
+                        
+                        Image(systemName: "lock.square.fill")
+                            .foregroundColor(Color.white)
+                        
+                        Group{
+                            if isSecured2 {
+                                SecureField("", text: $newPassword)
+                                    .placeholder(when: newPassword.isEmpty){
+                                        Text("New password")
+                                            .foregroundColor(Color.white)
+                                            .font(.headline)
+                                    }
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                  
+                            } else {
+                                TextField("", text: $newPassword)
+                                    .placeholder(when: newPassword.isEmpty){
+                                        Text("New password")
+                                            .foregroundColor(Color.white)
+                                            .font(.headline)
+                                    }
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                    
+                            }
+                        }
+                        Button {
+                            isSecured2.toggle()
+                        } label: {
+                            Image(systemName: self.isSecured ? "eye.slash" : "eye").accentColor(Color("DarkRed"))
+                        }.padding()
+                    }
+                    
+                    Divider().background(Color("Red"))
+
+                    HStack{
+                        
+                        Image(systemName: "lock.square.fill")
+                            .foregroundColor(Color.white)
+                        
+                        Group{
+                            if isSecured3 {
+                                SecureField("", text: $newPassword2)
+                                    .placeholder(when: newPassword2.isEmpty){
+                                        Text("Repeat new password")
+                                            .foregroundColor(Color.white)
+                                            .font(.headline)
+                                    }
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                  
+                            } else {
+                                TextField("", text: $newPassword2)
+                                    .placeholder(when: newPassword2.isEmpty){
+                                        Text("Repeat new password")
+                                            .foregroundColor(Color.white)
+                                            .font(.headline)
+                                    }
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                    
+                            }
+                        }
+                        Button {
+                            isSecured3.toggle()
+                        } label: {
+                            Image(systemName: self.isSecured ? "eye.slash" : "eye").accentColor(Color("DarkRed"))
+                        }.padding()
+                    }
+                    
+                    
+                    Divider().background(Color("Red"))
+                    
+                }
+                .padding(.top)
+                
+                Button {
+                    if !password.isEmpty && !newPassword.isEmpty && !newPassword2.isEmpty {
+                        if newPassword == newPassword2{
+                            user.changePassword(email: user.user!.userEmail, currentPassword: password, newPassword: newPassword)
+
+                        } else {
+                            //TODO: notify bout error
+    //                        user.alertTitle = "Error"
+    //                        user.alertMessage = "New password fields must be the same"
+    //                        user.showingAlert = true
+                        }
+                    } else {
+                        
+                        //TODO: notify bout error
+//                        user.alertTitle = "Error"
+//                        user.alertMessage = "Field cannot be empty"
+//                        user.showingAlert = true
+                    }
+                    
+                } label: {
+                    Text("Reset Password")
+                        .frame(width: 200, height: 50)
+                        .bold()
+                        .foregroundColor(Color.white)
+                        .background(Color("DarkRed"))
+                        .padding()
+                }
+                Spacer()
+                
+                
+            }
+            .padding()
+            Spacer()
+        }
+        .edgesIgnoringSafeArea(.bottom)
+        
+        .navigationTitle("Change Password")
+        
+    }
+
+}
+
+struct ThemesView: View{
+    
+    var body: some View {
+        Text("ThemesView")
+    }
+
+}
+
+
