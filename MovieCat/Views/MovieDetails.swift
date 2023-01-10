@@ -29,6 +29,7 @@ struct MovieDetails: View {
         .onAppear{
             self.movieDetailState.loadMovie(id: self.movieID)
         }
+        
     }
     
 }
@@ -339,7 +340,10 @@ struct MovieDetailsView: View {
                             }
                             Button {
                                 if user.userIsAnonymous{
-                                    //TODO: notify about err
+                                    user.alertTitle = "Error"
+                                    user.alertMessage = "You must be logged in to add review"
+                                    user.showingAlert = true
+                                    
                                 }
                                 else {
                                     opinionPanelIsShowing = true
@@ -386,8 +390,14 @@ struct MovieDetailsView: View {
                 
                 
             }
-            
-            
+
+        }
+        .alert(isPresented: $user.showingAlert){
+            Alert(
+                title: Text(user.alertTitle),
+                message: Text(user.alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
         }
         
     }
@@ -561,12 +571,14 @@ struct AddOpinionPanel: View{
                         
                         Button {
                             if opinion.text.count < 1 || rating == nil {
-                                //TODO: notify about err
-
+                                user.alertTitle = "Error"
+                                user.alertMessage = "Review and rating cannot be empty"
+                                user.showingAlert = true
                             }
                             else if opinion.text.count < 5 && rating != nil {
-                                //TODO: notify about err
-
+                                user.alertTitle = "Error"
+                                user.alertMessage = "Review must be longer than 5 characters"
+                                user.showingAlert = true
                             }
                             else {
                                 movieVM.addReview(movieID: String(movieID), rating: rating!, review: opinion.text, username: user.user!.username)

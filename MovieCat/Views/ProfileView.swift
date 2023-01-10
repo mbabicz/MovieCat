@@ -160,7 +160,13 @@ struct ProfileView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Account")
                 
-            
+                .alert(isPresented: $user.showingAlert){
+                    Alert(
+                        title: Text(user.alertTitle),
+                        message: Text(user.alertMessage),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
             
             
             
@@ -168,6 +174,7 @@ struct ProfileView: View {
         }
         
     }
+    
 }
 
 struct ProfileView_Previews: PreviewProvider {
@@ -328,20 +335,29 @@ struct ChangePasswordView: View{
                 Button {
                     if !password.isEmpty && !newPassword.isEmpty && !newPassword2.isEmpty {
                         if newPassword == newPassword2{
-                            user.changePassword(email: user.user!.userEmail, currentPassword: password, newPassword: newPassword)
+                            user.changePassword(email: user.user!.userEmail, currentPassword: password, newPassword: newPassword){ error in
+                                if error != nil {
+                                    user.alertTitle = "Error"
+                                    user.alertMessage = error?.localizedDescription ?? "Something went wrong"
+                                    user.showingAlert = true
+                                } else {
+                                    user.alertTitle = "Succes"
+                                    user.alertMessage = "Password has been changed succesfully"
+                                    user.showingAlert = true
+                                    
+                                }
+                            }
 
                         } else {
-                            //TODO: notify bout error
-    //                        user.alertTitle = "Error"
-    //                        user.alertMessage = "New password fields must be the same"
-    //                        user.showingAlert = true
+                            user.alertTitle = "Error"
+                            user.alertMessage = "New password fields must be the same"
+                            user.showingAlert = true
                         }
                     } else {
                         
-                        //TODO: notify bout error
-//                        user.alertTitle = "Error"
-//                        user.alertMessage = "Field cannot be empty"
-//                        user.showingAlert = true
+                        user.alertTitle = "Error"
+                        user.alertMessage = "Field cannot be empty"
+                        user.showingAlert = true
                     }
                     
                 } label: {
@@ -364,6 +380,8 @@ struct ChangePasswordView: View{
         .navigationTitle("Change Password")
         
     }
+    
+    
 
 }
 
