@@ -28,33 +28,6 @@ struct SearchView: View {
 
                     }
                 }
-//                else {
-//                    if user.latestSearchedIDs.isEmpty != true {
-//                        VStack{
-//                            HStack{
-//                                Text("Recently Searched")
-//                                    .padding(.leading)
-//                                Spacer()
-//                                Button {
-//                                    user.clearLatestSearched()
-//                                } label: {
-//                                    HStack{
-//                                        Image(systemName: "xmark.circle")
-//                                        Text("Clear")
-//                                            .padding(.trailing)
-//
-//                                    }
-//                                }
-//
-//                            }
-//                            List(user.latestSearchedIDs, id: \.self) { id in
-//                                MovieCell(movieID: Int(id)!)
-//                                    .frame(height: 100)
-//
-//                            }
-//                        }
-//                    }
-//                }
 
                 Spacer()
             }
@@ -70,68 +43,6 @@ struct SearchView: View {
             self.movieSearchState.startObserve()
         }
         .searchable(text: self.$movieSearchState.query)
-    }
-}
-
-struct SearchBar: View {
-    
-    @State private var isEditing = false
-    @Binding var text: String
-    @ObservedObject var movieSearchState = MovieSearchState()
-
-        
-    var body: some View{
-        HStack{
-            TextField("Search...", text: $text, onCommit: {
-                print("Oncommit")
-                //movieSearchState.search(query: text)
-            })
-                .padding(7)
-                .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal, 10)
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
-            
-                 .onTapGesture {
-                    self.isEditing = true
-                }
-                .overlay(
-                    HStack{
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 20)
-                        
-                        if isEditing {
-                            Button {
-                                text = ""
-                            } label: {
-                                Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 18)
-                                
-                            }
-
-                            
-
-                        }
-                    }
-                )
-            if isEditing {
-                Button {
-                    self.isEditing = false
-                    text = ""
-                } label: {
-                        Text("Cancel")
-                }
-                .padding(.trailing, 18)
-//                .transition(.move(edge: .trailing))
-//                .animation(.default, value: 10)
-
-            }
-        }
     }
 }
 

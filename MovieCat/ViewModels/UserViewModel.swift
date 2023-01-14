@@ -116,25 +116,6 @@ class UserViewModel: ObservableObject {
             }
 
         })
-//        auth.currentUser?.reauthenticate(with: credential) { error, c  in
-//            if error != nil{
-//                self.alertTitle = "Error"
-//                self.alertMessage = "Something went wrong"
-//                self.showingAlert = true
-//            } else {
-//                self.auth.currentUser?.updatePassword(to: newPassword) { error in
-//                    if error != nil{
-//                        self.alertTitle = "Error"
-//                        self.alertMessage = error?.localizedDescription ?? "Something went wrong"
-//                        self.showingAlert = true
-//                    } else {
-//                        self.alertTitle = "Succes"
-//                        self.alertMessage = "Password has beed changed succesfull."
-//                        self.showingAlert = true
-//                    }
-//                }
-//            }
-//        }
 
         
     }
@@ -150,7 +131,6 @@ class UserViewModel: ObservableObject {
     }
     
     //MARK: firestore functions for user data
-    
     func sync(){
         guard userIsAuthenticated else { return }
         db.collection("Users").document(self.uuid!).getDocument { document, error in
@@ -236,73 +216,4 @@ class UserViewModel: ObservableObject {
         
     }
     
-    func getLatestSearched(){
-        let userID = Auth.auth().currentUser?.uid
-        self.latestSearchedIDs.removeAll(keepingCapacity: false)
-        
-        db.collection("Users").document(userID!).collection("Latest Searched").addSnapshotListener{ (snapshot, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }
-            else {
-                if(snapshot?.isEmpty != true && snapshot != nil){
-                    
-                    self.latestSearchedIDs.removeAll(keepingCapacity: false)
-                    
-                    for document in snapshot!.documents {
-                        let documentID = document.documentID
-                        self.latestSearchedIDs.append(documentID)
-                    }
-                    
-                }
-                
-            }
-        }
-        print("latest searched: \(self.watchListIDs)")
-        
-    }
-    
-    
-    
-    func addLatestSearched(movieID: String){
-        DispatchQueue.main.async{
-            
-            let userID = Auth.auth().currentUser?.uid
-            let ref = self.db.collection("Users").document(userID!).collection("Latest Searched").document(movieID)
-            let date = ["date:" : Date.now] as [String : Any]
-            let movie = ["movieID:" : movieID] as [String : Any]
-            ref.setData(date, merge: true)
-            ref.setData(movie, merge: true)
-            print("succesfully added movie to latest searched")
-        }
-        
-    }
-    
-    func clearLatestSearched(){
-        let userID = Auth.auth().currentUser?.uid
-        self.latestSearchedIDs.removeAll(keepingCapacity: false)
-        
-        let ref = db.collection("Users").document(userID!).collection("Latest Searched")
-        ref.addSnapshotListener{ (snapshot, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }
-            else {
-                if(snapshot?.isEmpty != true && snapshot != nil){
-                    
-                    self.latestSearchedIDs.removeAll(keepingCapacity: false)
-                    
-                    for document in snapshot!.documents {
-                        let documentID = document.documentID
-                        ref.document(documentID).delete()
-                        
-                    }
-                    
-                }
-                
-            }
-        }
-        print("latest searched: \(self.watchListIDs)")
-        
-    }
 }

@@ -153,9 +153,7 @@ struct ProfileView: View {
                             }
                         })
                     }
-                    
-                    
-                    
+       
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Account")
@@ -167,9 +165,6 @@ struct ProfileView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-            
-            
-            
             
         }
         

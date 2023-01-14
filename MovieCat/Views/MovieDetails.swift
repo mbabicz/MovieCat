@@ -391,9 +391,6 @@ struct MovieDetailsView: View {
                 
                 
             }
-            
-            //user.addLatestSearched(movieID: String(movie.id))
-
 
         }
         .alert(isPresented: $user.showingAlert){
