@@ -142,7 +142,6 @@ class UserViewModel: ObservableObject {
             }
         }
         self.getUserWatchList()
-        self.getLatestSearched()
         
     }
     
