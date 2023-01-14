@@ -34,7 +34,6 @@
 		29B4DE3F292F7AFF0035E75C /* LoadingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE3E292F7AFF0035E75C /* LoadingCardView.swift */; };
 		29B4DE42292F8EF20035E75C /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE41292F8EF20035E75C /* MovieDetails.swift */; };
 		29B4DE49293140A80035E75C /* MovieSearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE48293140A80035E75C /* MovieSearchState.swift */; };
-		29C35651294A468C0046965D /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C35650294A468C0046965D /* SearchBarView.swift */; };
 		29E91774294B64DB007010E2 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E91773294B64DB007010E2 /* MovieCell.swift */; };
 		29E91778295F1BBF007010E2 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E91777295F1BBE007010E2 /* MovieViewModel.swift */; };
 		29ECE44729222C6000FFB195 /* MovieCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ECE44629222C6000FFB195 /* MovieCatApp.swift */; };
@@ -78,7 +77,6 @@
 		29B4DE3E292F7AFF0035E75C /* LoadingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCardView.swift; sourceTree = "<group>"; };
 		29B4DE41292F8EF20035E75C /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		29B4DE48293140A80035E75C /* MovieSearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchState.swift; sourceTree = "<group>"; };
-		29C35650294A468C0046965D /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		29E91773294B64DB007010E2 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		29E91777295F1BBE007010E2 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		29ECE44329222C6000FFB195 /* MovieCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,7 +137,6 @@
 		295E6E832926666B00B379EC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				29E91770294B61B7007010E2 /* UIKit */,
 				29B4DE40292F86AB0035E75C /* Auth */,
 				29B4DE28292EB4E50035E75C /* Movie */,
 				29ECE44829222C6000FFB195 /* ContentView.swift */,
@@ -220,14 +217,6 @@
 				98BB1804292B629200E67E41 /* SignUpView.swift */,
 			);
 			path = Auth;
-			sourceTree = "<group>";
-		};
-		29E91770294B61B7007010E2 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				29C35650294A468C0046965D /* SearchBarView.swift */,
-			);
-			path = UIKit;
 			sourceTree = "<group>";
 		};
 		29E91771294B6410007010E2 /* Poster */ = {
@@ -439,7 +428,6 @@
 				98BB1805292B629200E67E41 /* SignUpView.swift in Sources */,
 				29B381402940D5150008C92B /* FullMovieModel.swift in Sources */,
 				98CE2A5D2933734100264321 /* TabbarCurve.swift in Sources */,
-				29C35651294A468C0046965D /* SearchBarView.swift in Sources */,
 				29ECE44929222C6000FFB195 /* ContentView.swift in Sources */,
 				29B4DE27292EB47B0035E75C /* ImageLoader.swift in Sources */,
 				98CE2A5B293372E300264321 /* MainView.swift in Sources */,
@@ -581,7 +569,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = CHW28KLCD8;
+				DEVELOPMENT_TEAM = TU72F4GFFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -612,7 +600,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				"DEBUG_INFORMATION_FORMAT[sdk=*]" = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = CHW28KLCD8;
+				DEVELOPMENT_TEAM = TU72F4GFFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

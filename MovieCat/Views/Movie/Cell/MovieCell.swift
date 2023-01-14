@@ -11,6 +11,8 @@ struct MovieCell: View {
     
     let movieID: Int
     @ObservedObject private var movieDetailState = MovieDetailState()
+    @EnvironmentObject var user: UserViewModel
+
 
 
     var body: some View{
@@ -27,6 +29,7 @@ struct MovieCell: View {
         .onAppear{
             self.movieDetailState.loadMovie(id: self.movieID)
         }
+
     }
 }
 

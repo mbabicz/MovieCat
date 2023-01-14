@@ -29514,11 +29514,11 @@
 			baseConfigurationReference = 8A02C8FBAC0E6452CC946EE49CFF3D1D /* gRPC-C++.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/gRPC-C++";
-				DEVELOPMENT_TEAM = CHW28KLCD8;
+				DEVELOPMENT_TEAM = TU72F4GFFV;
 				IBSC_MODULE = grpcpp;
 				INFOPLIST_FILE = "Target Support Files/gRPC-C++/ResourceBundle-gRPCCertificates-Cpp-gRPC-C++-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rzechol.MovieCat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat;
 				PRODUCT_NAME = "gRPCCertificates-Cpp";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -29758,11 +29758,11 @@
 			baseConfigurationReference = 55F332C505A02F4FBBF602E8C53725EE /* gRPC-C++.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/gRPC-C++";
-				DEVELOPMENT_TEAM = CHW28KLCD8;
+				DEVELOPMENT_TEAM = TU72F4GFFV;
 				IBSC_MODULE = grpcpp;
 				INFOPLIST_FILE = "Target Support Files/gRPC-C++/ResourceBundle-gRPCCertificates-Cpp-gRPC-C++-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rzechol.MovieCat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat;
 				PRODUCT_NAME = "gRPCCertificates-Cpp";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

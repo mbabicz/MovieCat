@@ -265,13 +265,16 @@ class UserViewModel: ObservableObject {
     
     
     func addLatestSearched(movieID: String){
-        let userID = Auth.auth().currentUser?.uid
-        let ref = db.collection("Users").document(userID!).collection("Latest Searched").document(movieID)
-        let date = ["date:" : Date.now] as [String : Any]
-        let movie = ["movieID:" : movieID] as [String : Any]
-        ref.setData(date, merge: true)
-        ref.setData(movie, merge: true)
-        print("succesfully added movie to latest searched")
+        DispatchQueue.main.async{
+            
+            let userID = Auth.auth().currentUser?.uid
+            let ref = self.db.collection("Users").document(userID!).collection("Latest Searched").document(movieID)
+            let date = ["date:" : Date.now] as [String : Any]
+            let movie = ["movieID:" : movieID] as [String : Any]
+            ref.setData(date, merge: true)
+            ref.setData(movie, merge: true)
+            print("succesfully added movie to latest searched")
+        }
         
     }
     

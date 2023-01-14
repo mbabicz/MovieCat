@@ -389,7 +389,11 @@ struct MovieDetailsView: View {
                 ratesAvarage = rateAvarage
                 
                 
+                
             }
+            
+            //user.addLatestSearched(movieID: String(movie.id))
+
 
         }
         .alert(isPresented: $user.showingAlert){
