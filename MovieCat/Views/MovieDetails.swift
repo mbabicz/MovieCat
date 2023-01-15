@@ -545,7 +545,7 @@ class TextLimiter: ObservableObject {
 }
 
 struct AddOpinionPanel: View{
-    @ObservedObject var opinion = TextLimiter(limit: 300)
+    @ObservedObject var opinion = TextLimiter(limit: 200)
     @Binding var opinionPanelIsShowing: Bool
     @State private var rating: Int?
     @EnvironmentObject var user: UserViewModel
@@ -584,6 +584,8 @@ struct AddOpinionPanel: View{
                         RatingStars(rating: $rating, max: 10)
                         TextField("Opinion", text: $opinion.text, axis: .vertical)
                                 .textFieldStyle(.roundedBorder)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(5...7)
                                 .padding()
                         
                         
@@ -639,7 +641,7 @@ struct RatingStars: View {
             
             ForEach(1..<(max+1), id: \.self) { index in
                 Image(systemName: self.starType(index: index))
-                    .font(.title)
+                    .font(.title2)
                     .foregroundColor(Color.orange)
                     .onTapGesture {
                         self.rating = index
