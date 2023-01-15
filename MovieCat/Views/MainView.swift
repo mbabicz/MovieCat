@@ -28,9 +28,9 @@ struct MainView: View {
                
                 .tag(Tab.Home)
             
-            SearchView()
-              
-                .tag(Tab.Search)
+//            SearchView()
+//
+//                .tag(Tab.Search)
             
             WatchListView()
                
@@ -121,7 +121,7 @@ struct MainView_Previews: PreviewProvider {
 
 enum Tab: String,CaseIterable{
     case Home = "popcorn.fill"
-    case Search = "magnifyingglass"
+    //case Search = "magnifyingglass"
     case WatchList = "heart.fill"
     case Profile = "person.fill"
 }
