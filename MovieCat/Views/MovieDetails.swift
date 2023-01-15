@@ -12,8 +12,12 @@ struct MovieDetails: View {
     let movieID: Int
     @ObservedObject var imageLoader = ImageLoader()
     @EnvironmentObject var user: UserViewModel
+    @EnvironmentObject var movieVM: MovieViewModel
+
+    
 
     @ObservedObject private var movieDetailState = MovieDetailState()
+    
     
     var body: some View{
         ZStack{
@@ -115,7 +119,15 @@ struct MovieDetailsView: View {
                                 
                                 
                                 Button(action: {
-                                    opinionPanelIsShowing = true
+                                    if user.userIsAnonymous{
+                                        user.alertTitle = "Error"
+                                        user.alertMessage = "You must be logged in to add review"
+                                        user.showingAlert = true
+                                        
+                                    }
+                                    else {
+                                        opinionPanelIsShowing = true
+                                    }
                                 }) {
                                     VStack{
                                         HStack{
@@ -324,7 +336,7 @@ struct MovieDetailsView: View {
                                         ForEach(0 ..< self.ratesTotal, id: \.self){ id in
                                             
                                      
-                                                ReviewsView(rate: String(self.rate[id]), review: self.review[id], ratedby: self.ratedBy[id])
+                                                    ReviewsView(rate: String(self.rate[id]), review: self.review[id], ratedby: self.ratedBy[id])
                                             
                                             .frame( maxWidth: 250)
                                             
@@ -397,6 +409,13 @@ struct MovieDetailsView: View {
             Alert(
                 title: Text(user.alertTitle),
                 message: Text(user.alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+        .alert(isPresented: $movieVM.showingAlert){
+            Alert(
+                title: Text(movieVM.alertTitle),
+                message: Text(movieVM.alertMessage),
                 dismissButton: .default(Text("OK"))
             )
         }

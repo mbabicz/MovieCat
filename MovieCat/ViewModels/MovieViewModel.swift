@@ -21,24 +21,45 @@ class MovieViewModel: ObservableObject {
     @Published var movieRatesTotal: Int = 0
     @Published var movieRatingAvarage : Double = 0
     
+    @Published var showingAlert : Bool = false
+    @Published var alertMessage = ""
+    @Published var alertTitle = ""
+    
     
     func addReview(movieID: String, rating: Int, review: String, username: String){
         let db = Firestore.firestore()
         let userID = Auth.auth().currentUser?.uid
         
         let ref = db.collection("Movies").document(movieID).collection("Reviews").document(userID!)
-        let date = ["date" : Date.now] as [String : Any]
-        let movie = ["movieID" : movieID] as [String : Any]
-        let username = ["username" : username] as [String : Any]
-        let review = ["review" : review] as [String : Any]
-        let rate = ["rate" : rating] as [String : Any]
+//        let date = ["date" : Date.now] as [String : Any]
+//        let movie = ["movieID" : movieID] as [String : Any]
+//        let username = ["username" : username] as [String : Any]
+//        let review = ["review" : review] as [String : Any]
+//        let rate = ["rate" : rating] as [String : Any]
         
+        ref.setData([
+            "date" : Date.now,
+            "movie" : movieID,
+            "username" : username,
+            "review" : review,
+            "rate" : rating
+        ]) { err in
+            if err != nil{
+                self.alertTitle = "Errors"
+                self.alertMessage = err?.localizedDescription ?? "Something went wrong"
+                self.showingAlert = true
+            }
+            else {
+                self.alertTitle = "Done"
+                self.showingAlert = true
+            }
+        }
         
-        ref.setData(date, merge: true)
-        ref.setData(movie, merge: true)
-        ref.setData(username, merge: true)
-        ref.setData(review, merge: true)
-        ref.setData(rate, merge: true)
+//        ref.setData(date, merge: true)
+//        ref.setData(movie, merge: true)
+//        ref.setData(username, merge: true)
+//        ref.setData(review, merge: true)
+//        ref.setData(rate, merge: true)
         
         
     }
