@@ -41,6 +41,8 @@
 		29ECE44B29222C8500FFB195 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29ECE44A29222C8500FFB195 /* Assets.xcassets */; };
 		29ECE44E29222C8500FFB195 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29ECE44D29222C8500FFB195 /* Preview Assets.xcassets */; };
 		98039BAA2942A19200615D3D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98039BA92942A19200615D3D /* VideoView.swift */; };
+		984581E82974E5C800E09FF3 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984581E72974E5C800E09FF3 /* AppInfoView.swift */; };
+		984581EA2974E88200E09FF3 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984581E92974E88200E09FF3 /* NotificationsView.swift */; };
 		98BB1803292B628200E67E41 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BB1802292B628200E67E41 /* SignInView.swift */; };
 		98BB1805292B629200E67E41 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BB1804292B629200E67E41 /* SignUpView.swift */; };
 		98CE2A5B293372E300264321 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A5A293372E300264321 /* MainView.swift */; };
@@ -86,6 +88,9 @@
 		29ECE44D29222C8500FFB195 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		452DEA403D6A99CA56F2A1F0 /* Pods_MovieCat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieCat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98039BA92942A19200615D3D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		984581E42974CC8A00E09FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		984581E72974E5C800E09FF3 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		984581E92974E88200E09FF3 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		98BB1802292B628200E67E41 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		98BB1804292B629200E67E41 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		98CE2A5A293372E300264321 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -149,6 +154,8 @@
 				98CE2A5A293372E300264321 /* MainView.swift */,
 				98CE2A5C2933734100264321 /* TabbarCurve.swift */,
 				98039BA92942A19200615D3D /* VideoView.swift */,
+				984581E72974E5C800E09FF3 /* AppInfoView.swift */,
+				984581E92974E88200E09FF3 /* NotificationsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,6 +265,7 @@
 		29ECE44529222C6000FFB195 /* MovieCat */ = {
 			isa = PBXGroup;
 			children = (
+				984581E42974CC8A00E09FF3 /* Info.plist */,
 				29B4DE39292F74940035E75C /* Bindings */,
 				29B4DE2B292EBF360035E75C /* Resources */,
 				29B4DE25292EB4550035E75C /* Extensions */,
@@ -424,6 +432,7 @@
 				29B4DE2A292EB4FF0035E75C /* MovieCard.swift in Sources */,
 				29B4DE20292EB21B0035E75C /* MovieStore.swift in Sources */,
 				29B4DE49293140A80035E75C /* MovieSearchState.swift in Sources */,
+				984581EA2974E88200E09FF3 /* NotificationsView.swift in Sources */,
 				29B4DE35292F70F00035E75C /* MoviePosterCard.swift in Sources */,
 				98BB1805292B629200E67E41 /* SignUpView.swift in Sources */,
 				29B381402940D5150008C92B /* FullMovieModel.swift in Sources */,
@@ -431,6 +440,7 @@
 				29ECE44929222C6000FFB195 /* ContentView.swift in Sources */,
 				29B4DE27292EB47B0035E75C /* ImageLoader.swift in Sources */,
 				98CE2A5B293372E300264321 /* MainView.swift in Sources */,
+				984581E82974E5C800E09FF3 /* AppInfoView.swift in Sources */,
 				290EF08829282B260020996E /* AuthenticationView.swift in Sources */,
 				291125BC2922C7E10000AEA2 /* ProfileView.swift in Sources */,
 				29B4DE38292F729C0035E75C /* MoviePosterCardCarousel.swift in Sources */,
@@ -566,12 +576,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = TU72F4GFFV;
+				DEVELOPMENT_TEAM = CHW28KLCD8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieCat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -582,8 +594,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -600,9 +613,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				"DEBUG_INFORMATION_FORMAT[sdk=*]" = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = TU72F4GFFV;
+				DEVELOPMENT_TEAM = CHW28KLCD8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieCat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -613,7 +627,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

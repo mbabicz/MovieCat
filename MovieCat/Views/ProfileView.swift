@@ -16,88 +16,99 @@ struct ProfileView: View {
     var body: some View {
         
         NavigationView{
-                VStack{
-                    HStack{
-                        
-                        Rectangle()
-                            .frame(width: 100, height: 100)
-                            .foregroundColor(Color("DarkRed"))
-                            .shadow(color: Color("Red"), radius: 5, x: 0, y: 0)
-                            .padding()
-                            .overlay(content: {
-                                Image(systemName: "person")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(.white)
-                                    .clipped()
-                                    .frame(width: 90, height: 90)
-                                    
-                                                                
-                            })
-                        
-                        VStack(alignment: .leading) {
-                            Rectangle()
-                                .frame(height: 30)
-                                .foregroundColor(Color("DarkRed").opacity(0.5))
-                                .padding(.vertical, 5)
-                                .overlay(content: {
-                                    Text(user.user?.username ?? "username")
-                                    
-                                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                                        .foregroundColor(.white)
-                                })
-                            
-                            if auth.currentUser?.email != nil{
-                            Rectangle()
-                                .frame(height: 30)
-                                .foregroundColor(Color("DarkRed").opacity(0.5))
-                                .padding(.vertical, 5)
-                                .overlay(content: {
-                                    
-                                    Text(auth.currentUser?.email ?? "")
-                                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-                                        .foregroundColor(.white)
-                                })
-                        }
-                            
-                        }
-                        Spacer()
+            ZStack{
+                Rectangle()
+                    .foregroundColor(Color("DarkRed"))
+                    .cornerRadius(20, corners: [.topLeft, .topRight])
+                    .shadow(color: .white, radius: 5)
+                    .padding(.horizontal)
+                    .padding(.top, 60)
+                
+                VStack {
+                    Circle()
+                        .frame(width: 100)
+                        .foregroundColor(.black)
+                        .shadow(color: .white, radius: 5)
+                        .overlay(content: {
+                            Image(systemName: "person")
+                                .resizable()
+                                .frame(width: 65, height: 65)
+                    })
+                    
+                    Text(user.user?.username ?? "username")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    if auth.currentUser?.email != nil{
+                        Text(auth.currentUser?.email ?? "")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .foregroundColor(.white)
                     }
+                    
+                    
+                  
+                    
                     if !user.userIsAnonymous{
+                       
                         NavigationLink(destination: ChangePasswordView(), label: {
                             Rectangle()
-                                .frame(height: 60)
-                                .foregroundColor(Color("DarkRed"))
-                                .padding()
+                                .foregroundColor(.black)
+                                .frame(height: 70)
+                                .cornerRadius(15, corners: [.topLeft, .bottomLeft])
+                                .shadow(color: .black, radius: 5)
+                                .padding(.leading, 40)
+                                .padding(.vertical)
                                 .overlay(content: {
-                                    
-                                    Text("CHANGE PASSWORD")
+                                    Text("Change Password")
                                         .font(.system(size: 20, weight: .semibold, design: .rounded))
                                         .foregroundColor(.white)
                                 })
                         })
-                    }
-
-                    NavigationLink(destination: ThemesView(), label: {
+                       
+                    }else{
+                       
                         Rectangle()
-                            .frame(height: 60)
-                            .foregroundColor(Color("DarkRed"))
-                            .padding()
+                            .foregroundColor(.black)
+                            .frame(height: 70)
+                            .cornerRadius(15, corners: [.topLeft, .bottomLeft])
+                            .shadow(color: .black, radius: 5)
+                            .padding(.leading, 40)
+                            .padding(.vertical)
                             .overlay(content: {
-                                
-                                Text("THEMES")
+                                HStack{
+                                    Text("Change Password")
+                                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                        .foregroundColor(.white)
+                                    Image(systemName: "lock.fill")
+                                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                        .foregroundColor(.white)
+                                }
+                            })
+                    }
+                    
+                    NavigationLink(destination: NotificationsView(), label: {
+                        Rectangle()
+                            .foregroundColor(.black)
+                            .frame(height: 70)
+                            .cornerRadius(15, corners: [.topRight, .bottomRight])
+                            .shadow(color: .black, radius: 5)
+                            .padding(.trailing, 40)
+                            .padding(.vertical)
+                            .overlay(content: {
+                                Text("Notifications")
                                     .font(.system(size: 20, weight: .semibold, design: .rounded))
                                     .foregroundColor(.white)
                             })
                     })
                     NavigationLink(destination: AppInfoView(), label: {
                         Rectangle()
-                            .frame(height: 60)
-                            .foregroundColor(Color("DarkRed"))
-                            .padding()
+                            .foregroundColor(.black)
+                            .frame(height: 70)
+                            .cornerRadius(15, corners: [.topLeft, .bottomLeft])
+                            .shadow(color: .black, radius: 5)
+                            .padding(.leading, 40)
+                            .padding(.vertical)
                             .overlay(content: {
-                                
-                                Text("APP INFO")
+                                Text("App Info")
                                     .font(.system(size: 20, weight: .semibold, design: .rounded))
                                     .foregroundColor(.white)
                             })
@@ -105,66 +116,29 @@ struct ProfileView: View {
                     
                     Spacer()
                     
-                    if !user.userIsAnonymous{
-                        Button(action: {
-                            
-                            user.signOut()
-                            
-                        }, label: {
-                            HStack{
-                                Circle()
-                                    .frame(height: 65)
-                                    .foregroundColor(Color("DarkRed"))
-                                    .overlay(content: {
-                                        Image(systemName: "door.left.hand.open")
-                                            .resizable()
-                                            .frame(width: 40, height: 40)
-                                        
-                                            .foregroundColor(.white)
-                                    })
-                                    .padding()
-                                    .padding(.bottom, 40)
-                                
-                                Spacer()
-                                
-                            }
-                        })
-                    }
-                    else {
-                        Button(action: {
-                            
-                            user.signOut()
-                            
-                        }, label: {
-                            HStack{
-                               Rectangle()
-                                    .frame(width: 140, height: 60)
-                                    .foregroundColor(Color("DarkRed"))
-                                    .overlay(content: {
-                                        Text("LOG IN")
-                                            .font(.system(size: 20, weight: .semibold, design: .rounded))
-                                            .foregroundColor(.white)
-                                    })
-                                    .padding()
-                                    .padding(.bottom, 40)
-                                
-                                Spacer()
-                                
-                            }
-                        })
-                    }
-       
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Account")
-                
-                .alert(isPresented: $user.showingAlert){
-                    Alert(
-                        title: Text(user.alertTitle),
-                        message: Text(user.alertMessage),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
+                    
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Account")
+            .toolbar{
+                             ToolbarItem(placement: .navigationBarTrailing){
+                                 Button {
+                                     user.signOut()
+                                 } label: {
+                                     Image(systemName: "rectangle.portrait.and.arrow.forward.fill")
+                                 }
+
+                             }
+
+                         }
+            .alert(isPresented: $user.showingAlert){
+                Alert(
+                    title: Text(user.alertTitle),
+                    message: Text(user.alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
             
         }
         
@@ -183,13 +157,7 @@ struct ProfileView_Previews: PreviewProvider {
     }
 }
 
-struct AppInfoView: View{
-    
-    var body: some View {
-        Text("appinfo view")
-    }
 
-}
 
 struct ChangePasswordView: View{
     
@@ -380,12 +348,5 @@ struct ChangePasswordView: View{
 
 }
 
-struct ThemesView: View{
-    
-    var body: some View {
-        Text("ThemesView")
-    }
-
-}
 
 

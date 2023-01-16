@@ -24,17 +24,16 @@ struct MainView: View {
         
         TabView(selection: $currentTab){
             
-            HomeView()
-               
-                .tag(Tab.Home)
+          
             
-//            SearchView()
-//
-//                .tag(Tab.Search)
             
             WatchListView()
                
                 .tag(Tab.WatchList)
+            
+            HomeView()
+               
+                .tag(Tab.Home)
             
             ProfileView()
               
@@ -59,6 +58,7 @@ struct MainView: View {
                         .clipShape(TabbarCurve(currnetXValue: currnetXValue))
                 
                 )
+                .shadow(color: .black, radius: 5)
             
             ,alignment: .bottom
         )
@@ -121,7 +121,6 @@ struct MainView_Previews: PreviewProvider {
 
 enum Tab: String,CaseIterable{
     case Home = "popcorn.fill"
-    //case Search = "magnifyingglass"
     case WatchList = "heart.fill"
     case Profile = "person.fill"
 }
