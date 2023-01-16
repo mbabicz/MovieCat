@@ -88,7 +88,6 @@
 		29ECE44D29222C8500FFB195 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		452DEA403D6A99CA56F2A1F0 /* Pods_MovieCat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieCat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98039BA92942A19200615D3D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
-		984581E42974CC8A00E09FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		984581E72974E5C800E09FF3 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		984581E92974E88200E09FF3 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		98BB1802292B628200E67E41 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -265,7 +264,6 @@
 		29ECE44529222C6000FFB195 /* MovieCat */ = {
 			isa = PBXGroup;
 			children = (
-				984581E42974CC8A00E09FF3 /* Info.plist */,
 				29B4DE39292F74940035E75C /* Bindings */,
 				29B4DE2B292EBF360035E75C /* Resources */,
 				29B4DE25292EB4550035E75C /* Extensions */,
