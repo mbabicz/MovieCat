@@ -111,6 +111,8 @@ struct HomeView: View {
             }
             
             .searchable(text: self.$movieSearchState.query)
+            .disableAutocorrection(true)
+            .autocapitalization(.none)
         }
     }
         

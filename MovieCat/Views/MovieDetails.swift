@@ -13,9 +13,6 @@ struct MovieDetails: View {
     @ObservedObject var imageLoader = ImageLoader()
     @EnvironmentObject var user: UserViewModel
     @EnvironmentObject var movieVM: MovieViewModel
-
-    
-
     @ObservedObject private var movieDetailState = MovieDetailState()
     
     
@@ -335,10 +332,10 @@ struct MovieDetailsView: View {
                                     HStack{
                                         ForEach(0 ..< self.ratesTotal, id: \.self){ id in
                                             
-                                     
-                                                    ReviewsView(rate: String(self.rate[id]), review: self.review[id], ratedby: self.ratedBy[id])
                                             
-                                            .frame( maxWidth: 250)
+                                            ReviewsView(rate: String(self.rate[id]), review: self.review[id], ratedby: self.ratedBy[id])
+                                            
+                                                .frame( maxWidth: 250)
                                             
                                             
                                         }
@@ -372,7 +369,7 @@ struct MovieDetailsView: View {
                                             .foregroundColor(.white)
                                     })
                             }
-
+                            
                         }
                         
                         Rectangle()
@@ -401,9 +398,8 @@ struct MovieDetailsView: View {
                 ratesAvarage = rateAvarage
                 
                 
-                
             }
-
+            
         }
         .alert(isPresented: $user.showingAlert){
             Alert(
@@ -421,7 +417,6 @@ struct MovieDetailsView: View {
         }
         
     }
-    
     
 }
 

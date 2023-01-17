@@ -18,9 +18,7 @@ class UserViewModel: ObservableObject {
     @Published var showingAlert : Bool = false
     @Published var alertMessage = ""
     @Published var alertTitle = ""
-    
-    var userIsGuest: Bool = false
-    
+        
     @Published var watchListIDs = [String]()
     @Published var latestSearchedIDs = [String]()
     
@@ -77,8 +75,7 @@ class UserViewModel: ObservableObject {
     
     func singInAnonymously(){
         auth.signInAnonymously(){ authResult, error in
-            guard let user = authResult?.user else { return }
-            self.userIsGuest = user.isAnonymous
+            guard (authResult?.user) != nil else { return }
             DispatchQueue.main.async{
                 //Success
                 self.add(User(username: "guest", userEmail: "guest"))

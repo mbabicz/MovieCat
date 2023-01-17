@@ -31,7 +31,6 @@ struct MoviePosterCard: View {
                         
                     }
                     
-                    
                         Text(movie.title)
                         .foregroundColor(.white)
                         Text("(\(movie.yearText))")

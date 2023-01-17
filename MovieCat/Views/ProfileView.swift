@@ -33,12 +33,14 @@ struct ProfileView: View {
                             Image(systemName: "person")
                                 .resizable()
                                 .frame(width: 65, height: 65)
-                    })
-                    
-                    Text(user.user?.username ?? "username")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                    if auth.currentUser?.email != nil{
+                        })
+                    if !user.userIsAnonymous{
+                        Text(user.user?.username ?? "username")
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                    }
+
+                    if !user.userIsAnonymous{
                         Text(auth.currentUser?.email ?? "")
                             .font(.system(size: 20, weight: .semibold, design: .rounded))
                             .foregroundColor(.white)
@@ -168,14 +170,14 @@ struct ChangePasswordView: View{
     @State var isSecured: Bool = true
     @State var isSecured2: Bool = true
     @State var isSecured3: Bool = true
-
-
-
+    
+    
+    
     
     @EnvironmentObject var user: UserViewModel
     
     @State var isAnimating: Bool = false
-
+    
     var body: some View {
         VStack {
             VStack{
@@ -196,7 +198,7 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                  
+                                
                             } else {
                                 TextField("", text: $password)
                                     .placeholder(when: password.isEmpty){
@@ -206,7 +208,7 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                    
+                                
                             }
                         }
                         Button {
@@ -232,7 +234,7 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                  
+                                
                             } else {
                                 TextField("", text: $newPassword)
                                     .placeholder(when: newPassword.isEmpty){
@@ -242,7 +244,7 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                    
+                                
                             }
                         }
                         Button {
@@ -253,7 +255,7 @@ struct ChangePasswordView: View{
                     }
                     
                     Divider().background(Color("Red"))
-
+                    
                     HStack{
                         
                         Image(systemName: "lock.square.fill")
@@ -269,7 +271,7 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                  
+                                
                             } else {
                                 TextField("", text: $newPassword2)
                                     .placeholder(when: newPassword2.isEmpty){
@@ -279,7 +281,7 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                    
+                                
                             }
                         }
                         Button {
@@ -310,7 +312,7 @@ struct ChangePasswordView: View{
                                     
                                 }
                             }
-
+                            
                         } else {
                             user.alertTitle = "Error"
                             user.alertMessage = "New password fields must be the same"
@@ -345,7 +347,7 @@ struct ChangePasswordView: View{
     }
     
     
-
+    
 }
 
 

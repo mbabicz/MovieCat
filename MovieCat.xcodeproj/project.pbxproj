@@ -31,7 +31,7 @@
 		29B4DE35292F70F00035E75C /* MoviePosterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE34292F70F00035E75C /* MoviePosterCard.swift */; };
 		29B4DE38292F729C0035E75C /* MoviePosterCardCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE37292F729C0035E75C /* MoviePosterCardCarousel.swift */; };
 		29B4DE3B292F74B30035E75C /* MovieListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE3A292F74B30035E75C /* MovieListState.swift */; };
-		29B4DE3F292F7AFF0035E75C /* LoadingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE3E292F7AFF0035E75C /* LoadingCardView.swift */; };
+		29B4DE3F292F7AFF0035E75C /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE3E292F7AFF0035E75C /* Loading.swift */; };
 		29B4DE42292F8EF20035E75C /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE41292F8EF20035E75C /* MovieDetails.swift */; };
 		29B4DE49293140A80035E75C /* MovieSearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4DE48293140A80035E75C /* MovieSearchState.swift */; };
 		29E91774294B64DB007010E2 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E91773294B64DB007010E2 /* MovieCell.swift */; };
@@ -76,7 +76,7 @@
 		29B4DE34292F70F00035E75C /* MoviePosterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCard.swift; sourceTree = "<group>"; };
 		29B4DE37292F729C0035E75C /* MoviePosterCardCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCardCarousel.swift; sourceTree = "<group>"; };
 		29B4DE3A292F74B30035E75C /* MovieListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListState.swift; sourceTree = "<group>"; };
-		29B4DE3E292F7AFF0035E75C /* LoadingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCardView.swift; sourceTree = "<group>"; };
+		29B4DE3E292F7AFF0035E75C /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		29B4DE41292F8EF20035E75C /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		29B4DE48293140A80035E75C /* MovieSearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchState.swift; sourceTree = "<group>"; };
 		29E91773294B64DB007010E2 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 				291125B72922C7990000AEA2 /* HomeView.swift */,
 				291125B92922C7CD0000AEA2 /* WatchListView.swift */,
 				291125BB2922C7E10000AEA2 /* ProfileView.swift */,
-				29B4DE3E292F7AFF0035E75C /* LoadingCardView.swift */,
+				29B4DE3E292F7AFF0035E75C /* Loading.swift */,
 				29B4DE41292F8EF20035E75C /* MovieDetails.swift */,
 				98CE2A5A293372E300264321 /* MainView.swift */,
 				98CE2A5C2933734100264321 /* TabbarCurve.swift */,
@@ -417,7 +417,7 @@
 				29B4DE1D292EAE2F0035E75C /* MovieService.swift in Sources */,
 				291125BA2922C7CD0000AEA2 /* WatchListView.swift in Sources */,
 				29B4DE42292F8EF20035E75C /* MovieDetails.swift in Sources */,
-				29B4DE3F292F7AFF0035E75C /* LoadingCardView.swift in Sources */,
+				29B4DE3F292F7AFF0035E75C /* Loading.swift in Sources */,
 				290EF086292828CF0020996E /* UserViewModel.swift in Sources */,
 				29B4DE1B292EABA70035E75C /* Movie.swift in Sources */,
 				29B4DE24292EB3F10035E75C /* Movie+Stub.swift in Sources */,
@@ -578,10 +578,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = CHW28KLCD8;
+				DEVELOPMENT_TEAM = TU72F4GFFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MovieCat/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = kz;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -592,7 +594,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -607,14 +609,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				"DEBUG_INFORMATION_FORMAT[sdk=*]" = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MovieCat/Preview Content\"";
-				DEVELOPMENT_TEAM = CHW28KLCD8;
+				DEVELOPMENT_TEAM = TU72F4GFFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MovieCat/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = kz;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -625,8 +630,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kz.MovieCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

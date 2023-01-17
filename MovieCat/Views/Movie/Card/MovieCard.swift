@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct MovieCard: View {
     
     let movie: Movie
@@ -32,7 +30,6 @@ struct MovieCard: View {
             HStack{
                 Text(movie.title)
                 Text("(\(movie.yearText))")
-                //Text(movie.releaseDate ?? "")
 
             }
             
