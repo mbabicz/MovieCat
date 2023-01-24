@@ -36,7 +36,7 @@ User database was created on the Firebase platform. The app is developed with Sw
 <img src = "https://user-images.githubusercontent.com/49866616/213275256-b1537f6d-73f1-42bb-8800-eccc0a7aed0a.png" width="243" height="466" /> <br /> <br />
 
 ## API KEY
-To use this application please enter you API KEY in *MovieStore file* in the field marked: "API_KEY"* <br />
+To use this application please enter you API KEY in *MovieStore file* in the field marked: *"API_KEY"* <br />
 The API KEY is necessary to run this application. It can be generated on the [TMDB website](https://www.themoviedb.org/settings/api). <br />
 
 ## BUILD WITH
