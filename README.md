@@ -35,7 +35,9 @@ User database was created on the Firebase platform. The app is developed with Sw
 <img src = "https://user-images.githubusercontent.com/49866616/213275119-7dc003bf-0bb8-41c4-b03b-1605ee498ff9.png"  width="243" height="466" />
 <img src = "https://user-images.githubusercontent.com/49866616/213275256-b1537f6d-73f1-42bb-8800-eccc0a7aed0a.png" width="243" height="466" /> <br /> <br />
 
-
+## API KEY
+To use this application please enter you API KEY here: /MovieCat/MovieCat/services/MovieStore/ -  " private let apiKey = "API_KEY" ".
+The API KEY is necessary to run this application. It can be generated on the [TMDB website](https://www.themoviedb.org/settings/api).
 
 ## BUILD WITH
 <img src = "https://user-images.githubusercontent.com/49866616/213214287-6849916c-ddb3-48ad-bdde-2013f3315b93.png" width="55" height="55" /> <br />
