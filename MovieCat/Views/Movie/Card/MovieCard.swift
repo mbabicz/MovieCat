@@ -12,12 +12,10 @@ struct MovieCard: View {
     let movie: Movie
     @ObservedObject var imageLoader = ImageLoader()
 
-
     var body: some View {
         VStack(alignment: .leading){
             ZStack{
                 Rectangle()
-                
                 if self.imageLoader.image != nil{
                     Image(uiImage: self.imageLoader.image!)
                         .resizable()
@@ -30,16 +28,15 @@ struct MovieCard: View {
             HStack{
                 Text(movie.title)
                 Text("(\(movie.yearText))")
-
+                
             }
             
-            }
+        }
         .lineLimit(1)
         .onAppear{
             self.imageLoader.loadImage(with: self.movie.backdropURL)
         }
     }
-
 }
 
 struct MovieCard_Previews: PreviewProvider {

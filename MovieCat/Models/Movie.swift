@@ -8,9 +8,7 @@
 import Foundation
 
 struct MovieResponse: Decodable{
-    
     let results: [Movie]
-
 }
 
 struct Movie: Decodable, Identifiable {
@@ -34,7 +32,7 @@ struct Movie: Decodable, Identifiable {
     
     var durationText: String {
         guard let runtime = self.runtime, runtime > 0 else {
-            return "n/as"
+            return "n/a"
         }
         return Movie.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "n/a"
 

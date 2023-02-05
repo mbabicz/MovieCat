@@ -66,9 +66,6 @@ class MovieStore: MovieService {
             return
         }
         
-        
-//        print(finalURL)
-        
         urlSession.dataTask(with: finalURL) { [weak self] (data, response, error) in
             guard let self = self else { return }
             
@@ -101,7 +98,5 @@ class MovieStore: MovieService {
             completion(result)
         }
     }
-    
-    
-    
+        
 }

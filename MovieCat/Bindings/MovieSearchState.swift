@@ -32,7 +32,6 @@ class MovieSearchState: ObservableObject{
         }
         .throttle(for: 1, scheduler: DispatchQueue.main, latest: true)
         .sink {[weak self] in self?.search(query: $0)}
-    
     }
     
     func search(query: String){
@@ -53,11 +52,8 @@ class MovieSearchState: ObservableObject{
                 case .failure(let error):
                     self.error = error as NSError
                 }
-
             }
-            
         }
-        
     }
     
     deinit{

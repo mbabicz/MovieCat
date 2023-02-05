@@ -23,33 +23,21 @@ struct MainView: View {
     var body: some View {
         
         TabView(selection: $currentTab){
-            
-          
-            
-            
             WatchListView()
-               
                 .tag(Tab.WatchList)
             
             HomeView()
-               
                 .tag(Tab.Home)
             
             ProfileView()
-              
                 .tag(Tab.Profile)
         }
-      
-        
         .overlay(
             HStack(spacing: 0){
                 
                 ForEach(Tab.allCases,id: \.rawValue){ tab in
-                    
                     TabButton(tab: tab)
-                    
                 }
-                
             }
                 .padding(.vertical)
                 .padding(.bottom, GetSafeArea().bottom == 0 ? 10 : (GetSafeArea().bottom - 10))
@@ -73,7 +61,6 @@ struct MainView: View {
             Button {
                 withAnimation(.spring()){
                     currentTab = tab
-                    
                     currnetXValue = proxy.frame(in: .global).midX
                 }
             } label: {
@@ -92,25 +79,21 @@ struct MainView: View {
                                     .matchedGeometryEffect(id: "TAB", in: animation)
                             }
                         }
-                            
                     )
                     .contentShape(Rectangle())
                     .offset(y: currentTab == tab ? -42 : 0)
             }
-            
             .onAppear{
                 
                 if tab == Tab.allCases.first && currnetXValue == 0 {
                     
                     currnetXValue = proxy.frame(in: .global).midX
                 }
-                
             }
         }
         .frame(height: 20)
     }
 }
-
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
@@ -125,12 +108,10 @@ enum Tab: String,CaseIterable{
     case Profile = "person.fill"
 }
 
-
 extension View{
     
     func GetSafeArea()->UIEdgeInsets{
-        
-         guard let screen =
+        guard let screen =
                 UIApplication.shared.connectedScenes.first as?
                 UIWindowScene else{
              return.zero

@@ -19,7 +19,6 @@ struct TabbarCurve: Shape {
     func path(in rect: CGRect) -> Path {
         return Path { path in
             
-            
             path.move(to: CGPoint(x: 0, y: 0))
             path.addLine(to: CGPoint(x: rect.width, y: 0))
             path.addLine(to: CGPoint(x: rect.width, y: rect.height))
@@ -39,8 +38,6 @@ struct TabbarCurve: Shape {
             
             path.addCurve(to: to1, control1: control1, control2: control2)
             path.addCurve(to: to2, control1: control3, control2: control4)
-            
-            
             
         }
     }

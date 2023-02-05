@@ -25,33 +25,36 @@ class MovieViewModel: ObservableObject {
     @Published var alertMessage = ""
     @Published var alertTitle = ""
     
+    func updateAlert(title: String, message: String) {
+        self.alertTitle = title
+        self.alertMessage = message
+        self.showingAlert = true
+    }
     
-    func addReview(movieID: String, rating: Int, review: String, username: String){
-        let db = Firestore.firestore()
+    
+    func addMovieReview(movieID: String, rating: Int, review: String, username: String) {
         let userID = Auth.auth().currentUser?.uid
-        
+        let db = Firestore.firestore()
         let ref = db.collection("Movies").document(movieID).collection("Reviews").document(userID!)
         
         ref.setData([
-            "date" : Date.now,
-            "movie" : movieID,
-            "username" : username,
-            "review" : review,
-            "rate" : rating
-        ]) { err in
-            if err != nil{
-                self.alertTitle = "Errors"
-                self.alertMessage = err?.localizedDescription ?? "Something went wrong"
+            "date": Date(),
+            "movieID": movieID,
+            "username": username,
+            "review": review,
+            "rating": rating
+        ]) { error in
+            if let error = error {
+                self.alertTitle = "Error"
+                self.alertMessage = error.localizedDescription
                 self.showingAlert = true
-            }
-            else {
-                self.alertTitle = "Done"
+            } else {
+                self.alertTitle = "Success"
                 self.showingAlert = true
             }
         }
-        
-        
     }
+
     
     
     func getMovieReviews(movieID: String, completion: @escaping (([String],[Int],[String],[String], Int, Int, Double)) -> ()){
@@ -99,12 +102,8 @@ class MovieViewModel: ObservableObject {
                     }
                 }
                 
-                print(" \(self.movieRate) , \(self.movieReview) , \(self.movieRatedBy), \(self.movieRatesCount), \(self.movieRatesTotal), \(movieRatingAvarage)")
                 completion((self.movieRatedByUID, self.movieRate, self.movieReview, self.movieRatedBy, self.movieRatesCount, self.movieRatesTotal, movieRatingAvarage))
-                
             }
-            
         }
-        
     }
 }

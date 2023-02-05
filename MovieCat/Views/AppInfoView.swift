@@ -23,17 +23,15 @@ struct AppInfoView: View {
                             .scaledToFit()
                             .frame(width: 80, height: 80)
                             .cornerRadius(9)
-                           
-                    
-                    Text("The Application is using TMDB API and Server API to reduce user searching movies resources time with search engine.")
+                        
+                        Text("The Application is using TMDB API and Server API to reduce user searching movies resources time with search engine.")
                             .font(.footnote)
-                }
+                    }
                 }
                 
                 GroupBox(
                     label: SettingsLabelView(labelText: "APPLICATION", labelImage: "apps.iphone")
                 ) {
-                    
                    
                     SettingsRowView(name: "DEVELOPER", content: "Michał Babicz")
                     SettingsRowView(name: "DESIGNER", content: "Bartosz Rzechółka")

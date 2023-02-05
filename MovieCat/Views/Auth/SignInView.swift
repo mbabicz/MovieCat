@@ -98,9 +98,7 @@ struct SignInView: View {
                 if (!email.isEmpty && !password.isEmpty){
                     user.signIn(email: email, password: password)
                 } else{
-                    user.alertTitle = "Error"
-                    user.alertMessage = "Fields cannot be empty"
-                    user.showingAlert = true
+                    user.updateAlert(title: "Error", message: "Fields cannot be empty")
                 }
             }){
                 Text("Sign In")
@@ -179,9 +177,8 @@ struct ResetPasswordView: View {
                         user.resetPassword(email: email)
                         
                     } else {
-                        user.alertTitle = "Error"
-                        user.alertMessage = "Field cannot be empty"
-                        user.showingAlert = true
+                        user.updateAlert(title: "Error", message: "Fields cannot be empty")
+
                     }
                         
                 } label: {

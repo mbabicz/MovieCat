@@ -160,15 +160,12 @@ struct SignUpView: View {
                         user.signUp(email: email, password: password, username: username)
                     }
                     else{
-                        user.alertTitle = "Error"
-                        user.alertMessage = "Your password and confirmation password do not match"
-                        user.showingAlert = true
+                        user.updateAlert(title: "Error", message: "Your password and confirmation password do not match")
                     }
 
                 } else {
-                    user.alertTitle = "Error"
-                    user.alertMessage = "Fields cannot be empty"
-                    user.showingAlert = true
+                    user.updateAlert(title: "Error", message: "Fields cannot be empty")
+
                 }
             }){
                 Text("Sign Up")

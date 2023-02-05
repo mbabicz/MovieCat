@@ -14,8 +14,7 @@ struct MovieDetails: View {
     @EnvironmentObject var user: UserViewModel
     @EnvironmentObject var movieVM: MovieViewModel
     @ObservedObject private var movieDetailState = MovieDetailState()
-    
-    
+        
     var body: some View{
         ZStack{
             LoadingView(isLoading: self.movieDetailState.isLoading, error: self.movieDetailState.error){
@@ -30,9 +29,7 @@ struct MovieDetails: View {
         .onAppear{
             self.movieDetailState.loadMovie(id: self.movieID)
         }
-        
     }
-    
 }
 
 struct MovieDetailsView: View {
@@ -117,10 +114,7 @@ struct MovieDetailsView: View {
                                 
                                 Button(action: {
                                     if user.userIsAnonymous{
-                                        user.alertTitle = "Error"
-                                        user.alertMessage = "You must be logged in to add review"
-                                        user.showingAlert = true
-                                        
+                                        user.updateAlert(title: "Error", message: "You must be logged in to add review")
                                     }
                                     else {
                                         opinionPanelIsShowing = true
@@ -139,19 +133,14 @@ struct MovieDetailsView: View {
                                             .foregroundColor(.white)
                                             .bold()
                                             .font(.title2)
-                                        
                                     }
-                                    
                                 }
-                                
                             }
                             .padding(.horizontal)
                             .padding(.leading, 70)
                             .padding(.trailing, 20)
                         })
                         .offset(y:-40)
-                    
-                    
                     Text(movie.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.white)
@@ -173,7 +162,6 @@ struct MovieDetailsView: View {
                         .foregroundColor(.white)
                         .font(.system(size: 18, weight: .semibold, design: .rounded))
                         .padding()
-                    
                     
                     VStack{
                         if movie.cast != nil && movie.cast!.count > 0 {
@@ -202,7 +190,6 @@ struct MovieDetailsView: View {
                                     
                                 }
                             }
-                            
                         }
                         
                         if movie.directors != nil && movie.directors!.count > 0 {
@@ -331,16 +318,11 @@ struct MovieDetailsView: View {
                                 ScrollView(.horizontal, showsIndicators: false){
                                     HStack{
                                         ForEach(0 ..< self.ratesTotal, id: \.self){ id in
-                                            
-                                            
                                             ReviewsView(rate: String(self.rate[id]), review: self.review[id], ratedby: self.ratedBy[id])
-                                            
                                                 .frame( maxWidth: 250)
-                                            
                                             
                                         }
                                     }
-                                    
                                 }
                             }
                             else {
@@ -349,10 +331,7 @@ struct MovieDetailsView: View {
                             }
                             Button {
                                 if user.userIsAnonymous{
-                                    user.alertTitle = "Error"
-                                    user.alertMessage = "You must be logged in to add review"
-                                    user.showingAlert = true
-                                    
+                                    user.updateAlert(title: "Error", message: "You must be logged in to add review")
                                 }
                                 else {
                                     opinionPanelIsShowing = true
@@ -369,13 +348,10 @@ struct MovieDetailsView: View {
                                             .foregroundColor(.white)
                                     })
                             }
-                            
                         }
                         
                         Rectangle()
                             .foregroundColor(.black)
-                        
-                        
                     }
                 }
             }
@@ -396,8 +372,6 @@ struct MovieDetailsView: View {
                 ratesCount = rateCount
                 ratesTotal = rateTotal
                 ratesAvarage = rateAvarage
-                
-                
             }
             
         }
@@ -415,12 +389,8 @@ struct MovieDetailsView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        
     }
-    
 }
-
-
 
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
@@ -442,7 +412,6 @@ struct RoundedCorner: Shape {
 struct ListBackGround: View {
     
     let text: String
-    
     var body: some View{
         
         Rectangle()
@@ -457,12 +426,8 @@ struct ListBackGround: View {
                     .font(.headline)
                     .bold()
             }
-        
-        
-        
     }
 }
-
 
 struct MovieCastImage: View{
 
@@ -598,8 +563,7 @@ struct AddOpinionPanel: View{
                                 user.showingAlert = true
                             }
                             else {
-                                movieVM.addReview(movieID: String(movieID), rating: rating!, review: opinion.text, username: user.user!.username)
-
+                                movieVM.addMovieReview(movieID: String(movieID), rating: rating!, review: opinion.text, username: user.user!.username)
                             }
                         } label: {
                             Rectangle()
@@ -610,19 +574,13 @@ struct AddOpinionPanel: View{
                                     Text("ADD")
                                         .font(.system(size: 25, weight: .semibold, design: .rounded))
                                         .foregroundColor(Color("Red"))
-                                    
                                 })
                                 .padding(.bottom,40)
                         }
-
                     }
                     .padding(.horizontal)
-                    
                 }
-                
-            
         }
-       
     }
 }
 
@@ -643,7 +601,6 @@ struct RatingStars: View {
                     }
             }
             
-            
         }
         .padding([.bottom, .trailing, .leading])
     }
@@ -656,7 +613,6 @@ struct RatingStars: View {
             return "star"
         }
     }
-    
 }
 
 struct ReviewsView: View{
@@ -701,11 +657,8 @@ struct ReviewsView: View{
                             .frame(maxWidth: .infinity, maxHeight: 180, alignment: .topLeading)
                             .padding()
                     })
-                
             }
-            
         }
         .frame(width: 250)
     }
 }
-

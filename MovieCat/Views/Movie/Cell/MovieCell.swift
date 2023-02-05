@@ -13,8 +13,6 @@ struct MovieCell: View {
     @ObservedObject private var movieDetailState = MovieDetailState()
     @EnvironmentObject var user: UserViewModel
 
-
-
     var body: some View{
         ZStack{
             LoadingView(isLoading: self.movieDetailState.isLoading, error: self.movieDetailState.error){
@@ -25,15 +23,11 @@ struct MovieCell: View {
                 MovieCellView(movie: self.movieDetailState.movie!)
             }
         }
-        
         .onAppear{
             self.movieDetailState.loadMovie(id: self.movieID)
         }
-
     }
 }
-
-
 
 struct MovieCellView: View{
     
@@ -77,9 +71,7 @@ struct MovieCellView: View{
                 .opacity(0)
         )
     }
-    
 }
-
 
 struct MovieCellImage: View{
     

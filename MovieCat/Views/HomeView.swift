@@ -13,9 +13,7 @@ struct HomeView: View {
     @ObservedObject private var upcomingState = MovieListState()
     @ObservedObject private var topRatedState = MovieListState()
     @ObservedObject private var popularState = MovieListState()
-    
     @ObservedObject var movieSearchState = MovieSearchState()
-    
     
     var body: some View {
         NavigationView{
@@ -25,13 +23,10 @@ struct HomeView: View {
                 }
                 if self.movieSearchState.movies != nil {
                     List(self.movieSearchState.movies!) { movie in
-                        
                         MovieCell(movieID: movie.id)
-                        
                     }
                 } else {
                     List{
-                        
                         Group{
                             if nowPlayingState.movies != nil {
                                 MoviePosterCardCarousel(title: "IN CINEMA", movies: nowPlayingState.movies!)
@@ -54,7 +49,6 @@ struct HomeView: View {
                                     self.upcomingState.loadMovies(with: .upcoming)
                                     
                                 }
-                                
                             }
                         }
                         .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
@@ -76,20 +70,16 @@ struct HomeView: View {
                         .listRowSeparator(.hidden)
                         
                         Group{
-                            
                             if popularState.movies != nil {
                                 MoviePosterCardCarousel(title: "POPULAR", movies: popularState.movies!)
                             } else {
                                 LoadingView(isLoading: popularState.isLoading, error: popularState.error){
                                     self.popularState.loadMovies(with: .popular)
-                                    
                                 }
-                                
                             }
                         }
                         .listRowInsets(EdgeInsets(top: 14, leading: -15, bottom: 8, trailing: 0))
                         .listRowSeparator(.hidden)
-                        
                     }
                     .listStyle(PlainListStyle())
                     .navigationTitle("MovieCat")
@@ -107,7 +97,6 @@ struct HomeView: View {
                 self.topRatedState.loadMovies(with: .topRated)
                 
                 self.movieSearchState.startObserve()
-                
             }
             
             .searchable(text: self.$movieSearchState.query)
@@ -115,7 +104,6 @@ struct HomeView: View {
             .autocapitalization(.none)
         }
     }
-        
         
     func setupAppearance(){
         UITableView.appearance().separatorStyle = .none

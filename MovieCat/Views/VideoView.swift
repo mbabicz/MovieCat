@@ -10,7 +10,6 @@ import WebKit
 
 struct VideoView: UIViewRepresentable {
     
-
     let videoID: String
     
     func makeUIView(context: Context) -> WKWebView {
@@ -22,7 +21,5 @@ struct VideoView: UIViewRepresentable {
         uiView.scrollView.isScrollEnabled = false
         uiView.load(URLRequest(url: youtubeURL))
     }
-   
-    
     
 }

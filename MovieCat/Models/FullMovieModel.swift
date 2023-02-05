@@ -90,9 +90,7 @@ struct FullMovieModel: Decodable, Identifiable {
     var cast: [MovieCast]? {
         credits?.cast
     }
-        
 }
-
 
 struct MovieCredit: Decodable {
     
@@ -112,7 +110,6 @@ struct MovieCast: Decodable, Identifiable {
     let character: String
     let name: String
     let profilePath: String?
-    
     
     var profilePathURL : URL?{
         return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")

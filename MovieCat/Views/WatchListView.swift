@@ -18,10 +18,8 @@ struct WatchListView: View {
                     VStack{
                         List(user.watchListIDs, id: \.self) { id in
                             MovieCell(movieID: Int(id)!)
-                            
                         }
                     }
-                    
                 }
                 else {
                     VStack{
@@ -31,30 +29,22 @@ struct WatchListView: View {
                             .font(.subheadline)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray.opacity(0.75))
-                        
                     }
-                    
                 }
             }
             .navigationTitle("WatchList")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.black, for: .navigationBar)
         }
-        
-
-        
     }
-
 }
 
 struct FavoritesView_Previews: PreviewProvider {
 
     static let myEnvObject = UserViewModel()
-    
     static var previews: some View {
         WatchListView()
             .environmentObject(myEnvObject)
-
     }
 }
 

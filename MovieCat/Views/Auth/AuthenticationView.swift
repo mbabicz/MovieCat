@@ -21,11 +21,8 @@ struct AuthenticationView: View {
     
     var body: some View {
         VStack {
-            
             GeometryReader{proxy -> AnyView in
-                
                 let height = proxy.frame(in: .global).height
-                
                 DispatchQueue.main.async {
                     if maxRectangleHeight == 0 {
                         maxRectangleHeight = height
@@ -33,7 +30,6 @@ struct AuthenticationView: View {
                 }
                 
                 return AnyView(
-                
                     ZStack{
                         Rectangle()
                             .fill(Color(showSignUp ? "DarkRed" : "Red"))
@@ -45,23 +41,18 @@ struct AuthenticationView: View {
                             .rotationEffect(Angle(degrees:showSignUp ? 20 : 70))
                             .shadow(color: Color.black, radius: 5, x: 10, y: 10)
                             .offset(x:showSignUp ? getRect().width / 2 : -getRect().width / 2 , y: -height / 1.2)
-                        
                     }
-                
                 )
             }
             .frame(maxHeight: getRect().width)
             
-            
             ZStack{
-                
                 if showSignUp {
                     SignUpView()
                         .transition(.move(edge: .trailing))
                 }else {
                     SignInView()
                         .transition(.move(edge: .trailing))
-
                 }
             }
             .padding()
@@ -82,17 +73,14 @@ struct AuthenticationView: View {
                         .font(.headline)
                         .foregroundColor(Color("DarkRed"))
                 }
-                
                 Button {
-                    user.singInAnonymously()
+                    user.signInAnonymously()
                     
                 } label: {
                     Text("Continue as a guest")
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .center)
-
                 }
-                
             }
             .offset(y: -56)
         }
@@ -123,8 +111,6 @@ struct AuthenticationView: View {
             }
             ,alignment: .bottom
         )
-        
-
     }
 }
 
@@ -156,8 +142,6 @@ extension View{
     func getRect()->CGRect{
         return UIScreen.main.bounds
     }
-    
-
 }
 
 

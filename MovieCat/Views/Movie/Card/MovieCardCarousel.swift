@@ -12,7 +12,6 @@ struct MovieCardCarousel: View {
     let title: String
     let movies: [Movie]
     
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
             Text(title)
@@ -28,7 +27,6 @@ struct MovieCardCarousel: View {
                             .frame(width: 270, height: 200)
                             .padding(.leading, movie.id == self.movies.first!.id ? 16  : 0)
                             .padding(.trailing, movie.id == self.movies.last!.id ? 16  : 0)
-
                     }
                 }
             }

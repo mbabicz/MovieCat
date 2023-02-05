@@ -34,40 +34,28 @@ struct ProfileView: View {
                                 .resizable()
                                 .frame(width: 65, height: 65)
                         })
-                    if !user.userIsAnonymous{
-                        Text(user.user?.username ?? "username")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
+                    if !user.userIsAnonymous {
+                        VStack(alignment: .leading) {
+                            Text(user.user?.username ?? "username")
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                            
+                            Text(auth.currentUser?.email ?? "")
+                                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                .foregroundColor(.white)
+                            
+                            NavigationLink(destination: ChangePasswordView()) {
+                                Text("Change Password")
+                                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(RoundedRectangle(cornerRadius: 15, style: .continuous)
+                                        .fill(Color.black)
+                                        .shadow(color: .black, radius: 5))
+                            }
+                        }
                     }
-
-                    if !user.userIsAnonymous{
-                        Text(auth.currentUser?.email ?? "")
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
-                            .foregroundColor(.white)
-                    }
-                    
-                    
-                  
-                    
-                    if !user.userIsAnonymous{
-                       
-                        NavigationLink(destination: ChangePasswordView(), label: {
-                            Rectangle()
-                                .foregroundColor(.black)
-                                .frame(height: 70)
-                                .cornerRadius(15, corners: [.topLeft, .bottomLeft])
-                                .shadow(color: .black, radius: 5)
-                                .padding(.leading, 40)
-                                .padding(.vertical)
-                                .overlay(content: {
-                                    Text("Change Password")
-                                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-                                        .foregroundColor(.white)
-                                })
-                        })
-                       
-                    }else{
-                       
+                    else{
                         Rectangle()
                             .foregroundColor(.black)
                             .frame(height: 70)
@@ -117,23 +105,20 @@ struct ProfileView: View {
                     })
                     
                     Spacer()
-                    
                 }
-                    
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Account")
             .toolbar{
-                             ToolbarItem(placement: .navigationBarTrailing){
-                                 Button {
-                                     user.signOut()
-                                 } label: {
-                                     Image(systemName: "rectangle.portrait.and.arrow.forward.fill")
-                                 }
-
-                             }
-
-                         }
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button {
+                        user.signOut()
+                    } label: {
+                        Image(systemName: "rectangle.portrait.and.arrow.forward.fill")
+                    }
+                    
+                }
+            }
             .alert(isPresented: $user.showingAlert){
                 Alert(
                     title: Text(user.alertTitle),
@@ -141,25 +126,18 @@ struct ProfileView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            
         }
-        
     }
-    
 }
 
 struct ProfileView_Previews: PreviewProvider {
     
     static let myEnvObject = UserViewModel()
-
     static var previews: some View {
         ProfileView()
             .environmentObject(myEnvObject)
-
     }
 }
-
-
 
 struct ChangePasswordView: View{
     
@@ -171,9 +149,6 @@ struct ChangePasswordView: View{
     @State var isSecured2: Bool = true
     @State var isSecured3: Bool = true
     
-    
-    
-    
     @EnvironmentObject var user: UserViewModel
     
     @State var isAnimating: Bool = false
@@ -182,12 +157,9 @@ struct ChangePasswordView: View{
         VStack {
             VStack{
                 VStack{
-                    
                     HStack{
-                        
                         Image(systemName: "lock.square.fill")
                             .foregroundColor(Color.white)
-                        
                         Group{
                             if isSecured {
                                 SecureField("", text: $password)
@@ -208,7 +180,6 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                
                             }
                         }
                         Button {
@@ -220,10 +191,8 @@ struct ChangePasswordView: View{
                     
                     Divider().background(Color("Red"))
                     HStack{
-                        
                         Image(systemName: "lock.square.fill")
                             .foregroundColor(Color.white)
-                        
                         Group{
                             if isSecured2 {
                                 SecureField("", text: $newPassword)
@@ -244,7 +213,6 @@ struct ChangePasswordView: View{
                                     }
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
-                                
                             }
                         }
                         Button {
@@ -255,12 +223,9 @@ struct ChangePasswordView: View{
                     }
                     
                     Divider().background(Color("Red"))
-                    
                     HStack{
-                        
                         Image(systemName: "lock.square.fill")
                             .foregroundColor(Color.white)
-                        
                         Group{
                             if isSecured3 {
                                 SecureField("", text: $newPassword2)
@@ -290,10 +255,7 @@ struct ChangePasswordView: View{
                             Image(systemName: self.isSecured ? "eye.slash" : "eye").accentColor(Color("DarkRed"))
                         }.padding()
                     }
-                    
-                    
                     Divider().background(Color("Red"))
-                    
                 }
                 .padding(.top)
                 
@@ -302,29 +264,19 @@ struct ChangePasswordView: View{
                         if newPassword == newPassword2{
                             user.changePassword(email: user.user!.userEmail, currentPassword: password, newPassword: newPassword){ error in
                                 if error != nil {
-                                    user.alertTitle = "Error"
-                                    user.alertMessage = error?.localizedDescription ?? "Something went wrong"
-                                    user.showingAlert = true
+                                    user.updateAlert(title: "Error", message: error?.localizedDescription ?? "Something went wrong")
                                 } else {
-                                    user.alertTitle = "Succes"
-                                    user.alertMessage = "Password has been changed succesfully"
-                                    user.showingAlert = true
-                                    
+                                    user.updateAlert(title: "Error", message: "Password has been changed succesfully")
                                 }
                             }
                             
                         } else {
-                            user.alertTitle = "Error"
-                            user.alertMessage = "New password fields must be the same"
-                            user.showingAlert = true
+                            user.updateAlert(title: "Error", message: "New password fields must be the same")
+                            
                         }
                     } else {
-                        
-                        user.alertTitle = "Error"
-                        user.alertMessage = "Field cannot be empty"
-                        user.showingAlert = true
+                        user.updateAlert(title: "Error", message: "Field cannot be empty")
                     }
-                    
                 } label: {
                     Text("Reset Password")
                         .frame(width: 200, height: 50)
@@ -334,8 +286,6 @@ struct ChangePasswordView: View{
                         .padding()
                 }
                 Spacer()
-                
-                
             }
             .padding()
             Spacer()
@@ -343,11 +293,7 @@ struct ChangePasswordView: View{
         .edgesIgnoringSafeArea(.bottom)
         
         .navigationTitle("Change Password")
-        
     }
-    
-    
-    
 }
 
 
